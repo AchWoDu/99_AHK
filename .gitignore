@@ -1,0 +1,24 @@
+*.zip
+*.7z
+*.csv
+*.xml
+*.bak
+*.exe
+*.log
+
+_LastRun/*
+.vscode/*
+bin/*
+CMD_Lists/*
+Tools&Test/*
+LUA/*
+
+LUA_Scripts/*
+LUA_Scripts/P3D/*
+LUA_Scripts/XP/*
+LUA_Scripts/P3D/_Example LUA plugins/*
+LUA_Scripts/P3D/A320_Documentation.txt
+LUA_Scripts/P3D/_My_Display_Vals.lua
+LUA_Scripts/P3D/_My_Log_Lvars.lua
+
+99_AHK.code-workspace
