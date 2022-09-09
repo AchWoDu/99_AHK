@@ -1,4 +1,4 @@
-﻿; Common_CMD_P3D_2022_05_09
+﻿; Common_CMD_P3D_2022_09_09
 ; 
 Else If (CMD_Text="flaps full up") {
 

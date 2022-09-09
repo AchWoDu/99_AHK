@@ -1,4 +1,4 @@
-﻿X_Boing738_2022_09_08:
+﻿X_Boing738_2022_09_09:
 
 DEV_VARS:
   Global TEST := False ; Or True ; Keine Programme starten

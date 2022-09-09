@@ -1,4 +1,4 @@
-﻿P_Boeing737_2022_09_08: ; -> PMDG B737-800/-900
+﻿P_Boeing737_2022_09_09: ; -> PMDG B737-800/-900
 
 DEV_VARS:
   Global TEST := False ;Or True ; Keine Programme starten
@@ -1325,523 +1325,453 @@ _NUMPAD_Send(Screen) {
 Return Aktu_Screen
 }
 
-; -------------------------------------------------------
 JOYSTICK_SECTION:
-  ; -------------------------------------------------------
   ; 1JoyX Wireless Gamepad
   ; 3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
   ; 4JoyX Arduino
 
 3JoyPOV:
 POV:
+  Global POV_Step := 2
+  Global POV_Value := GetKeyState("3JoyPOV")
+
+  if (POV_Value < 0)
+    Return
+
+  If ((Aktu_Screen = 9) Or GetKeyState("LCtrl"))
   {
-    Global POV_Step := 2
-    Global POV_Value := GetKeyState("3JoyPOV")
-
-    if (POV_Value < 0)
-      Return
-
-    If ((Aktu_Screen = 9) Or GetKeyState("LCtrl"))
-    {
-      if (POV_Value = 31500) ; Numpad7
-      {
-        SendInput {Ctrl Down}{7 %POV_Step%}{Ctrl Up}
-      }
-      else if (POV_Value = 0) ; Numpad8
-      {
-        SendInput {Ctrl Down}{8 %POV_Step%}{Ctrl Up}
-      }
-      else if (POV_Value = 4500) ; Numpad9
-      {
-        SendInput {Ctrl Down}{9 %POV_Step%}{Ctrl Up}
-      }
-      else if (POV_Value = 27000) ; Numbad4
-      {
-        ; SendInput {Ctrl Down}{4 %POV_Step%}{Ctrl Up}
-        SendInput {Ctrl Down}{5 %POV_Step%}{Ctrl Up} ; wegen Aerosoft
-      }
-      else if (POV_Value = 9000) ; Numpad6
-      {
-        SendInput {Ctrl Down}{6 %POV_Step%}{Ctrl Up}
-      }
-      else if (POV_Value = 22500) ; Numpad1
-      {
-        SendInput {Ctrl Down}{1 %POV_Step%}{Ctrl Up}
-      }
-      else if (POV_Value = 18000) ;Numpad2
-      {
-        SendInput {Ctrl Down}{2 %POV_Step%}{Ctrl Up}
-      }
-      else if (POV_Value = 13500) ; Numpad3
-      {
-        SendInput {Ctrl Down}{3 %POV_Step%}{Ctrl Up}
-      }
-
-      Return
-    }
-
     if (POV_Value = 31500) ; Numpad7
     {
-      _POV_Send(7)
+      SendInput {Ctrl Down}{7 %POV_Step%}{Ctrl Up}
     }
     else if (POV_Value = 0) ; Numpad8
     {
-      _POV_Send(8)
+      SendInput {Ctrl Down}{8 %POV_Step%}{Ctrl Up}
     }
     else if (POV_Value = 4500) ; Numpad9
     {
-      _POV_Send(9)
+      SendInput {Ctrl Down}{9 %POV_Step%}{Ctrl Up}
     }
     else if (POV_Value = 27000) ; Numbad4
     {
-      _POV_Send(4)
+      ; SendInput {Ctrl Down}{4 %POV_Step%}{Ctrl Up}
+      SendInput {Ctrl Down}{5 %POV_Step%}{Ctrl Up} ; wegen Aerosoft
     }
     else if (POV_Value = 9000) ; Numpad6
     {
-      _POV_Send(6)
+      SendInput {Ctrl Down}{6 %POV_Step%}{Ctrl Up}
     }
     else if (POV_Value = 22500) ; Numpad1
     {
-      _POV_Send(1)
+      SendInput {Ctrl Down}{1 %POV_Step%}{Ctrl Up}
     }
     else if (POV_Value = 18000) ;Numpad2
     {
-      _POV_Send(2)
+      SendInput {Ctrl Down}{2 %POV_Step%}{Ctrl Up}
     }
     else if (POV_Value = 13500) ; Numpad3
     {
-      _POV_Send(3)
+      SendInput {Ctrl Down}{3 %POV_Step%}{Ctrl Up}
     }
 
     Return
   }
+
+  if (POV_Value = 31500) ; Numpad7
+  {
+    _POV_Send(7)
+  }
+  else if (POV_Value = 0) ; Numpad8
+  {
+    _POV_Send(8)
+  }
+  else if (POV_Value = 4500) ; Numpad9
+  {
+    _POV_Send(9)
+  }
+  else if (POV_Value = 27000) ; Numbad4
+  {
+    _POV_Send(4)
+  }
+  else if (POV_Value = 9000) ; Numpad6
+  {
+    _POV_Send(6)
+  }
+  else if (POV_Value = 22500) ; Numpad1
+  {
+    _POV_Send(1)
+  }
+  else if (POV_Value = 18000) ;Numpad2
+  {
+    _POV_Send(2)
+  }
+  else if (POV_Value = 13500) ; Numpad3
+  {
+    _POV_Send(3)
+  }
+
+Return
 
 3Joy01_CheckitemOk:
   ; 3Joy1:: ; HOTAS _Joy_HM
-  {
-    ; Als Hotkey Button definiert
-    Return
-  }
+  ; Als Hotkey Button definiert
+Return
 
 3Joy02_MainPanel_GreatPanel:
 3Joy2:: ; HOTAS _Joy_VM
+  x := 0
+  While GetKeyState("3Joy2")
   {
-    x := 0
-    While GetKeyState("3Joy2")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
-
-      If x = 10
-      {
-        Gosub Screen0
-        Return
-      }
+      Gosub Screen0
+      Return
     }
-    Send {Alt Up}{Shift Up}{Ctrl Up} ; alle Tasten löschen
-
-    Gosub Screen5
-    Return
   }
+  Send {Alt Up}{Shift Up}{Ctrl Up} ; alle Tasten löschen
+
+  Gosub Screen5
+Return
 
 3Joy03_SpeechRec:
   ; 3Joy3:: ; HOTAS_Joy_RH
-  {
-    ; Als Hotkey Button definiert
-    Return
-  }
+  ; Als Hotkey Button definiert
+Return
 
 3Joy04_ATC:
   ; 3Joy4:: ; HOTAS_Joy_RV
-  {
-    ; Als Hotkey Button definiert
-    Return
-  }
+  ; Als Hotkey Button definiert
+Return
 
 3Joy05_AP_WarningsOff:
 3Joy5:: ; HOTAS_Thrust_RO
+  x := 0
+  While GetKeyState("3Joy5")
   {
-    x := 0
-    While GetKeyState("3Joy5")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
-
-      If x = 10
-      {
-        Err := _CMD("warnings off")
-        Return
-      }
+      Err := _CMD("warnings off")
+      Return
     }
-
-    If AP
-      err := _CMD("autopilot off")
-    Else
-      err := _CMD("autopilot on")
-
-    Return
   }
+
+  If AP
+    err := _CMD("autopilot off")
+  Else
+    err := _CMD("autopilot on")
+
+Return
 
 3Joy06_AT_Navigation:
 3Joy6:: ; HOTAS_Thrust_RM
+  x := 0
+  While GetKeyState("3Joy6")
   {
-    x := 0
-    While GetKeyState("3Joy6")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
-
-      If x = 10
-      {
-        Err := _CMD("hold navigation")
-        Return
-      }
+      Err := _CMD("hold navigation")
+      Return
     }
-
-    If AT
-      Err := _CMD("autothrust off")
-    Else
-      Err := _CMD("autothrust on")
-
-    Return
   }
+
+  If AT
+    Err := _CMD("autothrust off")
+  Else
+    Err := _CMD("autothrust on")
+
+Return
 
 3Joy07_TakeOffThrust_ReverseThrust:
 3Joy7:: ; HOTAS_Thrust_RU
+  x := 0
+  While GetKeyState("3Joy7")
   {
-    x := 0
-    While GetKeyState("3Joy7")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
-
-      If x = 10
-      {
-        Err := _CMD("reverse thrust")
-        Return
-      }
+      Err := _CMD("reverse thrust")
+      Return
     }
-
-    Err := _CMD("take off thrust")
-    Return
   }
+
+  Err := _CMD("take off thrust")
+Return
 
 3Joy08_OutsideView_TopDownView:
 3Joy8:: ; HOTAS_Thrust_VM
+  x := 0
+  While GetKeyState("3Joy8")
   {
-    x := 0
-    While GetKeyState("3Joy8")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
-
-      If x = 10
-      {
-        Err := _CMD("top down view")
-        Return
-      }
+      Err := _CMD("top down view")
+      Return
     }
-
-    Err := _CMD("outside view")
-    Return
   }
+
+  Err := _CMD("outside view")
+Return
 
 3Joy09_FlapsStepUp_FlapsUP:
 3Joy9:: ; HOTAS_Thrust_HO
+  x := 0
+  While GetKeyState("3Joy9")
   {
-    x := 0
-    While GetKeyState("3Joy9")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
-
-      If x = 10
-      {
-        Err := _CMD("flaps full up")
-        Return
-      }
+      Err := _CMD("flaps full up")
+      Return
     }
-
-    Err := _CMD("flaps step up")
-    Return
   }
+
+  Err := _CMD("flaps step up")
+Return
 
 3Joy10_FlapsStepDown_FlapsDown:
 3Joy10:: ; HOTAS_Thrust_HU
+  x := 0
+  While GetKeyState("3Joy10")
   {
-    x := 0
-    While GetKeyState("3Joy10")
-    {
-      x := x + 1
-      Sleep, ButtonWait_Delay
+    x := x + 1
+    Sleep, ButtonWait_Delay
 
-      If x = 10
-      {
-        Err := _CMD("flaps full down")
-        Return
-      }
+    If x = 10
+    {
+      Err := _CMD("flaps full down")
+      Return
     }
-    Err := _CMD("flaps step down")
-    Return
   }
+  Err := _CMD("flaps step down")
+Return
 
 3Joy11_ParkingBrake_Gear:
 3Joy11:: ; HOTAS_Thrust_UL
+  x := 0
+  While GetKeyState("3Joy11")
   {
-    x := 0
-    While GetKeyState("3Joy11")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
+      If GEAR
+        Err := _CMD("gear up")
+      Else
+        Err := _CMD("gear down")
+      Return
+    }
+  }	
 
-      If x = 10
-      {
-        If GEAR
-          Err := _CMD("gear up")
-        Else
-          Err := _CMD("gear down")
-        Return
-      }
-    }	
+  If PBRAKE
+    Err := _CMD("parking brake off")
+  Else
+    Err := _CMD("parking brake on")
 
-    If PBRAKE
-      Err := _CMD("parking brake off")
-    Else
-      Err := _CMD("parking brake on")
-
-    Return
-  }
+Return
 
 3Joy12_StopTimer_GoAround:
 3Joy12:: ; HOTAS _Thrust_UR
+  x := 0
+  While GetKeyState("3Joy12")
   {
-    x := 0
-    While GetKeyState("3Joy12")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
+      Err := _CMD("go around")
+      Return
+    }
+  }	
 
-      If x = 10
-      {
-        Err := _CMD("go around")
-        Return
-      }
-    }	
+  Err := _CMD("stop timer")
+  Err := _CMD("strobe and landing lights off")
+  Err := _CMD("flaps full up")
+Return
 
-    Err := _CMD("stop timer")
-    Err := _CMD("strobe and landing lights off")
-    Err := _CMD("flaps full up")
-    Return
-  }
-
-  ; 1 - 4
-  ; 2 - 5
-  ; 3 - 6
+_ARDUINO_Buttons:
+; 1 - 4
+; 2 - 5
+; 3 - 6
 
 4Joy01_HoldVNAV:
 4Joy1::
-  {
-    Err := _CMD("hold V NAV")
-    ; _Message("4Joy1", 0)
-    Return
-  }	
+  Err := _CMD("hold V NAV")
+  ; _Message("4Joy1", 0)
+Return
 
 4Joy02_HoldSpeed:
 4Joy2::
+  x := 0
+  While GetKeyState("4Joy2")
   {
-    x := 0
-    While GetKeyState("4Joy2")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
-
-      If x = 10
-      {
-        Err := _CMD("hold n1")
-        Return
-      }
-    }	
-
-    Err := _CMD("hold speed")
-    ; _Message("4Joy2", 0)
-    Return
+      Err := _CMD("hold n1")
+      Return
+    }
   }	
+
+  Err := _CMD("hold speed")
+  ; _Message("4Joy2", 0)
+Return
 
 4Joy03_HoldHeading_SyncHeading:
 4Joy3::
+  x := 0
+  While GetKeyState("4Joy3")
   {
-    x := 0
-    While GetKeyState("4Joy3")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
-
-      If x = 10
-      {
-        Err := _CMD("synchronised heading")
-        Return
-      }
-    }	
-
-    Err := _CMD("hold heading")
-    ; _Message("4Joy3", 0)
-    Return
+      Err := _CMD("synchronised heading")
+      Return
+    }
   }	
+
+  Err := _CMD("hold heading")
+  ; _Message("4Joy3", 0)
+Return
 
 4Joy04_HoldLNAV:
 4Joy4::
-  {
-    Err := _CMD("hold L NAV")
-    ; _Message("4Joy4", 0)
-    Return
-  }	
+  Err := _CMD("hold L NAV")
+  ; _Message("4Joy4", 0)
+Return
 
 4Joy05_HoldVS_LevelChange:
 4Joy5::
+  x := 0
+  While GetKeyState("4Joy5")
   {
-    x := 0
-    While GetKeyState("4Joy5")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
+      Err := _CMD("level change")
+      Return
+    }
+  }		
 
-      If x = 10
-      {
-        Err := _CMD("level change")
-        Return
-      }
-    }		
-
-    Err := _CMD("hold vertical speed")
-    ; _Message("4Joy5", 0)
-    Return
-  }	
+  Err := _CMD("hold vertical speed")
+  ; _Message("4Joy5", 0)
+Return
 
 4Joy06_HoldAlt_AltIntervention:
 4Joy6::
+  x := 0
+  While GetKeyState("4Joy6")
   {
-    x := 0
-    While GetKeyState("4Joy6")
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
     {
-      x := x + 1
-      Sleep, ButtonWait_Delay
-
-      If x = 10
-      {
-        Err := _CMD("alt intervention")
-        Return
-      }
+      Err := _CMD("alt intervention")
+      Return
     }
+  }
 
-    Err := _CMD("hold altitude")
-    ; _Message("4Joy6", 0)
-    Return
-  }	
+  Err := _CMD("hold altitude")
+  ; _Message("4Joy6", 0)
+Return
 
 4Joy07_SpeechRec:
-  ; 4Joy7::
-  {
-    ; Als Hotkey Button definiert
-    _Message("4Joy7", 0)
-    Return
-  }	
+  ; Als Hotkey Button definiert
+  _Message("4Joy7", 0)
+Return
 
 4Joy08_ATC:
-  ; 4Joy8::
-  {
-    ; Als Hotkey Button definiert
-    _Message("4Joy8", 0)
-    Return
-  }	
+  ; Als Hotkey Button definiert
+  _Message("4Joy8", 0)
+Return
 
 4Joy09_CecklistOK:
-  ; 4Joy9::
-  {
-    ; Als Hotkey Button definiert
-    _Message("4Joy9", 0)
-    Return
-  }	
+  ; Als Hotkey Button definiert
+  _Message("4Joy9", 0)
+Return
 
-ROTARIS:
+_ARDUINO_Rotaries:
 
 4Joy10_CourseDown:
 4Joy10::
-  {
-    Send {Ctrl Down}{Numpad0}{Ctrl Up}
-    ; _Message("Course down", 0)
-    Return
-  }	
+  Send {Ctrl Down}{Numpad0}{Ctrl Up}
+  ; _Message("Course down", 0)
+Return
 4Joy11_CourseUp:
 4Joy11::
-  {
-    Send {Ctrl Down}{NumpadDot}{Ctrl Up}
-    ; _Message("Course up", 0)
-    Return
-  }
+  Send {Ctrl Down}{NumpadDot}{Ctrl Up}
+  ; _Message("Course up", 0)
+Return
 
 4Joy12_SpeedDown:
 4Joy12::
-  {
-    Send {Ctrl Down}{Numpad1}{Ctrl Up}
-    ; _Message("speed up", 0)
-    Return
-  }	
+  Send {Ctrl Down}{Numpad1}{Ctrl Up}
+  ; _Message("speed up", 0)
+Return
 4Joy13_SpeedUp:
 4Joy13::
-  {
-    Send {Ctrl Down}{Numpad7}{Ctrl Up}
-    ; _Message("speed down", 0)
-    Return
-  }
+  Send {Ctrl Down}{Numpad7}{Ctrl Up}
+  ; _Message("speed down", 0)
+Return
 
 4Joy14_HeadingDown:
 4Joy14::
-  {
-    Send {Ctrl Down}{Numpad4}{Ctrl Up}
-    ; _Message("Hading down", 0)
-    Return
-  }	
+  Send {Ctrl Down}{Numpad4}{Ctrl Up}
+  ; _Message("Hading down", 0)
+Return
 4Joy15_HeadingUp:
 4Joy15::
-  {
-    Send {Ctrl Down}{Numpad6}{Ctrl Up}
-    ; _Message("Heading up", 0)
-    Return
-  }
+  Send {Ctrl Down}{Numpad6}{Ctrl Up}
+  ; _Message("Heading up", 0)
+Return
 
 4Joy16_AltitudeDown:
 4Joy16::
-  {
-    Send {Ctrl Down}{Numpad2}{Ctrl Up}
-    ; _Message("speed up", 0)
-    Return
-  }	
+  Send {Ctrl Down}{Numpad2}{Ctrl Up}
+  ; _Message("speed up", 0)
+Return
 4Joy17_AltitudeUp:
 4Joy17::
-  {
-    Send {Ctrl Down}{Numpad8}{Ctrl Up}
-    ; _Message("speed down", 0)
-    Return
-  }
+  Send {Ctrl Down}{Numpad8}{Ctrl Up}
+  ; _Message("speed down", 0)
+Return
 
 4Joy18_VSpeedDown:
 4Joy18::
-  {
-    Send {Ctrl Down}{Numpad3}{Ctrl Up}
-    ; _Message("speed up", 0)
-    Return
-  }	
+  Send {Ctrl Down}{Numpad3}{Ctrl Up}
+  ; _Message("speed up", 0)
+Return
 4Joy19_VSpeedUp:
 4Joy19::
-  {
-    Send {Ctrl Down}{Numpad9}{Ctrl Up}
-    ; _Message("speed down", 0)
-    Return
-  }
+  Send {Ctrl Down}{Numpad9}{Ctrl Up}
+  ; _Message("speed down", 0)
+Return
 
-  ; -------------------------------------------------------
 KEYBOARD_SECTION:
-  ; -------------------------------------------------------
   ; *		= wird immer ausgelöst auch wenn modifikaton
   ; $ 	= keine rekursion
   ; ~  	= Taste weiterleiten
@@ -1855,89 +1785,65 @@ KEYBOARD_SECTION:
 ~F10::
 ~F11::
 ~F12::
-  {
-    Aktu_Screen = -1
-    Return
-  }
+  Aktu_Screen = -1
+Return
 
 Screen7:
 NumpadHome:: ; Numpad7
-  {
-    Err := _NUMPAD_Send(7)
-    Return
-  }
+  Err := _NUMPAD_Send(7)
+Return
 
 Screen8:
 NumpadUp:: ; Numpad8
-  {
-    Err := _NUMPAD_Send(8)
-    Return
-  }
+  Err := _NUMPAD_Send(8)
+Return
 
 Screen9:
 NumpadPgUp:: ; Numpad9
-  {
-    Err := _NUMPAD_Send(9)
-    Return
-  }
+  Err := _NUMPAD_Send(9)
+Return
 
 Screen4:
 NumpadLeft:: ; Numpad4
-  {
-    Err := _NUMPAD_Send(4)
-    Return
-  }
+  Err := _NUMPAD_Send(4)
+Return
 
 Screen5:
 NumpadClear:: ; Numpad5
-  {
-    Err := _NUMPAD_Send(5)
-    Return
-  }
+  Err := _NUMPAD_Send(5)
+Return
 
 Screen6:
 NumpadRight:: ; Numpad6
-  {
-    Err := _NUMPAD_Send(6)
-    Return
-  }
+  Err := _NUMPAD_Send(6)
+Return
 
 Screen1:
 NumpadEnd:: ; Numpad1
-  {
-    Err := _NUMPAD_Send(1)
-    Return
-  }
+  Err := _NUMPAD_Send(1)
+Return
 
 Screen2:
 NumpadDown:: ; Numpad2
-  {
-    Err := _NUMPAD_Send(2)
-    Return
-  }
+  Err := _NUMPAD_Send(2)
+Return
 
 Screen3:
 NumpadPgDn:: ; Numpad3
-  {
-    Err := _NUMPAD_Send(3)
-    Return
-  }
+  Err := _NUMPAD_Send(3)
+Return
 
 Screen0:
 NumpadIns:: ; Numpad0
-  {
-    Err := _NUMPAD_Send(0)
-    Return
-  }
+  Err := _NUMPAD_Send(0)
+Return
 
 ScreenDel:
 NumpadDel:: ; NumpadDel
-  {
-    Err := _CMD("reset view")
-    Return
-  }
+  Err := _CMD("reset view")
+Return
 
-  ; -------------------------------------------------------
+; -------------------------------------------------------
 NUMPAD_SHIFT: ; NUMLock Aus
   ; -------------------------------------------------------
   ; hierdurch wird Ctrl+Alt(6) (langsames Rotari) an LUA weitergegeben 
