@@ -27,7 +27,7 @@ DEV_VARS:
   Global TRIM := 0 ; Temp VAR für Trim up/down
 
   #Include %A_ScriptDir%\Common.ahk
-  ; 
+Return
 
 CMD_Process:
   {

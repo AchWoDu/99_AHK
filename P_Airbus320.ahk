@@ -24,7 +24,7 @@ DEV_VARS:
   Global STR_Flaps := ["FUP", "F01", "F02", "F03", "F04"]
 
   #Include %A_ScriptDir%\Common.ahk
-  ; 
+Return
 
 CMD_Process:
   DEBUG_CMD_Process++

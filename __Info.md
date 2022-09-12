@@ -1,178 +1,177 @@
-; Version_2022_09_08:
 
-VSC_General:
+Info_11.09.2022
+                              
+# VSC_General:
 
-  ; F1 (Ctrl+Shift+P)          Show Command Palette
-  ; Ctrl+K Ctrl+S              Keyboard Shortcuts
-  ; Ctrl+,                     User Settings
-  ; Ctrl+P                     Quick Open, Go to File
-  ; Ctrl+Shift+N               New window/instance
-  ; Ctrl+Shift+W               Close window/instance
+F1 (Ctrl+Shift+P)          Show Command Palette
+Ctrl+K Ctrl+S              Keyboard Shortcuts
+Ctrl+,                     User Settings
+Ctrl+P                     Quick Open, Go to File
+Ctrl+Shift+N               New window/instance
+Ctrl+Shift+W               Close window/instance
 
-VSC_Basic_editing:
+## VSC_Basic_editing:
 
-  ; Ctrl+X                     Cut line (empty selection)
-  ; Ctrl+C                     Copy line (empty selection)
-  ; Ctrl+Shift+K               Delete line
+Ctrl+X                     Cut line (empty selection)
+Ctrl+C                     Copy line (empty selection)
+Ctrl+Shift+K               Delete line
+Alt+ ↑ / ↓                *Move line up/down
+Shift+Alt + ↓ / ↑         *Copy line up/down
+Ctrl+Enter                *Insert line below
+Ctrl+Shift+Enter          *Insert line above
+Ctrl+Shift+\              *Jump to matching bracket
 
-  ; Alt+ ↑ / ↓                *Move line up/down
-  ; Shift+Alt + ↓ / ↑         *Copy line up/down
+Home / End                 Go to beginning/end of line
+Ctrl+Home                  Go to beginning of file
+Ctrl+End                   Go to end of file
 
-  ; Ctrl+Enter                *Insert line below
-  ; Ctrl+Shift+Enter          *Insert line above
+Ctrl+↑ / ↓                *Scroll line up/down
+Alt+PgUp / PgDn           *Scroll page up/down
 
-  ; Ctrl+Shift+\              *Jump to matching bracket
-  
-  ; Home / End                 Go to beginning/end of line
-  ; Ctrl+Home                  Go to beginning of file
-  ; Ctrl+End                   Go to end of file
-  
-  ; Ctrl+↑ / ↓                *Scroll line up/down
-  ; Alt+PgUp / PgDn           *Scroll page up/down
- 
-  ; Ctrl+K Ctrl+ß             *Fold (collapse) all subregions
-  ; Ctrl+K Ctrl+´             *Unfold (uncollapse) all subregions
-  ; Ctrl+K Ctrl+0             *Fold (collapse) all regions
-  ; Ctrl+K Ctrl+J             *Unfold (uncollapse) all regions
-  
-  ; Ctrl+K Ctrl+C              Add line comment
-  ; Ctrl+K Ctrl+U              Remove line comment
-  ; Ctrl+#                     Toggle line comment
-  ; Shift+Alt+A                Toggle block comment
-  ; Alt+Z                      Toggle word wrap
+Ctrl+K Ctrl+ß             *Fold (collapse) all subregions
+Ctrl+K Ctrl+´             *Unfold (uncollapse) all subregions
+Ctrl+K Ctrl+0             *Fold (collapse) all regions
+Ctrl+K Ctrl+J             *Unfold (uncollapse) all regions
 
-VSC_Navigation:
+Ctrl+K Ctrl+C              Add line comment
+Ctrl+K Ctrl+U              Remove line comment
+Ctrl+#                     Toggle line comment
+Shift+Alt+A                Toggle block comment
+Alt+Z                      Toggle word wrap
 
-  ; Ctrl+T                     Show all Symbols
-  ; Ctrl+G                    *Go to Line
-  ; Ctrl+P                     Go to File
-  ; Ctrl+Shift+O               Go to Symbol
-  ; Ctrl+Shift+M               Show Problems panel
-  ; F8                         Go to next error or warning
-  ; Shift+F8                   Go to previous error or warning
-  ; Ctrl+Shift+Tab             Navigate editor group history
-  ; Alt+ ← / →                 Go back / forward
-  ; Ctrl+M                     Toggle Tab moves focus
+## VSC_Navigation:
 
-VSC_Search_and_replace:
+Ctrl+T                     Show all Symbols
+Ctrl+G                    *Go to Line
+Ctrl+P                     Go to File
+Ctrl+Shift+O               Go to Symbol
+Ctrl+Shift+M               Show Problems panel
+F8                         Go to next error or warning
+Shift+F8                   Go to previous error or warning
+Ctrl+Shift+Tab             Navigate editor group history
+Alt+ ← / →                 Go back / forward
+Ctrl+M                     Toggle Tab moves focus
 
-  ; Ctrl+F                     Find
-  ; Ctrl+H                     Replace
-  ; F3 / Shift+F3              Find next/previous
-  ; Alt+Enter                  Select all occurences of Find match
-  ; Ctrl+D                     Add selection to next Find match
-  ; Ctrl+K Ctrl+D              Move last selection to next Find match
-  ; Alt+C / R / W              Toggle case-sensitive / regex / whole word
+## VSC_Search_and_replace:
 
-VSC_Multi_cursor_and_selection:
+Ctrl+F                     Find
+Ctrl+H                     Replace
+F3 / Shift+F3              Find next/previous
+Alt+Enter                  Select all occurences of Find match
+Ctrl+D                     Add selection to next Find match
+Ctrl+K Ctrl+D              Move last selection to next Find match
+Alt+C / R / W              Toggle case-sensitive / regex / whole word
 
-  ; Alt+Click                  Insert cursor
-  ; Ctrl+Alt+ ↑ / ↓            Insert cursor above / below
-  ; Ctrl+U                     Undo last cursor operation
-  ; Shift+Alt+I                Insert cursor at end of each line selected
-  ; Ctrl+L                     Select current line
-  ; Ctrl+Shift+L               Select all occurrences of current selection
-  ; Ctrl+F2                    Select all occurrences of current word
-  ; Shift+Alt+→                Expand selection
-  ; Shift+Alt+←                Shrink selection
-  ; Shift+Alt +                Column (box) selection (drag mouse)
-  ; Ctrl+Shift+Alt             Column (box) selection + (arrow key)
-  ; Ctrl+Shift+Alt             Column (box) selection page up/down +PgUp/PgDn
+## VSC_Multi_cursor_and_selection:
 
-VSC_Rich_languages_editing:
+Alt+Click                  Insert cursor
+Ctrl+Alt+ ↑ / ↓            Insert cursor above / below
+Ctrl+U                     Undo last cursor operation
+Shift+Alt+I                Insert cursor at end of each line selected
+Ctrl+L                     Select current line
+Ctrl+Shift+L               Select all occurrences of current selection
+Ctrl+F2                    Select all occurrences of current word
+Shift+Alt+→                Expand selection
+Shift+Alt+←                Shrink selection
+Shift+Alt +                Column (box) selection (drag mouse)
+Ctrl+Shift+Alt             Column (box) selection + (arrow key)
+Ctrl+Shift+Alt             Column (box) selection page up/down +PgUp/PgDn
 
-  ; Ctrl+Space, Ctrl+I         Trigger suggestion
-  ; Ctrl+Shift+Space           Trigger parameter hints
-  ; Shift+Alt+F               *Format document
-  ; Ctrl+K Ctrl+F             *Format selection
-  ; F12                        Go to Definition
-  ; Alt+F12                    Peek Definition
-  ; Ctrl+K F12                 Open Definition to the side
-  ; Ctrl+.                     Quick Fix
-  ; Shift+F12                  Show References
-  ; F2                         Rename Symbol
-  ; Ctrl+K Ctrl+X              Trim trailing whitespace
-  ; Ctrl+K M                   Change file language
+## VSC_Rich_languages_editing:
 
-  VSC_Editor_management
+Ctrl+Space, Ctrl+I         Trigger suggestion
+Ctrl+Shift+Space           Trigger parameter hints
+Shift+Alt+F               *Format document
+Ctrl+K Ctrl+F             *Format selection
+F12                        Go to Definition
+Alt+F12                    Peek Definition
+Ctrl+K F12                 Open Definition to the side
+Ctrl+.                     Quick Fix
+Shift+F12                  Show References
+F2                         Rename Symbol
+Ctrl+K Ctrl+X              Trim trailing whitespace
+Ctrl+K M                   Change file language
 
-  ; Ctrl+F4, Ctrl+W            Close editor
-  ; Ctrl+K F                   Close folder
-  ; Ctrl+\                     Split editor
-  ; Ctrl+ 1 / 2 / 3            Focus into 1st, 2nd or 3rd editor group
-  ; Ctrl+K Ctrl+ ←/→           Focus into previous/next editor group
-  ; Ctrl+Shift+PgUp/-Dn        Move editor left/right
-  ; Ctrl+K ← / →               Move active editor group
+## VSC_Editor_management
 
-VSC_File_management:
+Ctrl+F4, Ctrl+W            Close editor
+Ctrl+K F                   Close folder
+Ctrl+\                     Split editor
+Ctrl+ 1 / 2 / 3            Focus into 1st, 2nd or 3rd editor group
+Ctrl+K Ctrl+ ←/→           Focus into previous/next editor group
+Ctrl+Shift+PgUp/-Dn        Move editor left/right
+Ctrl+K ← / →               Move active editor group
 
-  ; Ctrl+N                     New File
-  ; Ctrl+O                     Open File
-  ; Ctrl+S                     save
-  ; Ctrl+Shift+S               Save As
-  ; Ctrl+K S                   Save All
-  ; Ctrl+F4                    Close
-  ; Ctrl+K Ctrl+W              Close All
-  ; Ctrl+Shift+T               Reopen closed editor
-  ; Ctrl+K Enter               Keep preview mode editor open
-  ; Ctrl+Tab                   Open next
-  ; Ctrl+Shift+Tab             Open previous
-  ; Ctrl+K P                   Copy path of active file
-  ; Ctrl+K R                   Reveal active file in Explorer
-  ; Ctrl+K O                   Show active file in new window/instance
+## VSC_File_management:
 
-VSC_Display:
+Ctrl+N                     New File
+Ctrl+O                     Open File
+Ctrl+S                     save
+Ctrl+Shift+S               Save As
+Ctrl+K S                   Save All
+Ctrl+F4                    Close
+Ctrl+K Ctrl+W              Close All
+Ctrl+Shift+T               Reopen closed editor
+Ctrl+K Enter               Keep preview mode editor open
+Ctrl+Tab                   Open next
+Ctrl+Shift+Tab             Open previous
+Ctrl+K P                   Copy path of active file
+Ctrl+K R                   Reveal active file in Explorer
+Ctrl+K O                   Show active file in new window/instance
 
-  ; F11                        Toggle full screen
-  ; Shift+Alt+0                Toggle editor layout (horizontal/vertical)
-  ; Ctrl+ = / -                Zoom in/out
-  ; Ctrl+B                     Toggle Sidebar visibility
-  ; Ctrl+Shift+E               Show Explorer / Toggle focus
-  ; Ctrl+Shift+F               Show Search
-  ; Ctrl+Shift+G               Show Source Control
-  ; Ctrl+Shift+D               Show Debug
-  ; Ctrl+Shift+X               Show Extensions
-  ; Ctrl+Shift+H               Replace in files
-  ; Ctrl+Shift+J               Toggle Search details
-  ; Ctrl+Shift+U               Show Output panel
-  ; Ctrl+Shift+V               Open Markdown preview
-  ; Ctrl+K V                   Open Markdown preview to the side
-  ; Ctrl+K Z                   Zen Mode (Esc Esc to exit)
+## VSC_Display:
 
-VSC_Debug:
+F11                        Toggle full screen
+Shift+Alt+0                Toggle editor layout (horizontal/vertical)
+Ctrl+ = / -                Zoom in/out
+Ctrl+B                     Toggle Sidebar visibility
+Ctrl+Shift+E               Show Explorer / Toggle focus
+Ctrl+Shift+F               Show Search
+Ctrl+Shift+G               Show Source Control
+Ctrl+Shift+D               Show Debug
+Ctrl+Shift+X               Show Extensions
+Ctrl+Shift+H               Replace in files
+Ctrl+Shift+J               Toggle Search details
+Ctrl+Shift+U               Show Output panel
+Ctrl+Shift+V               Open Markdown preview
+Ctrl+K V                   Open Markdown preview to the side
+Ctrl+K Z                   Zen Mode (Esc Esc to exit)
 
-  ; F9                         Toggle breakpoint
-  ; F5                         Start/Continue
-  ; Shift+F5                   Stop
-  ; F11 / Shift+F11            Step into/out
-  ; F10                        Step over
-  ; Ctrl+K Ctrl+I              Show hover
+## VSC_Debug:
 
-VSC_Integrated terminal:Plugins_XP:
+F9                         Toggle breakpoint
+F5                         Start/Continue
+Shift+F5                   Stop
+F11 / Shift+F11            Step into/out
+F10                        Step over
+Ctrl+K Ctrl+I              Show hover
 
-  172		 	Airfoil C72S
-  Airfoillabs	C727N
-  AviTab
-  BetterPushback
-  C172		C72N
-  FlyWithLua
-  JD	 		JarDesign
-  laminar		B738
-  leecbaker	dataref tool
-  sam		 	Sam tool
-  sasl		 SkunkCraftsUpdater
-  sim_dynamic	????????
-  skunkcrafts
-  terrain_radar
-  tollis Airbus
-  vfa			????????
-  XAP 		Piper Semiole Panels
-  xjet		????????
-  xpilot
+## VSC_Integrated terminal:Plugins_XP:
 
-Keys_XP:
+172		 	Airfoil C72S
+Airfoillabs	C727N
+AviTab
+BetterPushback
+C172		C72N
+FlyWithLua
+JD	 		JarDesign
+laminar		B738
+leecbaker	dataref tool
+sam		 	Sam tool
+sasl		 SkunkCraftsUpdater
+sim_dynamic	????????
+skunkcrafts
 
-  ;                  A    C72N: walk left
+terrain_radar
+tollis Airbus
+vfa			????????
+XAP 		Piper Semiole Panels
+xjet		????????
+xpilot
+
+# Keys_XP:
+
+##                   A    C72N: walk left
   ; Shift            A
   ;        Ctrl      A    Hold approach -> P3D 737/777
   ; Shift  Ctrl      A    Hold approach "laminar/B738/autopilot/app_press"
@@ -181,7 +180,7 @@ Keys_XP:
   ;        Ctrl  Alt A    Autopilot Off "laminar/B738/autopilot/cmd_a_press"
   ; Shift  Ctrl  Alt A    Autopilot On "laminar/B738/autopilot/cmd_a_press"
 
-  ;                  B
+##                   B
   ; Shift            B    
   ;        Ctrl      B    
   ; Shift  Ctrl      B    
@@ -190,7 +189,7 @@ Keys_XP:
   ;        Ctrl  Alt B    Beacon Light Off
   ; Shift  Ctrl  Alt B    Beacon Light On
 
-  ;                  C
+##                   C
   ; Shift            C
   ;        Ctrl      C
   ; Shift  Ctrl      C
@@ -200,7 +199,7 @@ Keys_XP:
   ; Shift  Ctrl  Alt C    Switch Radios
   ; Shift  Ctrl  Alt C    Flightlevel intervention "laminar/B738/autopilot/Alt _interv"
 
-  ;                  D    C72N: walk right
+##                   D    C72N: walk right
   ; Shift            D    
   ;        Ctrl      D    
   ; Shift  Ctrl      D    
@@ -209,7 +208,7 @@ Keys_XP:
   ;        Ctrl  Alt D    
   ; Shift  Ctrl  Alt D    
 
-  ;                  E    C72N: walk speed
+##                   E    C72N: walk speed
   ; Shift            E    
   ;        Ctrl      E    
   ; Shift  Ctrl      E    
@@ -218,7 +217,7 @@ Keys_XP:
   ;        Ctrl  Alt E    
   ; Shift  Ctrl  Alt E    TakeOff Config
 
-  ;                  F                    
+##                   F                    
   ; Shift            F
   ;        Ctrl      F
   ; Shift  Ctrl      F
@@ -227,7 +226,7 @@ Keys_XP:
   ;        Ctrl  Alt F    Flight Director -> X-Plane Eclipse/Cessna
   ; Shift  Ctrl  Alt F    Flight Director
 
-  ;                  G
+##                   G
   ; Shift            G
   ;        Ctrl      G
   ; Shift  Ctrl      G
@@ -236,7 +235,7 @@ Keys_XP:
   ;        Ctrl  Alt G    GPS/NAV umschAlt ung (CDI) G430
   ; Shift  Ctrl  Alt G
 
-  ;                  H
+##                   H
   ; Shift            H    Managed Heading
   ;        Ctrl      H    Hold Heading "laminar/B738/autopilot/hdg_sel_press"
   ; Shift  Ctrl      H    
@@ -245,7 +244,7 @@ Keys_XP:
   ;        Ctrl  Alt H    GPS/NAV umschAlt ung (CDI) G530
   ; Shift  Ctrl  Alt H    Hold Approach
 
-  ;                  I
+##                   I
   ; Shift            I
   ;        Ctrl      I
   ; Shift  Ctrl      I
@@ -254,7 +253,7 @@ Keys_XP:
   ;        Ctrl  Alt I    xplane CDU Cabin Crew Info
   ; Shift  Ctrl  Alt I    xplane CDU /JAR330/ToLiss
 
-  ;                  J
+##                   J
   ; Shift            J    
   ;        Ctrl      J    
   ; Shift  Ctrl      J    
@@ -263,7 +262,7 @@ Keys_XP:
   ;        Ctrl  Alt J    
   ; Shift  Ctrl  Alt J    Autothrust
 
-  ;                  K
+##                   K
   ; Shift            K    
   ;        Ctrl      K    
   ; Shift  Ctrl      K    
@@ -272,7 +271,7 @@ Keys_XP:
   ;        Ctrl  Alt K    
   ; Shift  Ctrl  Alt K
 
-  ;                  L
+##                   L
   ; Shift            L
   ;        Ctrl      L
   ; Shift  Ctrl      L
@@ -281,7 +280,7 @@ Keys_XP:
   ;        Ctrl  Alt L    Landing Lights Off
   ; Shift  Ctrl  Alt L    Landing Lights On
 
-  ;                  M
+##                   M
   ; Shift            M
   ;        Ctrl      M
   ; Shift  Ctrl      M    
@@ -290,7 +289,7 @@ Keys_XP:
   ;        Ctrl  Alt M
   ; Shift  Ctrl  Alt M
 
-  ;                  N
+##                   N
   ; Shift            N
   ;        Ctrl      N     Alt _pushed                    
   ; Shift  Ctrl      N   Alt _pulled              
@@ -299,7 +298,7 @@ Keys_XP:
   ;        Ctrl  Alt N   VS_pulled              
   ; Shift  Ctrl  Alt N    Hold L-NAV "laminar/B738/autopilot/lnav_press"
 
-  ;                  O
+##                   O
   ; Shift            O
   ;        Ctrl      O    HDG_pushed
   ; Shift  Ctrl      O    HDG_pulled
@@ -308,7 +307,7 @@ Keys_XP:
   ;        Ctrl  Alt O    SPD_pulled
   ; Shift  Ctrl  Alt O    NAV Display JAR330
 
-  ;                  P    "PAUSE"
+##                   P    "PAUSE"
   ; Shift            P    "3DPATH_RESET"
   ;        Ctrl      P    "STOP_PUSHBACK"
   ; Shift  Ctrl      P    "START_PUSHBACK"
@@ -317,7 +316,7 @@ Keys_XP:
   ;        Ctrl  Alt P    "PUSHBACK for AIRLINERS NOSE 90L"
   ; Shift  Ctrl  Alt P    "PASSENGER_OXYGEN_NORMAL /B738"
 
-  ;                  Q    C72N: walk crouch
+##                   Q    C72N: walk crouch
   ; Shift            Q
   ;        Ctrl      Q
   ; Shift  Ctrl      Q    DISCORD Micro Mute
@@ -326,7 +325,7 @@ Keys_XP:
   ;        Ctrl  Alt Q    QNH/STD Off
   ; Shift  Ctrl  Alt Q    QNH/STD ON    
 
-  ;                  R
+##                   R
   ; Shift            R    Autothrust on/off -> P3D 777
   ;        Ctrl      R
   ; Shift  Ctrl      R    C72N Roll Mode
@@ -335,7 +334,7 @@ Keys_XP:
   ;        Ctrl  Alt R
   ; Shift  Ctrl  Alt R    Switch Radios in FSUIPC-Taste
 
-  ;                  S    C72N: walk backwards
+##                   S    C72N: walk backwards
   ; Shift            S
   ;        Ctrl      S    Ground Handling 
   ; Shift  Ctrl      S    Hold speed "laminar/B738/autopilot/speed_press"
@@ -344,7 +343,7 @@ Keys_XP:
   ;        Ctrl  Alt S    Strobe Light Off
   ; Shift  Ctrl  Alt S    Strobe Light On
 
-  ;                  T    
+##                   T    
   ; Shift            T
   ;        Ctrl      T
   ; Shift  Ctrl      T
@@ -353,7 +352,7 @@ Keys_XP:
   ;        Ctrl  Alt T    Taxi Light Off
   ; Shift  Ctrl  Alt T    Taxi Light On
 
-  ;                  U    C72N: Menue umschAlt en
+##                   U    C72N: Menue umschAlt en
   ; Shift            U
   ;        Ctrl      U
   ; Shift  Ctrl      U    Chronometer (RESET Timer)
@@ -362,7 +361,7 @@ Keys_XP:
   ;        Ctrl  Alt U    Chronometer (STOP Timer)
   ; Shift  Ctrl  Alt U    Chronometer (RUN Timer)
 
-  ;                  V
+##                   V
   ; Shift            V    Managed Alt itude -> P3D B777/A320
   ;        Ctrl      V    Hold Alt itude "laminar/B738/autopilot/Alt _hld_press"
   ; Shift  Ctrl      V    
@@ -371,7 +370,7 @@ Keys_XP:
   ;        Ctrl  Alt V    Hold VS "laminar/B738/autopilot/vs_press"
   ; Shift  Ctrl  Alt V    Hold V-NAV "laminar/B738/autopilot/vnav_press"
 
-  ;                  W    C72N: walk forward
+##                   W    C72N: walk forward
   ; Shift            W
   ;        Ctrl      W
   ; Shift  Ctrl      W
@@ -380,7 +379,7 @@ Keys_XP:
   ;        Ctrl  Alt W    
   ; Shift  Ctrl  Alt W    Warnings Off
 
-  ;                  X
+##                   X
   ; Shift            X
   ;        Ctrl      X
   ; Shift  Ctrl      X
@@ -389,7 +388,7 @@ Keys_XP:
   ;        Ctrl  Alt X    Transponder Standby
   ; Shift  Ctrl  Alt X    Transponder Charlie
 
-  ;                  Y
+##                   Y
   ; Shift            Y
   ;        Ctrl      Y
   ; Shift  Ctrl      Y
@@ -398,7 +397,7 @@ Keys_XP:
   ;        Ctrl  Alt Y    Reset elevator trim
   ; Shift  Ctrl  Alt Y    Com_Stby_Radio_Swap (Function Switch Radios in FSUIPC-Taste)
 
-  ;                  Z    Autopilot on /off
+##                   Z    Autopilot on /off
   ; Shift            Z
   ;        Ctrl      Z    
   ; Shift  Ctrl      Z    
@@ -407,7 +406,7 @@ Keys_XP:
   ;        Ctrl  Alt Z
   ; Shift  Ctrl  Alt Z    
 
-  ;                  ;     Speadbreakes off
+##                   ;    Speadbreakes off
   ; Shift            ;     Speadbreakes armed
   ;        Ctrl      ;     Speadbreakes on
   ; Shift  Ctrl      ;     
@@ -415,7 +414,7 @@ Keys_XP:
   ; Shift        Alt #
   ;        Ctrl  Alt #
   ; Shift  Ctrl  Alt #    
-  ;                  1    C72N: PDF/MFD
+##                   1    C72N: PDF/MFD
   ; Shift            1    
   ;        Ctrl      1    
   ; Shift  Ctrl      1    
@@ -423,7 +422,7 @@ Keys_XP:
   ; Shift        Alt 1
   ;        Ctrl  Alt 1
   ; Shift  Ctrl  Alt 1    
-  ;                  2    C72N: PFD/MFD
+##                   2    C72N: PFD/MFD
   ; Shift            2    
   ;        Ctrl      2    
   ; Shift  Ctrl      2    
@@ -431,7 +430,7 @@ Keys_XP:
   ; Shift        Alt 2
   ;        Ctrl  Alt 2
   ; Shift  Ctrl  Alt 2    
-  ;                  3    C72N: PanelX
+##                   3    C72N: PanelX
   ; Shift            3    
   ;        Ctrl      3    
   ; Shift  Ctrl      3    
@@ -439,7 +438,7 @@ Keys_XP:
   ; Shift        Alt 3
   ;        Ctrl  Alt 3
   ; Shift  Ctrl  Alt 3    
-  ;                  4    C72N: PanelX
+##                   4    C72N: PanelX
   ; Shift            4    
   ;        Ctrl      4    
   ; Shift  Ctrl      4    
@@ -447,7 +446,7 @@ Keys_XP:
   ; Shift        Alt 4
   ;        Ctrl  Alt 4
   ; Shift  Ctrl  Alt 4    
-  ;                  5    C72N: PanelX
+##                   5    C72N: PanelX
   ; Shift            5    
   ;        Ctrl      5    
   ; Shift  Ctrl      5    
@@ -455,7 +454,7 @@ Keys_XP:
   ; Shift        Alt 5
   ;        Ctrl  Alt 5
   ; Shift  Ctrl  Alt 5    
-  ;                  6    C72N: PanelX
+##                   6    C72N: PanelX
   ; Shift            6    
   ;        Ctrl      6    
   ; Shift  Ctrl      6    
@@ -463,7 +462,7 @@ Keys_XP:
   ; Shift        Alt 6
   ;        Ctrl  Alt 6
   ; Shift  Ctrl  Alt 6    
-  ;                  7    C72N: PanelX
+##                   7    C72N: PanelX
   ; Shift            7    
   ;        Ctrl      7    
   ; Shift  Ctrl      7    
@@ -471,7 +470,7 @@ Keys_XP:
   ; Shift        Alt 7
   ;        Ctrl  Alt 7
   ; Shift  Ctrl  Alt 7    
-  ;                  8    C72N: PanelX
+##                   8    C72N: PanelX
   ; Shift            8    
   ;        Ctrl      8    
   ; Shift  Ctrl      8    
@@ -479,7 +478,7 @@ Keys_XP:
   ; Shift        Alt 8
   ;        Ctrl  Alt 8
   ; Shift  Ctrl  Alt 8    
-  ;                  9    C72N: PanelX
+##                   9    C72N: PanelX
   ; Shift            9    
   ;        Ctrl      9    
   ; Shift  Ctrl      9    
@@ -487,7 +486,7 @@ Keys_XP:
   ; Shift        Alt 9
   ;        Ctrl  Alt 9
   ; Shift  Ctrl  Alt 9    
-  ;                  0    C72N: PanelX
+##                   0    C72N: PanelX
   ; Shift            0    
   ;        Ctrl      0    
   ; Shift  Ctrl      0    
@@ -496,7 +495,7 @@ Keys_XP:
   ;        Ctrl  Alt 0
   ; Shift  Ctrl  Alt 0    
 
-Keys_MSF:
+# Keys_MSF:
 
   ; MSFS FSUIPC Lua Keys
 
@@ -504,7 +503,7 @@ Keys_MSF:
   ;            psKey 9    Start CessnaCJ4
   ;            psKey 0    Kill all
 
-  ;                  A
+##                   A
   ; Shift            A
   ;        Ctrl      A    Hold approach -> P3D 737/777
   ; Shift  Ctrl      A
@@ -513,7 +512,7 @@ Keys_MSF:
   ;        Ctrl  Alt A    Autopilot Off
   ; Shift  Ctrl  Alt A    Autopilot On
 
-  ;                  B
+##                   B
   ; Shift            B    
   ;        Ctrl      B    
   ; Shift  Ctrl      B    
@@ -522,7 +521,7 @@ Keys_MSF:
   ;        Ctrl  Alt B    Beacon Light Off
   ; Shift  Ctrl  Alt B    Beacon Light On
 
-  ;                  C
+##                   C
   ; Shift            C
   ;        Ctrl      C
   ; Shift  Ctrl      C
@@ -532,7 +531,7 @@ Keys_MSF:
   ; Shift  Ctrl  Alt C    Switch radio
   ; Shift  Ctrl  Alt C    
 
-  ;                  D
+##                   D
   ; Shift            D    
   ;        Ctrl      D    
   ; Shift  Ctrl      D    
@@ -541,7 +540,7 @@ Keys_MSF:
   ;        Ctrl  Alt D    
   ; Shift  Ctrl  Alt D    
 
-  ;                  E
+##                   E
   ; Shift            E    
   ;        Ctrl      E    
   ; Shift  Ctrl      E    
@@ -550,7 +549,7 @@ Keys_MSF:
   ;        Ctrl  Alt E    
   ; Shift  Ctrl  Alt E    TakeOff Config
 
-  ;                  F                    
+##                   F                    
   ; Shift            F
   ;        Ctrl      F
   ; Shift  Ctrl      F
@@ -559,7 +558,7 @@ Keys_MSF:
   ;        Ctrl  Alt F    Flight Director -> X-Plane Eclipse/Cessna
   ; Shift  Ctrl  Alt F    Flight Director
 
-  ;                  G
+##                   G
   ; Shift            G
   ;        Ctrl      G
   ; Shift  Ctrl      G
@@ -568,7 +567,7 @@ Keys_MSF:
   ;        Ctrl  Alt G
   ; Shift  Ctrl  Alt G
 
-  ;                  H
+##                   H
   ; Shift            H    Managed Heading -> P3D 777                    
   ;        Ctrl      H    Hold Heading -> P3D 737/777/320
   ; Shift  Ctrl      H    Hold heading Cessna
@@ -577,7 +576,7 @@ Keys_MSF:
   ;        Ctrl  Alt H    Sync Heading -> Cessna P3d/XP / HUD PMDG 737
   ; Shift  Ctrl  Alt H    Hold Approach
 
-  ;                  I
+##                   I
   ; Shift            I
   ;        Ctrl      I
   ; Shift  Ctrl      I
@@ -586,7 +585,7 @@ Keys_MSF:
   ;        Ctrl  Alt I    
   ; Shift  Ctrl  Alt I    
 
-  ;                  J
+##                   J
   ; Shift            J    
   ;        Ctrl      J    
   ; Shift  Ctrl      J    
@@ -595,7 +594,7 @@ Keys_MSF:
   ;        Ctrl  Alt J    
   ; Shift  Ctrl  Alt J    Autothrust
 
-  ;                  K
+##                   K
   ; Shift            K    
   ;        Ctrl      K    
   ; Shift  Ctrl      K    
@@ -604,7 +603,7 @@ Keys_MSF:
   ;        Ctrl  Alt K    
   ; Shift  Ctrl  Alt K
 
-  ;                  L
+##                   L
   ; Shift            L
   ;        Ctrl      L
   ; Shift  Ctrl      L
@@ -613,7 +612,7 @@ Keys_MSF:
   ;        Ctrl  Alt L    Landing Lights Off
   ; Shift  Ctrl  Alt L    Landing Lights On
 
-  ;                  M
+##                   M
   ; Shift            M
   ;        Ctrl      M
   ; Shift  Ctrl      M    
@@ -622,7 +621,7 @@ Keys_MSF:
   ;        Ctrl  Alt M
   ; Shift  Ctrl  Alt M
 
-  ;                  N
+##                   N
   ; Shift            N
   ;        Ctrl      N    Hold L-NAV -> P3D 737/777
   ; Shift  Ctrl      N
@@ -631,7 +630,7 @@ Keys_MSF:
   ;        Ctrl  Alt N
   ; Shift  Ctrl  Alt N
 
-  ;                  O
+##                   O
   ; Shift            O
   ;        Ctrl      O
   ; Shift  Ctrl      O
@@ -640,7 +639,7 @@ Keys_MSF:
   ;        Ctrl  Alt O
   ; Shift  Ctrl  Alt O    NAV Display JAR330
 
-  ;                  P
+##                   P
   ; Shift            P    Managed Speed
   ;        Ctrl      P    Hold Speed    
   ; Shift  Ctrl      P    
@@ -649,7 +648,7 @@ Keys_MSF:
   ;        Ctrl  Alt P    
   ; Shift  Ctrl  Alt P    
 
-  ;                  Q
+##                   Q
   ; Shift            Q
   ;        Ctrl      Q
   ; Shift  Ctrl      Q    DISCORD Micro Mute
@@ -658,7 +657,7 @@ Keys_MSF:
   ;        Ctrl  Alt Q    QNH/STD Off
   ; Shift  Ctrl  Alt Q    QNH/STD ON    
 
-  ;                  R
+##                   R
   ; Shift            R    Autothrust on/off -> P3D 777
   ;        Ctrl      R
   ; Shift  Ctrl      R
@@ -667,7 +666,7 @@ Keys_MSF:
   ;        Ctrl  Alt R
   ; Shift  Ctrl  Alt R    Switch Radios in FSUIPC-Taste
 
-  ;                  S
+##                   S
   ; Shift            S
   ;        Ctrl      S    
   ; Shift  Ctrl      S    Hold speed G1000 XPlane
@@ -676,7 +675,7 @@ Keys_MSF:
   ;        Ctrl  Alt S    Strobe Light Off
   ; Shift  Ctrl  Alt S    Strobe Light On
 
-  ;                  T
+##                   T
   ; Shift            T
   ;        Ctrl      T
   ; Shift  Ctrl      T
@@ -685,7 +684,7 @@ Keys_MSF:
   ;        Ctrl  Alt T    Taxi Light Off
   ; Shift  Ctrl  Alt T    Taxi Light On
 
-  ;                  U
+##                   U
   ; Shift            U
   ;        Ctrl      U
   ; Shift  Ctrl      U    Chronometer (RESET Timer)
@@ -694,7 +693,7 @@ Keys_MSF:
   ;        Ctrl  Alt U    Chronometer (STOP Timer)
   ; Shift  Ctrl  Alt U    Chronometer (RUN Timer)
 
-  ;                  V
+##                   V
   ; Shift            V    Managed Alt itude -> P3D B777/A320
   ;        Ctrl      V    Hold Alt itude -> P3D B777/A320
   ; Shift  Ctrl      V    
@@ -703,7 +702,7 @@ Keys_MSF:
   ;        Ctrl  Alt V    Hold VS -> P3D 737/777
   ; Shift  Ctrl  Alt V    Hold V-NAV -> P3D 737/777
 
-  ;                  W
+##                   W
   ; Shift            W
   ;        Ctrl      W
   ; Shift  Ctrl      W
@@ -712,7 +711,7 @@ Keys_MSF:
   ;        Ctrl  Alt W    Arm Alt itude -> P3D Cessna
   ; Shift  Ctrl  Alt W    Warnings Off
 
-  ;                  X
+##                   X
   ; Shift            X
   ;        Ctrl      X
   ; Shift  Ctrl      X
@@ -721,7 +720,7 @@ Keys_MSF:
   ;        Ctrl  Alt X    Transponder Standby
   ; Shift  Ctrl  Alt X    Transponder Charlie
 
-  ;                  Y
+##                   Y
   ; Shift            Y
   ;        Ctrl      Y
   ; Shift  Ctrl      Y
@@ -730,7 +729,7 @@ Keys_MSF:
   ;        Ctrl  Alt Y    Reset elevator trim
   ; Shift  Ctrl  Alt Y    Com_Stby_Radio_Swap (Function Switch Radios in FSUIPC-Taste)
 
-  ;                  Z
+##                   Z
   ; Shift            Z
   ;        Ctrl      Z    Hold Alt itude -> P3D 737
   ; Shift  Ctrl      Z    Autopilot off -> P3D 777
@@ -756,7 +755,7 @@ Keys_MSF:
   ; Shift  Ctrl  Alt NUM/   XPLANE IVAO On
   ;        Ctrl  Alt NUM/   XPLANE IVAO Off
 
-  ;                  ?
+##                   ?
   ; Shift            ?
   ;        Ctrl      ?
   ; Shift  Ctrl      ?
@@ -779,7 +778,7 @@ Keys_MSF:
   ; Shift  Ctrl  Alt ?    ?
   ; Shift  Ctrl  Alt ?    ?
 
-Keys_P3D:
+# Keys_P3D:
 
   ; FSUIPC Lua Keys
 
@@ -795,7 +794,7 @@ Keys_P3D:
   ;        Ctrl  Alt 9    Kill Cessna
   ;            psKey 1    Log LogLVars
   ;            psKey 0    Kill all
-  ;                  A    "NEXT_SUB_VIEW
+##                   A    "NEXT_SUB_VIEW
   ; Shift            A    "PREV_SUB_VIEW
   ;        Ctrl      A    Hold approach -> P3D 737/777
   ; Shift  Ctrl      A
@@ -803,7 +802,7 @@ Keys_P3D:
   ; Shift        Alt A
   ;        Ctrl  Alt A    Autopilot Off
   ; Shift  Ctrl  Alt A    Autopilot On
-  ;                  B    "BAROMETRIC
+##                   B    "BAROMETRIC
   ; Shift            B    
   ;        Ctrl      B    
   ; Shift  Ctrl      B    
@@ -811,7 +810,7 @@ Keys_P3D:
   ; Shift        Alt B    
   ;        Ctrl  Alt B    Beacon Light Off
   ; Shift  Ctrl  Alt B    Beacon Light On
-  ;                  C
+##                   C
   ; Shift            C
   ;        Ctrl      C    "EXIT"
   ; Shift  Ctrl      C
@@ -820,14 +819,14 @@ Keys_P3D:
   ;        Ctrl  Alt C    
   ; Shift  Ctrl  Alt C    
   ; Shift  Ctrl  Alt C    Flightlevel change -> P3D 777
-  ;                  D
+##                   D
   ; Shift            D    
   ;        Ctrl      D    
   ; Shift  Ctrl      D    
   ;            AsKey D    Autobrake RTO/ Max
   ;        Ctrl  Alt D    Autobrake Off
   ; Shift  Ctrl  Alt D    Autobrake On
-  ;                  E
+##                   E
   ; Shift            E    
   ;        Ctrl      E    "ENGINE_AUTO_START
   ; Shift  Ctrl      E    "AVATARMODEATTACHTOGGLE
@@ -835,7 +834,7 @@ Keys_P3D:
   ; Shift        Alt E    
   ;        Ctrl  Alt E    
   ; Shift  Ctrl  Alt E    TakeOff Config
-  ;                  F                    
+##                   F                    
   ; Shift            F
   ;        Ctrl      F
   ; Shift  Ctrl      F
@@ -843,7 +842,7 @@ Keys_P3D:
   ; Shift        Alt F    
   ;        Ctrl  Alt F    
   ; Shift  Ctrl  Alt F    Flight Director
-  ;                  G    "GEAR_TOGGLE
+##                   G    "GEAR_TOGGLE
   ; Shift            G
   ;        Ctrl      G
   ; Shift  Ctrl      G
@@ -851,7 +850,7 @@ Keys_P3D:
   ; Shift        Alt G
   ;        Ctrl  Alt G
   ; Shift  Ctrl  Alt G
-  ;                  H
+##                   H
   ; Shift            H     Managed Heading -> P3D 777                    
   ;        Ctrl      H    Hold Heading -> P3D 737/777/320
   ; Shift  Ctrl      H    Hold heading Cessna
@@ -859,7 +858,7 @@ Keys_P3D:
   ; Shift        Alt H
   ;        Ctrl  Alt H    Sync Heading -> Cessna P3d/XP / HUD PMDG 737
   ; Shift  Ctrl  Alt H    Hold Approach
-  ;                  I
+##                   I
   ; Shift            I
   ;        Ctrl      I
   ; Shift  Ctrl      I
@@ -867,7 +866,7 @@ Keys_P3D:
   ; Shift        Alt I
   ;        Ctrl  Alt I    xplane CDU Cabin Crew Info
   ; Shift  Ctrl  Alt I    xplane CDU /JAR330/ToLiss
-  ;                  J
+##                   J
   ; Shift            J    
   ;        Ctrl      J    "TOGGLE_JETWAY
   ; Shift  Ctrl      J    
@@ -875,7 +874,7 @@ Keys_P3D:
   ; Shift        Alt J    
   ;        Ctrl  Alt J    
   ; Shift  Ctrl  Alt J    Autothrust
-  ;                  K
+##                   K
   ; Shift            K    
   ;        Ctrl      K    "JOYSTICK_CALIBRATE
   ; Shift  Ctrl      K    
@@ -883,7 +882,7 @@ Keys_P3D:
   ; Shift        Alt K    
   ;        Ctrl  Alt K    
   ; Shift  Ctrl  Alt K
-  ;                  L
+##                   L
   ; Shift            L    "PANEL_LIGHTS_TOGGLE
   ;        Ctrl      L
   ; Shift  Ctrl      L    "TOGGLE_AIRCRAFT_LABELS
@@ -891,7 +890,7 @@ Keys_P3D:
   ; Shift        Alt L
   ;        Ctrl  Alt L    Landing Lights Off
   ; Shift  Ctrl  Alt L    Landing Lights On
-  ;                  M
+##                   M
   ; Shift            M
   ;        Ctrl      M
   ; Shift  Ctrl      M    
@@ -899,7 +898,7 @@ Keys_P3D:
   ; Shift        Alt M
   ;        Ctrl  Alt M
   ; Shift  Ctrl  Alt M
-  ;                  N
+##                   N
   ; Shift            N
   ;        Ctrl      N    Hold L-NAV -> P3D 737/777
   ; Shift  Ctrl      N
@@ -907,7 +906,7 @@ Keys_P3D:
   ; Shift        Alt N
   ;        Ctrl  Alt N
   ; Shift  Ctrl  Alt N
-  ;                  O
+##                   O
   ; Shift            O
   ;        Ctrl      O
   ; Shift  Ctrl      O
@@ -915,7 +914,7 @@ Keys_P3D:
   ; Shift        Alt O
   ;        Ctrl  Alt O
   ; Shift  Ctrl  Alt O    NAV Display JAR330
-  ;                  P    "PAUSE_TOGGLE
+##                   P    "PAUSE_TOGGLE
   ; Shift            P    Managed Speed
   ;        Ctrl      P    Hold Speed    
   ; Shift  Ctrl      P    
@@ -923,7 +922,7 @@ Keys_P3D:
   ; Shift        Alt P    
   ;        Ctrl  Alt P    
   ; Shift  Ctrl  Alt P    
-  ;                  Q    "SOUND_TOGGLE
+##                   Q    "SOUND_TOGGLE
   ; Shift            Q
   ;        Ctrl      Q
   ; Shift  Ctrl      Q    DISCORD Micro Mute
@@ -931,7 +930,7 @@ Keys_P3D:
   ; Shift        Alt Q
   ;        Ctrl  Alt Q    QNH/STD Off
   ; Shift  Ctrl  Alt Q    QNH/STD ON    
-  ;                  R
+##                   R
   ; Shift            R    Autothrust on/off -> P3D 777
   ;        Ctrl      R
   ; Shift  Ctrl      R
@@ -939,7 +938,7 @@ Keys_P3D:
   ; Shift        Alt R
   ;        Ctrl  Alt R
   ; Shift  Ctrl  Alt R    Switch Radios in FSUIPC-Taste
-  ;                  S    "VIEW_MODE
+##                   S    "VIEW_MODE
   ; Shift            S
   ;        Ctrl      S    "VIEW_PREVIOUS_TOGGLE
   ; Shift  Ctrl      S    Hold speed G1000 XPlane
@@ -947,7 +946,7 @@ Keys_P3D:
   ; Shift        Alt S
   ;        Ctrl  Alt S    Strobe Light Off
   ; Shift  Ctrl  Alt S    Strobe Light On
-  ;                  T
+##                   T
   ; Shift            T
   ;        Ctrl      T
   ; Shift  Ctrl      T
@@ -955,7 +954,7 @@ Keys_P3D:
   ; Shift        Alt T
   ;        Ctrl  Alt T    Taxi Light Off
   ; Shift  Ctrl  Alt T    Taxi Light On
-  ;                  U
+##                   U
   ; Shift            U
   ;        Ctrl      U
   ; Shift  Ctrl      U    Chronometer (RESET Timer)
@@ -963,7 +962,7 @@ Keys_P3D:
   ; Shift        Alt U
   ;        Ctrl  Alt U    Chronometer (STOP Timer)
   ; Shift  Ctrl  Alt U    Chronometer (RUN Timer)
-  ;                  V
+##                   V
   ; Shift            V    Managed Alt itude -> P3D B777/A320
   ;        Ctrl      V    Hold Alt itude -> P3D B777/A320
   ; Shift  Ctrl      V    
@@ -971,7 +970,7 @@ Keys_P3D:
   ; Shift        Alt V    Managed VS    -> P3D 737/777            
   ;        Ctrl  Alt V    Hold VS -> P3D 737/777
   ; Shift  Ctrl  Alt V    Hold V-NAV -> P3D 737/777
-  ;                  W    "PANEL_HUD_NEXT
+##                   W    "PANEL_HUD_NEXT
   ; Shift            W
   ;        Ctrl      W    "PANEL_HUD_PREVIOUS
   ; Shift  Ctrl      W
@@ -979,7 +978,7 @@ Keys_P3D:
   ; Shift        Alt W
   ;        Ctrl  Alt W    Arm Alt itude -> P3D Cessna
   ; Shift  Ctrl  Alt W    Warnings Off
-  ;                  X
+##                   X
   ; Shift            X
   ;        Ctrl      X
   ; Shift  Ctrl      X
@@ -987,7 +986,7 @@ Keys_P3D:
   ; Shift        Alt X
   ;        Ctrl  Alt X    Transponder Standby
   ; Shift  Ctrl  Alt X    Transponder Charlie
-  ;                  Y    "SLEW_TOGGLE
+##                   Y    "SLEW_TOGGLE
   ; Shift            Y
   ;        Ctrl      Y
   ; Shift  Ctrl      Y
@@ -995,7 +994,7 @@ Keys_P3D:
   ; Shift        Alt Y
   ;        Ctrl  Alt Y    Reset elevator trim
   ; Shift  Ctrl  Alt Y    Com_Stby_Radio_Swap (Function Switch Radios in FSUIPC-Taste)
-  ;                  Z    "AP_MASTER
+##                   Z    "AP_MASTER
   ; Shift            Z    "READOUTS_FLIGHT
   ;        Ctrl      Z    Hold Alt itude -> P3D 737
   ; Shift  Ctrl      Z    Autopilot off -> P3D 777
@@ -1004,13 +1003,13 @@ Keys_P3D:
   ;        Ctrl  Alt Z
   ; Shift  Ctrl  Alt Z    Autopilot A320
 
-FMC_MCDU:
+# FMC_MCDU_xy_Größe:
   400x576
 
-AEROSOFT_MCDU_Light:
+# AEROSOFT_MCDU_Light:
   Shift L
 
-AEROSOFT_Namen:
+# AEROSOFT_Namen:
 
   A318 CFM
   AS_A318...			= alle Modelle
@@ -1061,13 +1060,13 @@ AEROSOFT_Namen:
   empty => EXTIAE
   SHARKLET => EXTIAEShark
 
-HiFi_ASCA:
+# HiFi_ASCA:
   \AppData\Prepare3D.cfg -TEXTURE_MAX_LOAD von 1024 auf 2048
 
-FSUIPC_Freie_Offsets:
+# FSUIPC_Freie_Offsets:
   5400-5FFF Projekt Magenta
 
-  ------------------------
+# Online Proceduren
   01. IVAO/VATSIM starten
   04. WebEye/SIM -> goto Depart ICAO -> Gate notieren > ATIS RWs notieren
   05. Simbrief -> Route planen -> Dep-, Arr- Runways mit ATIS vergleichen
@@ -1080,7 +1079,7 @@ FSUIPC_Freie_Offsets:
   12. Start "Preflight Procedure" mit Paxe/Cargo und Fuel
   13. Start "Preflight checklist"
 
-P3D_custom_airports:
+# P3D_custom_airports:
   EDDC_Dresden
   EDDE_Erfurt_ORBX
   EDDF_Frankfurt

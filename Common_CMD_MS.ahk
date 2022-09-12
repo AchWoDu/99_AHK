@@ -106,22 +106,22 @@ Else If (CMD_Text="stop push back") {
 
   ; Send {Ctrl Down}p{Ctrl Up}
   Err := _Text_to_Speech("not implementet") {
-}
-Else If (CMD_Text="transponder mode charlie") { 
+  }
+  Else If (CMD_Text="transponder mode charlie") { 
 
-  ; MSFS_TP := 0x0B46
+    ; MSFS_TP := 0x0B46
 
-  NumPut(4, MSFS_TP, 0, "short") { ; 4 = ON
-  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0B46, int, 1, short, &MSFS_TP, int, &dwResult)
+    NumPut(4, MSFS_TP, 0, "short") { ; 4 = ON
+      Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0B46, int, 1, short, &MSFS_TP, int, &dwResult)
 
-  Err := _Text_to_Speech(CMD_Text)
-}
-Else If (CMD_Text="transponder mode standby") { 
+      Err := _Text_to_Speech(CMD_Text)
+    }
+    Else If (CMD_Text="transponder mode standby") { 
 
-  ; MSFS_TP := 0x0B46
+      ; MSFS_TP := 0x0B46
 
-  NumPut(1, MSFS_TP, 0, "short") { ; 1 = OFF
-  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0B46, int, 1, short, &MSFS_TP, int, &dwResult)
+      NumPut(1, MSFS_TP, 0, "short") { ; 1 = OFF
+        Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0B46, int, 1, short, &MSFS_TP, int, &dwResult)
 
-  Err := _Text_to_Speech(CMD_Text)
-}
+        Err := _Text_to_Speech(CMD_Text)
+      }

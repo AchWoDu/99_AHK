@@ -1,4 +1,4 @@
-﻿Common_2022_09_09:
+﻿Common_2022_09_12:
 
 DEV_MAIN_INIT_VARs:
 
@@ -827,915 +827,910 @@ Check_AdminMode:
 
   if Not A_IsAdmin
   {
-    MsgBox 0x31, :-(,
-      (LTrim Join`s
-        Program is not running as administrator. If you continue, some problems
-          are likely to occur. It is strongly recommended that you run the program as
-        administrator!`n
-        `n
-        To continue anyway, click OK. Otherwise click Cancel.
-      )
+    MsgBox, 0x31,,"Program is not running as administrator. To continue anyway, click OK. Otherwise click Cancel."
 
-      IfMsgBox Cancel
-      ExitApp
+    IfMsgBox Cancel
+    ExitApp
+
+  }
+Return
+
+_Search_XML_Item(File, StartLineNr, ItemStr) { ; LineNr
+
+  local Line := ""
+  local LineNr := StartLineNr
+
+  While Not (InStr(Line, ItemStr) Or ErrorLevel)
+    FileReadLine, Line, %File%, LineNr++
+
+  If ErrorLevel
+  {
+    _Error_Message("Search_XML_Item: Not found after Line/Item: " StartLineNr " / " ItemStr " in: " Filename, 5)
+    Return 1
+  }
+
+Return --LineNr
+}
+
+_Get_XML_Item(File, LineNr) { ; ItemStr
+
+  local Line := ""
+
+  FileReadLine, Line, %File%, LineNr
+
+  If ErrorLevel {
+    _Error_Message("Get_XML_Item: Error Line " LineNr , 5)
+    Return ""
+  }
+
+  local Pos1 := InStr(Line, ">",,, 1) + 1
+  local Pos2 := InStr(Line, "<",,, 2)
+
+  ; _Message(SubStr(Line, Pos1, Pos2-Pos1), 5)
+
+Return SubStr(Line, Pos1, Pos2-Pos1)
+}
+
+LoadVatsimFlightPlan:
+
+  ; D:\Games\IVAO\Flightplans\*.fpl
+  ; D:\Games\VATSIM\Flightplans\*.vfp
+
+  Loop Files, D:\Games\VATSIM\Flightplans\*.vfp, R
+    FileName := A_LoopFileFullPath ; A_LoopFileName
+
+  ; MsgBox FileName : %FileName%
+
+  Line := ""
+
+  FileReadLine, Line, %FileName%, 1
+  If ErrorLevel
+  {
+    _Error_Message("VATSIM FP nicht gefunden", 5)
+    Return
+  }
+  Else
+  {
+    ; MsgBox Line gelesen: %Line%
+
+    Line 	:= Substr(Line, InStr(Line, "FlightType"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    FlightType := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %FlightType%
+
+    Line 	:= Substr(Line, InStr(Line, "Equipment"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    Equipment := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %Equipment%
+
+    Line 	:= Substr(Line, InStr(Line, "CruiseAltitude"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    CruiseAltitude := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %CruiseAltitude%
+
+    Line 	:= Substr(Line, InStr(Line, "CruiseSpeed"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    CruiseSpeed := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %CruiseSpeed%
+
+    Line 	:= Substr(Line, InStr(Line, "DepartureAirport"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    DepartureAirport := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %DepartureAirport%
+
+    Line 	:= Substr(Line, InStr(Line, "DestinationAirport"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    DestinationAirport := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %DestinationAirport%
+
+    Line 	:= Substr(Line, InStr(Line, "AlternateAirport"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    AlternateAirport := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %AlternateAirport%
+
+    Line 	:= Substr(Line, InStr(Line, "Route"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    Route := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %Route%
+
+    Line 	:= Substr(Line, InStr(Line, "Remarks"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    Remarks := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %Remarks%
+
+    Line 	:= Substr(Line, InStr(Line, "IsHeavy"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    IsHeavy := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %IsHeavy%
+
+    Line 	:= Substr(Line, InStr(Line, "EquipmentPrefix"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    EquipmentPrefix := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %EquipmentPrefix%
+
+    Line 	:= Substr(Line, InStr(Line, "EquipmentSuffix"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    EquipmentSuffix := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %EquipmentSuffix%
+
+    Line 	:= Substr(Line, InStr(Line, "DepartureTime"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    DepartureTime := Format("{:04}", SubStr(Line, Pos1, Pos2-Pos1))
+
+    ; MsgBox %DepartureTime%
+
+    Line 	:= Substr(Line, InStr(Line, "EnrouteHours"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    EnrouteHours := Format("{:02}", SubStr(Line, Pos1, Pos2-Pos1))
+
+    ; MsgBox %EnrouteHours%
+
+    Line 	:= Substr(Line, InStr(Line, "EnrouteMinutes"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    EnrouteMinutes := Format("{:02}", SubStr(Line, Pos1, Pos2-Pos1))
+
+    ; MsgBox %EnrouteMinutes%
+
+    Line 	:= Substr(Line, InStr(Line, "FuelHours"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    FuelHours := Format("{:02}", SubStr(Line, Pos1, Pos2-Pos1))
+
+    ; MsgBox FuelHours:%FuelHours%
+
+    Line 	:= Substr(Line, InStr(Line, "FuelMinutes"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    FuelMinutes := Format("{:02}", SubStr(Line, Pos1, Pos2-Pos1))
+
+    ; MsgBox %FuelMinutes%
+
+    Line 	:= Substr(Line, InStr(Line, "VoiceType"), StrLen(Line))
+    Pos1 := InStr(Line, """",,, 1) + 1
+    Pos2 := InStr(Line, """",,, 2)
+    VoiceType := SubStr(Line, Pos1, Pos2-Pos1)
+
+    ; MsgBox %VoiceType%
+  }
+
+  ; Err := _Text_to_Speech("VATSIM Flightplan loaded!")
+Return
+
+LoadAktuFlightPlan:
+
+  FP_FlightRules := "IFR"
+  FormatTime, FP_DepTime,, HHMM
+  FP_FlightLevelType := "F"
+
+  FP_Departure := ""
+
+  Loop Files, %Flightplan_Path%*.xml, R ; Durchsucht D:\Games\00_FS_ORDNER\50_FLIGHT_PLANS\
+  {
+    FileName := A_LoopFileFullPath ; A_LoopFileName
+  }
+
+  ; MsgBox FileName : %FileName%
+
+  Index := 1
+  Index := _Search_XML_Item(FileName, Index, "<general>")
+  If Index = 1
+    Return ; dann wurde nichts gefunden
+  Else
+  {
+    Index := _Search_XML_Item(FileName, Index, "<icao_airline>")
+    FP_Airline := _Get_XML_Item(FileName, Index) ; ItemStr
+    ; MsgBox FP_Airline: %FP_Airline%
+
+    Index := _Search_XML_Item(FileName, Index, "<flight_number>")
+    FP_FlightNumber := _Get_XML_Item(FileName, Index)
+    ; MsgBox FP_FlightNumber: %FP_FlightNumber%
+
+    Index := _Search_XML_Item(FileName, Index, "<initial_altitude>")
+    FP_FlightLevel := _Get_XML_Item(FileName, Index)
+    ; MsgBox FP_FlightLevel: %FP_FlightLevel%
+
+    Index := _Search_XML_Item(FileName, Index, "<route_ifps>")
+    FP_Route := _Get_XML_Item(FileName, Index)
+    ; MsgBox FP_Route: %FP_Route%
+  }
+
+  Index := _Search_XML_Item(FileName, Index, "<origin>")
+  If Index = 1
+    Return ; dann wurde nichts gefunden
+  Else
+  {
+    Index := _Search_XML_Item(FileName, Index, "<icao_code>")
+    FP_Departure := _Get_XML_Item(FileName, Index)
+    ; MsgBox FP_Departure: %FP_Departure%
+  }
+
+  Index := _Search_XML_Item(FileName, Index, "<destination>")
+  If Index = 1
+    Return ; dann wurde nichts gefunden
+  Else
+  {
+    Index := _Search_XML_Item(FileName, Index, "<icao_code>")
+    FP_Destination := _Get_XML_Item(FileName, Index)
+    ; MsgBox FP_Destination: %FP_Destination%
+  }
+
+  Index := Index + 1000
+
+  Index := _Search_XML_Item(FileName, Index, "<aircraft>")
+  If Index = 1
+    Return ; dann wurde nichts gefunden
+  Else
+  {
+    Index := _Search_XML_Item(FileName, Index, "<icaocode>")
+    FP_AircraftICAO := _Get_XML_Item(FileName, Index)
+    ; MsgBox FP_AircraftICAO: %FP_AircraftICAO%
+  }
+
+  Index := _Search_XML_Item(FileName, Index, "<weights>")
+  If Index = 1
+    Return ; dann wurde nichts gefunden
+  Else
+  {
+    Index := _Search_XML_Item(FileName, Index, "<pax_count>")
+    FP_Paxe := _Get_XML_Item(FileName, Index)
+    ; MsgBox FP_Paxe: %FP_Paxe%
+
+    Index := _Search_XML_Item(FileName, Index, "<cargo>")
+    FP_Cargo := _Get_XML_Item(FileName, Index)
+    ; MsgBox FP_Cargo: %FP_Cargo%
+  }
+
+Return
+
+DeleteFlightPlans:
+
+  ;"D:\Games\00_FS_ORDNER\50_FLIGHT_PLANS\"
+  FileDelete, %Flightplan_Path%*.pln
+  FileDelete, %Flightplan_Path%*.xml
+  FileDelete, %Flightplan_Path%*.html
+  FileDelete, %Flightplan_Path%*.flp
+  FileDelete, %Flightplan_Path%FlightPlanPDF\*.pdf
+
+  ; Online
+  FileDelete, D:\Games\IVAO\Flightplans\*.fpl
+  FileDelete, D:\Games\VATSIM\Flightplans\*.vfp
+
+  ; MSFS
+  FileDelete, I:\WpSystem\S-1-5-21-746773014-728480166-310642377-1001\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\FlightPlans\*.pln
+  FileDelete, C:\Users\achim\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\_FlightPlans\*.pln
+  FileDelete, C:\Users\achim\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\*.pln
+
+  ; P3D
+  FileDelete, C:\Users\achim\Documents\Prepar3D v4 Files\*.pln
+  FileDelete, J:\Lockheed Martin\Prepar3D v4\PMDG\FLIGHTPLANS\777\*.rte
+  FileDelete, J:\Lockheed Martin\Prepar3D v4\PMDG\FLIGHTPLANS\*.rte
+  FileDelete, C:\Users\achim\Documents\Aerosoft\General\A3XX Flightplans\*.flp
+
+  ; XPlane
+  FileDelete, J:\X-Plane 11\Output\FMS plans\*.fms
+  FileDelete, J:\X-Plane 11\Aircraft\JD330XP11\FlightPlans\*.txt
+
+Return
+
+LNM_Check_SaveWin:
+
+  Loop 10 {
+    If WinActive("Little Navmap - Flugplan im")
+      Break
+    Sleep, 300
+  }
+
+  Send {Enter}
+
+  Sleep,500
+Return
+
+H_LNM_IFR:
+
+  ; Wird nur benötigt, wenn ACARS Macro genutzt wird
+
+  If Not WinActive("Little Navmap")
+  {
+    ; _Message("For IFR-plans activate Little Navmap first!")
+    Err := _Text_to_Speech("For IFR-plans activate Little Navmap first!")
+    Return
+  }
+
+  Gosub, LoadAktuFlightPlan ; Felder für ACARS Macro laden
+
+  WinActivate, Little Navmap
+
+  ; FP_FlightLevel und IVR in LNM-Felder eintragen
+  Send {Shift Down}{Home}{Shift Up}
+  Sleep, 500
+  Send %FP_FlightLevel%
+  Send {Tab}I
+
+  WinActivate, Active Sky
+Return
+
+H_LNM_VFR:
+
+  ; Wird nur benötigt, wenn VATSIM Macro genutzt wird
+
+  If Not WinActive("Little Navmap")
+  {
+    Err := _Text_to_Speech("For VFR-plans activate Little Navmap first!")
+    Return
+  }
+
+  Gosub, LoadVatsimFlightPlan
+
+  ; FP_FlightRules := "VFR"
+  ; FormatTime, FP_DepTime,, HHMM
+  ; FP_FlightLevelType := "F"
+
+  ; ; FP_CallSign := "AFX6"
+  ; ; FP_Airline := "AFX"
+  ; ; FP_FlightNumber := "6"
+
+  ; FP_FlightLevel := 2000 ; wird überschrieben
+  ; FP_Route := "DCT"
+  ; ; FP_Departure := "EDDL"  ; wird überschrieben
+  ; ; FP_Destination := "EDLW"  ; wird überschrieben
+
+  ; FP_Speed := "130"
+
+  ; ; https://en.wikipedia.org/wiki/Equipment_codes
+  ; ; https://mediawiki.ivao.aero/index.php?title=Flight_plan_equipment_methodology
+  ; FP_Equipment := "SFG"
+  ; FP_Transponder := "C"
+
+  ; FP_Paxe :="1"
+  ; FP_Cargo :="10"
+
+Return
+
+H_ResetApp:
+  ; Hotkey Shift+Esc
+
+  Run, "%AHK_Path%%CMD_File%"
+
+ExitApp
+
+H_EndApp:
+  ; Hotkey Ctrl+Esc
+
+  Send {Alt Up}{Shift Up}{Ctrl Up}
+  Run, "C:\Program Files\AutoHotkey\AutoHotkeyU32.exe" "d:\diverses\scripte_AHK\PRIVATE.ahk"
+  ; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
+
+ExitApp
+
+H_EndApp_KillAll:
+  ; Hotkey Ctrl+Alt+Esc
+
+  KillAll_On := True
+
+  Send {Alt Up}{Shift Up}{Ctrl Up} ; sicher ist sicher :-)
+
+  SoundBeep, 600, 200
+  SoundBeep, 400, 500
+
+  MsgBox, 4100, Warning!, Terminate all FS-processes?, 10
+
+  If true { ; wegen Warn... und Formatter
+    IfMsgBox, No
+    Return
+    Else 
+      MsgBox, ,OK ,Terminate all FS-processes! Bye..., 3
+
+  }
+
+  SetNumLockState On
+
+  If Not TEST {
+    If WinExist(VATSIM_Map_str) {
+      ; _Message("VATSIM map found!",3)
+      WinActivate, %VATSIM_Map_str%
+      Sleep, 1000
+      send {ALT Down}{F4}{ALT Up}
     }
-    Return
 
-    _Search_XML_Item(File, StartLineNr, ItemStr) { ; LineNr
-
-      local Line := ""
-      local LineNr := StartLineNr
-
-      While Not (InStr(Line, ItemStr) Or ErrorLevel)
-        FileReadLine, Line, %File%, LineNr++
-
-      If ErrorLevel
-      {
-        _Error_Message("Search_XML_Item: Not found after Line/Item: " StartLineNr " / " ItemStr " in: " Filename, 5)
-        Return 1
-      }
-
-      Return --LineNr
+    If WinExist(IVAO_Map_str) {
+      ; _Message("IVAO map found!",3)
+      WinActivate, %IVAO_Map_str%
+      Sleep, 1000
+      send {ALT Down}{F4}{ALT Up}
     }
 
-    _Get_XML_Item(File, LineNr) { ; ItemStr
-
-      local Line := ""
-
-      FileReadLine, Line, %File%, LineNr
-
-      If ErrorLevel {
-        _Error_Message("Get_XML_Item: Error Line " LineNr , 5)
-        Return ""
-      }
-
-      local Pos1 := InStr(Line, ">",,, 1) + 1
-      local Pos2 := InStr(Line, "<",,, 2)
-
-      ; _Message(SubStr(Line, Pos1, Pos2-Pos1), 5)
-
-      Return SubStr(Line, Pos1, Pos2-Pos1)
+    If WinExist("SimBrief.com") {
+      ; _Message("SimBrief.com found!",3)
+      WinActivate, SimBrief.com
+      Sleep, 1000
+      send {ALT Down}{F4}{ALT Up}
     }
 
-    LoadVatsimFlightPlan:
-
-      ; D:\Games\IVAO\Flightplans\*.fpl
-      ; D:\Games\VATSIM\Flightplans\*.vfp
-
-      Loop Files, D:\Games\VATSIM\Flightplans\*.vfp, R
-        FileName := A_LoopFileFullPath ; A_LoopFileName
-
-      ; MsgBox FileName : %FileName%
-
-      Line := ""
-
-      FileReadLine, Line, %FileName%, 1
-      If ErrorLevel
-      {
-        _Error_Message("VATSIM FP nicht gefunden", 5)
-        Return
-      }
-      Else
-      {
-        ; MsgBox Line gelesen: %Line%
-
-        Line 	:= Substr(Line, InStr(Line, "FlightType"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        FlightType := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %FlightType%
-
-        Line 	:= Substr(Line, InStr(Line, "Equipment"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        Equipment := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %Equipment%
-
-        Line 	:= Substr(Line, InStr(Line, "CruiseAltitude"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        CruiseAltitude := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %CruiseAltitude%
-
-        Line 	:= Substr(Line, InStr(Line, "CruiseSpeed"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        CruiseSpeed := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %CruiseSpeed%
-
-        Line 	:= Substr(Line, InStr(Line, "DepartureAirport"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        DepartureAirport := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %DepartureAirport%
-
-        Line 	:= Substr(Line, InStr(Line, "DestinationAirport"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        DestinationAirport := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %DestinationAirport%
-
-        Line 	:= Substr(Line, InStr(Line, "AlternateAirport"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        AlternateAirport := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %AlternateAirport%
-
-        Line 	:= Substr(Line, InStr(Line, "Route"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        Route := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %Route%
-
-        Line 	:= Substr(Line, InStr(Line, "Remarks"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        Remarks := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %Remarks%
-
-        Line 	:= Substr(Line, InStr(Line, "IsHeavy"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        IsHeavy := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %IsHeavy%
-
-        Line 	:= Substr(Line, InStr(Line, "EquipmentPrefix"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        EquipmentPrefix := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %EquipmentPrefix%
-
-        Line 	:= Substr(Line, InStr(Line, "EquipmentSuffix"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        EquipmentSuffix := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %EquipmentSuffix%
-
-        Line 	:= Substr(Line, InStr(Line, "DepartureTime"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        DepartureTime := Format("{:04}", SubStr(Line, Pos1, Pos2-Pos1))
-
-        ; MsgBox %DepartureTime%
-
-        Line 	:= Substr(Line, InStr(Line, "EnrouteHours"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        EnrouteHours := Format("{:02}", SubStr(Line, Pos1, Pos2-Pos1))
-
-        ; MsgBox %EnrouteHours%
-
-        Line 	:= Substr(Line, InStr(Line, "EnrouteMinutes"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        EnrouteMinutes := Format("{:02}", SubStr(Line, Pos1, Pos2-Pos1))
-
-        ; MsgBox %EnrouteMinutes%
-
-        Line 	:= Substr(Line, InStr(Line, "FuelHours"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        FuelHours := Format("{:02}", SubStr(Line, Pos1, Pos2-Pos1))
-
-        ; MsgBox FuelHours:%FuelHours%
-
-        Line 	:= Substr(Line, InStr(Line, "FuelMinutes"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        FuelMinutes := Format("{:02}", SubStr(Line, Pos1, Pos2-Pos1))
-
-        ; MsgBox %FuelMinutes%
-
-        Line 	:= Substr(Line, InStr(Line, "VoiceType"), StrLen(Line))
-        Pos1 := InStr(Line, """",,, 1) + 1
-        Pos2 := InStr(Line, """",,, 2)
-        VoiceType := SubStr(Line, Pos1, Pos2-Pos1)
-
-        ; MsgBox %VoiceType%
-      }
-
-      ; Err := _Text_to_Speech("VATSIM Flightplan loaded!")
-    Return
-
-    LoadAktuFlightPlan:
-
-      FP_FlightRules := "IFR"
-      FormatTime, FP_DepTime,, HHMM
-      FP_FlightLevelType := "F"
-
-      FP_Departure := ""
-
-      Loop Files, %Flightplan_Path%*.xml, R ; Durchsucht D:\Games\00_FS_ORDNER\50_FLIGHT_PLANS\
-      {
-        FileName := A_LoopFileFullPath ; A_LoopFileName
-      }
-
-      ; MsgBox FileName : %FileName%
-
-      Index := 1
-      Index := _Search_XML_Item(FileName, Index, "<general>")
-      If Index = 1
-        Return ; dann wurde nichts gefunden
-      Else
-      {
-        Index := _Search_XML_Item(FileName, Index, "<icao_airline>")
-        FP_Airline := _Get_XML_Item(FileName, Index) ; ItemStr
-        ; MsgBox FP_Airline: %FP_Airline%
-
-        Index := _Search_XML_Item(FileName, Index, "<flight_number>")
-        FP_FlightNumber := _Get_XML_Item(FileName, Index)
-        ; MsgBox FP_FlightNumber: %FP_FlightNumber%
-
-        Index := _Search_XML_Item(FileName, Index, "<initial_altitude>")
-        FP_FlightLevel := _Get_XML_Item(FileName, Index)
-        ; MsgBox FP_FlightLevel: %FP_FlightLevel%
-
-        Index := _Search_XML_Item(FileName, Index, "<route_ifps>")
-        FP_Route := _Get_XML_Item(FileName, Index)
-        ; MsgBox FP_Route: %FP_Route%
-      }
-
-      Index := _Search_XML_Item(FileName, Index, "<origin>")
-      If Index = 1
-        Return ; dann wurde nichts gefunden
-      Else
-      {
-        Index := _Search_XML_Item(FileName, Index, "<icao_code>")
-        FP_Departure := _Get_XML_Item(FileName, Index)
-        ; MsgBox FP_Departure: %FP_Departure%
-      }
-
-      Index := _Search_XML_Item(FileName, Index, "<destination>")
-      If Index = 1
-        Return ; dann wurde nichts gefunden
-      Else
-      {
-        Index := _Search_XML_Item(FileName, Index, "<icao_code>")
-        FP_Destination := _Get_XML_Item(FileName, Index)
-        ; MsgBox FP_Destination: %FP_Destination%
-      }
-
-      Index := Index + 1000
-
-      Index := _Search_XML_Item(FileName, Index, "<aircraft>")
-      If Index = 1
-        Return ; dann wurde nichts gefunden
-      Else
-      {
-        Index := _Search_XML_Item(FileName, Index, "<icaocode>")
-        FP_AircraftICAO := _Get_XML_Item(FileName, Index)
-        ; MsgBox FP_AircraftICAO: %FP_AircraftICAO%
-      }
-
-      Index := _Search_XML_Item(FileName, Index, "<weights>")
-      If Index = 1
-        Return ; dann wurde nichts gefunden
-      Else
-      {
-        Index := _Search_XML_Item(FileName, Index, "<pax_count>")
-        FP_Paxe := _Get_XML_Item(FileName, Index)
-        ; MsgBox FP_Paxe: %FP_Paxe%
-
-        Index := _Search_XML_Item(FileName, Index, "<cargo>")
-        FP_Cargo := _Get_XML_Item(FileName, Index)
-        ; MsgBox FP_Cargo: %FP_Cargo%
-      }
-
-    Return
-
-    DeleteFlightPlans:
-
-      ;"D:\Games\00_FS_ORDNER\50_FLIGHT_PLANS\"
-      FileDelete, %Flightplan_Path%*.pln
-      FileDelete, %Flightplan_Path%*.xml
-      FileDelete, %Flightplan_Path%*.html
-      FileDelete, %Flightplan_Path%*.flp
-      FileDelete, %Flightplan_Path%FlightPlanPDF\*.pdf
-
-      ; Online
-      FileDelete, D:\Games\IVAO\Flightplans\*.fpl
-      FileDelete, D:\Games\VATSIM\Flightplans\*.vfp
-
-      ; MSFS
-      FileDelete, I:\WpSystem\S-1-5-21-746773014-728480166-310642377-1001\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\FlightPlans\*.pln
-      FileDelete, C:\Users\achim\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\_FlightPlans\*.pln
-      FileDelete, C:\Users\achim\AppData\Local\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalState\*.pln
-
-      ; P3D
-      FileDelete, C:\Users\achim\Documents\Prepar3D v4 Files\*.pln
-      FileDelete, J:\Lockheed Martin\Prepar3D v4\PMDG\FLIGHTPLANS\777\*.rte
-      FileDelete, J:\Lockheed Martin\Prepar3D v4\PMDG\FLIGHTPLANS\*.rte
-      FileDelete, C:\Users\achim\Documents\Aerosoft\General\A3XX Flightplans\*.flp
-
-      ; XPlane
-      FileDelete, J:\X-Plane 11\Output\FMS plans\*.fms
-      FileDelete, J:\X-Plane 11\Aircraft\JD330XP11\FlightPlans\*.txt
-
-    Return
-
-    LNM_Check_SaveWin:
-
-      Loop 10 {
-        If WinActive("Little Navmap - Flugplan im")
-          Break
-        Sleep, 300
-      }
-
-      Send {Enter}
-
-      Sleep,500
-    Return
-
-    H_LNM_IFR:
-
-      ; Wird nur benötigt, wenn ACARS Macro genutzt wird
-
-      If Not WinActive("Little Navmap")
-      {
-        ; _Message("For IFR-plans activate Little Navmap first!")
-        Err := _Text_to_Speech("For IFR-plans activate Little Navmap first!")
-        Return
-      }
-
-      Gosub, LoadAktuFlightPlan ; Felder für ACARS Macro laden
-
-      WinActivate, Little Navmap
-
-      ; FP_FlightLevel und IVR in LNM-Felder eintragen
-      Send {Shift Down}{Home}{Shift Up}
-      Sleep, 500
-      Send %FP_FlightLevel%
-      Send {Tab}I
-
+    While WinExist("WebFMC") {
+      ; _Message("WebFMC found!",3)
+      WinActivate, WebFMC
+      Sleep, 1000
+      send {ALT Down}{F4}{ALT Up}
+    }
+
+    If WinExist("Active Sky") {
       WinActivate, Active Sky
-    Return
-
-    H_LNM_VFR:
-
-      ; Wird nur benötigt, wenn VATSIM Macro genutzt wird
-
-      If Not WinActive("Little Navmap")
-      {
-        Err := _Text_to_Speech("For VFR-plans activate Little Navmap first!")
-        Return
-      }
-
-      Gosub, LoadVatsimFlightPlan
-
-      ; FP_FlightRules := "VFR"
-      ; FormatTime, FP_DepTime,, HHMM
-      ; FP_FlightLevelType := "F"
-
-      ; ; FP_CallSign := "AFX6"
-      ; ; FP_Airline := "AFX"
-      ; ; FP_FlightNumber := "6"
-
-      ; FP_FlightLevel := 2000 ; wird überschrieben
-      ; FP_Route := "DCT"
-      ; ; FP_Departure := "EDDL"  ; wird überschrieben
-      ; ; FP_Destination := "EDLW"  ; wird überschrieben
-
-      ; FP_Speed := "130"
-
-      ; ; https://en.wikipedia.org/wiki/Equipment_codes
-      ; ; https://mediawiki.ivao.aero/index.php?title=Flight_plan_equipment_methodology
-      ; FP_Equipment := "SFG"
-      ; FP_Transponder := "C"
-
-      ; FP_Paxe :="1"
-      ; FP_Cargo :="10"
-
-    Return
-
-    H_ResetApp:
-      ; Hotkey Shift+Esc
-
-      Run, "%AHK_Path%%CMD_File%"
-
-    ExitApp
-
-    H_EndApp:
-      ; Hotkey Ctrl+Esc
-
-      Send {Alt Up}{Shift Up}{Ctrl Up}
-      Run, "C:\Program Files\AutoHotkey\AutoHotkeyU32.exe" "d:\diverses\scripte_AHK\PRIVATE.ahk"
-      ; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
-
-    ExitApp
-
-    H_EndApp_KillAll:
-      ; Hotkey Ctrl+Alt+Esc
-
-      KillAll_On := True
-
-      Send {Alt Up}{Shift Up}{Ctrl Up} ; sicher ist sicher :-)
-
-      SoundBeep, 600, 200
-      SoundBeep, 400, 500
-
-      MsgBox, 4100, Warning!, Terminate all FS-processes?, 10
-
-      If true { ; wegen Warn... und Formatter
-        IfMsgBox, No 
-        Return
-        Else 
-        MsgBox, ,OK ,Terminate all FS-processes! Bye... :-), 3
+      Sleep, 1000
+      Send {ALT Down}{F4}{ALT Up}
+      Send {Enter} ; Nachfrage "wirklich"
     }
 
-    SetNumLockState On
+    Process, Close, SimBrief Downloader.exe
 
-    If Not TEST {
-      If WinExist(VATSIM_Map_str) {
-        ; _Message("VATSIM map found!",3)
-        WinActivate, %VATSIM_Map_str%
-        Sleep, 1000
-        send {ALT Down}{F4}{ALT Up}
-      }
+    Process, Close, LittleNavMap.exe
+  }
 
-      If WinExist(IVAO_Map_str) {
-        ; _Message("IVAO map found!",3)
-        WinActivate, %IVAO_Map_str%
-        Sleep, 1000
-        send {ALT Down}{F4}{ALT Up}
-      }
+  ; MSFS Files
+  Process, Close ,FlightSimulator.exe
+  Process, Close ,FSUIPC7.exe
 
-      If WinExist("SimBrief.com") {
-        ; _Message("SimBrief.com found!",3)
-        WinActivate, SimBrief.com
-        Sleep, 1000
-        send {ALT Down}{F4}{ALT Up}
-      }
+  ; P3D Files
+  Process, Close ,P3D.exe
+  Process, Close ,Prepar3D.exe
+  Process, Close ,SimObjectDisplayEngine.exe ; SODE
+  Process, Close ,CameraPositionX_P3D_V4.exe
+  ; Process, Close ,AS_P3Dv4.exe
+  ; Process, Close ,AS Cloud Art.exe
 
-      While WinExist("WebFMC") {
-        ; _Message("WebFMC found!",3)
-        WinActivate, WebFMC
-        Sleep, 1000
-        send {ALT Down}{F4}{ALT Up}
-      }
+  ; XPlane Files
+  Process, Close ,X-Plane.exe
 
-      If WinExist("Active Sky") {
-        WinActivate, Active Sky
-        Sleep, 1000
-        Send {ALT Down}{F4}{ALT Up}
-        Send {Enter} ; Nachfrage "wirklich"
-      }
+  ; VATSIM Files
+  Process, Close ,swiftguistd.exe
+  Process, Close ,VPilot.exe
+  Process, Close ,XPilot.exe
 
-      Process, Close, SimBrief Downloader.exe
+  ; IVAO Files
+  Process, Close ,PilotUI.exe
+  Process, Close ,Pilot_core_fs2020.exe
 
-      Process, Close, LittleNavMap.exe
-    }
+  Run, "C:\Program Files\AutoHotkey\AutoHotkeyU32.exe" "d:\diverses\scripte_AHK\PRIVATE.ahk"
+  ; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
 
-    ; MSFS Files
-    Process, Close ,FlightSimulator.exe
-    Process, Close ,FSUIPC7.exe
+ExitApp
 
-    ; P3D Files
-    Process, Close ,P3D.exe
-    Process, Close ,Prepar3D.exe
-    Process, Close ,SimObjectDisplayEngine.exe ; SODE
-    Process, Close ,CameraPositionX_P3D_V4.exe
-    ; Process, Close ,AS_P3Dv4.exe
-    ; Process, Close ,AS Cloud Art.exe
+H_CheckList_Break:
+  If Not WinActive(Aktu_Sim) {
+    WinActivate, %Aktu_Sim%
+    WinActivate, ahk_class %Aktu_Sim%
+  }
 
-    ; XPlane Files
-    Process, Close ,X-Plane.exe
+  Err := _CMD("checklist break")
 
-    ; VATSIM Files
-    Process, Close ,swiftguistd.exe
-    Process, Close ,VPilot.exe
-    Process, Close ,XPilot.exe
+Return
 
-    ; IVAO Files
-    Process, Close ,PilotUI.exe
-    Process, Close ,Pilot_core_fs2020.exe
+H_CheckItem_Ok:
 
-    Run, "C:\Program Files\AutoHotkey\AutoHotkeyU32.exe" "d:\diverses\scripte_AHK\PRIVATE.ahk"
-    ; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
+  If Not WinActive(Aktu_Sim) {
+    WinActivate, %Aktu_Sim%
+    WinActivate, ahk_class %Aktu_Sim%
+  }
 
-    ExitApp
+  x := 0
+  While GetKeyState(T_Checkitem_Ok2) OR GetKeyState(T_Checkitem_Ok3)
+  {
+    Sleep, ButtonWait_Delay
 
-    H_CheckList_Break:
-      If Not WinActive(Aktu_Sim) {
-        WinActivate, %Aktu_Sim%
-        WinActivate, ahk_class %Aktu_Sim%
-      }
+    x++
 
+    If (x = 10) {
       Err := _CMD("checklist break")
+      Return
+    }
+  }
 
+  Err := _CMD("okay")
+  Err := _Text_to_Speech("okay")
+
+  ; SoundBeep, 200, 40
+
+Return
+
+H_ATC:
+  ; IVAO Altitude on		-> RControl
+  ; VATSIM vPilot	on		-> RControl
+  ; VATSIM xPilot	on		-> RControl - y
+  ; DISCORD push to mute	-> Shift+Control + q
+  ; Team Speak3	on		-> AltGr
+
+  ; DISCORD Voice aus		-> Media_Play_Pause (used in "speech on/off")
+
+  If Not WinActive(Aktu_Sim) {
+    WinActivate, %Aktu_Sim%
+    WinActivate, ahk_class %Aktu_Sim%
+  }
+
+  If Speech_On
+    Err := _CMD("speech off")
+
+  s.Listen(False)
+
+  If TRAINING_active {
+    ATC_str := "Training_TS"
+    Send {RAlt Down}
+  }
+  Else { 
+    If VATSIM_active {
+      ATC_str := "VATSIM-ATC"
+
+      If (Aktu_Sim == XPLANE)
+        Send {RCtrl Down}{y down}
+      Else
+        Send {RCtrl Down}
+    }
+    Else {
+      If IVAO_active {
+        ATC_str := "IVAO-ATC"
+        Send {RCtrl Down}
+      }
+      Else {
+        ATC_str := "ATC_ON"
+      } 
+    }
+  }
+
+  Send {Shift down}{Ctrl down}{q down} ; DISCORD push to mute on
+
+  SoundBeep, 700, 30
+  SoundGet, SoundVol_On
+  SoundSet, SoundVol_Off
+
+  Err := ToolTipEx( ATC_str, x_Tooltip2, y_Tooltip2, 2, HFONT, "Lime", "Black", "", "S")
+
+  While (GetKeyState(T_RightPedal, "P") And Not GetKeyState(T_LeftPedal, "P"))
+    Sleep, 500
+
+  While (GetKeyState(T_RightPedal2, "P") And Not GetKeyState(T_LeftPedal2, "P"))
+    Sleep, 500
+
+  While (GetKeyState(T_RightPedal3, "P"))
+    Sleep, 500
+
+  Send {RCtrl Up}{y up}
+  Send {RAlt Up} ; Training/ TS3
+  Send {Shift up}{Ctrl up}{q up} ; DISCORD push to mute off
+
+  SoundSet, SoundVol_On
+
+  Err := ToolTipEx(,,, 2)
+Return
+
+H_SpeechRec:
+
+  ; IVAO Altitude on		-> RControl
+  ; VATSIM vPilot	on		-> RControl
+  ; VATSIM xPilot	on		-> RControl - y
+  ; DISCORD push to mute	-> Shift+Control + q
+  ; Team Speak3	on		-> AltGr
+
+  ; DISCORD Voice aus		-> Media_Play_Pause (used in "speech on/off")
+
+  If Not FSUIPC_Ok ; Or Speech_On
     Return
 
-    H_CheckItem_Ok:
+  Prellen := True
+  SoundBeep, 400, 30
 
-      If Not WinActive(Aktu_Sim) {
-        WinActivate, %Aktu_Sim%
-        WinActivate, ahk_class %Aktu_Sim%
-      }
+  If Not WinActive(Aktu_Sim)
+  {
+    WinActivate, %Aktu_Sim%
+    WinActivate, ahk_class %Aktu_Sim%
+  }
 
-      x := 0
-      While GetKeyState(T_Checkitem_Ok2) OR GetKeyState(T_Checkitem_Ok3)
-      {
-        Sleep, ButtonWait_Delay
+  x := 0
+  While (GetKeyState(T_LeftPedal) OR GetKeyState(T_LeftPedal2))
+  {
+    Sleep, ButtonWait_Delay
 
-        x++
+    x++
 
-        If (x = 10) {
-          Err := _CMD("checklist break")
-          Return
-        }
-      }
-
-      Err := _CMD("okay")
-      Err := _Text_to_Speech("okay")
-
-      ; SoundBeep, 200, 40
-
-    Return
-
-    H_ATC:
-      ; IVAO Altitude on		-> RControl
-      ; VATSIM vPilot	on		-> RControl
-      ; VATSIM xPilot	on		-> RControl - y
-      ; DISCORD push to mute	-> Shift+Control + q
-      ; Team Speak3	on		-> AltGr
-
-      ; DISCORD Voice aus		-> Media_Play_Pause (used in "speech on/off")
-
-      If Not WinActive(Aktu_Sim) {
-        WinActivate, %Aktu_Sim%
-        WinActivate, ahk_class %Aktu_Sim%
-      }
+    If x = 10
+    {
+      Gosub Close_SpeechRec
 
       If Speech_On
         Err := _CMD("speech off")
+      Else
+        Err := _CMD("speech on")
 
-      s.Listen(False)
-
-      If TRAINING_active {
-        ATC_str := "Training_TS"
-        Send {RAlt Down}
-      }
-      Else { 
-        If VATSIM_active {
-          ATC_str := "VATSIM-ATC"
-
-          If (Aktu_Sim == XPLANE)
-            Send {RCtrl Down}{y down}
-          Else
-            Send {RCtrl Down}
-        }
-        Else {
-          If IVAO_active {
-            ATC_str := "IVAO-ATC"
-            Send {RCtrl Down}
-          }
-          Else {
-            ATC_str := "ATC_ON"
-          } 
-        }
-      }
-
-      Send {Shift down}{Ctrl down}{q down} ; DISCORD push to mute on
-
-      SoundBeep, 700, 30
-      SoundGet, SoundVol_On
-      SoundSet, SoundVol_Off
-
-      Err := ToolTipEx( ATC_str, x_Tooltip2, y_Tooltip2, 2, HFONT, "Lime", "Black", "", "S")
-
-      While (GetKeyState(T_RightPedal, "P") And Not GetKeyState(T_LeftPedal, "P"))
-        Sleep, 500
-
-      While (GetKeyState(T_RightPedal2, "P") And Not GetKeyState(T_LeftPedal2, "P"))
-        Sleep, 500
-
-      While (GetKeyState(T_RightPedal3, "P"))
-        Sleep, 500
-
-      Send {RCtrl Up}{y up}
-      Send {RAlt Up} ; Training/ TS3
-      Send {Shift up}{Ctrl up}{q up} ; DISCORD push to mute off
-
-      SoundSet, SoundVol_On
-
-      Err := ToolTipEx(,,, 2)
-    Return
-
-    H_SpeechRec:
-
-      ; IVAO Altitude on		-> RControl
-      ; VATSIM vPilot	on		-> RControl
-      ; VATSIM xPilot	on		-> RControl - y
-      ; DISCORD push to mute	-> Shift+Control + q
-      ; Team Speak3	on		-> AltGr
-
-      ; DISCORD Voice aus		-> Media_Play_Pause (used in "speech on/off")
-
-      If Not FSUIPC_Ok ; Or Speech_On
-        Return
-
-      Prellen := True
-      SoundBeep, 400, 30
-
-      If Not WinActive(Aktu_Sim)
-      {
-        WinActivate, %Aktu_Sim%
-        WinActivate, ahk_class %Aktu_Sim%
-      }
-
-      x := 0
-      While (GetKeyState(T_LeftPedal) OR GetKeyState(T_LeftPedal2))
-      {
-        Sleep, ButtonWait_Delay
-
-        x++
-
-        If x = 10
-        {
-          Gosub Close_SpeechRec
-
-          If Speech_On
-            Err := _CMD("speech off")
-          Else
-            Err := _CMD("speech on")
-
-          Return
-        }
-      }
-
-      If Listen_On ; dann ist Speech ON
-      {
-        Return
-      }
-
-      SoundGet, SoundVol_On
-      SoundSet, SoundVol_Off
-
-      Speech_Found := False
-      s.Listen(True)
-
-      Err := ToolTipEx("?> ", x_Tooltip1, y_Tooltip1, 1, HFONT, "Lime", "Black", "", "S")
-
-      Send {Shift Down}{Ctrl Down}{q down} ; DISCORD Micro Off
-
-      SetTimer, Close_SpeechRec, %CloseSpeech_Delay%
-
-    Return
-
-    Close_SpeechRec:
-
-      If Not (Speech_Found OR Speech_On) {
-        Old_CMD_Text := ""
-      }
-      ; If GetKeyState(T_LeftPedal) Or GetKeyState(T_LeftPedal2) Or Speech_On
-      If Speech_On {
-        s.Listen(True)
-        Err := ToolTipEx("?> " Old_CMD_Text, x_Tooltip1, y_Tooltip1, 1, HFONT, "Lime", "Black", "", "S")
-      }
-      Else {
-        SetTimer,, Off
-        SoundSet, SoundVol_On
-
-        s.Listen(False)
-        Err := ToolTipEx("!> " Old_CMD_Text, x_Tooltip1, y_Tooltip1, 1, HFONT, "White", "Black", "", "S")
-
-        Send {q up}{Ctrl up}{Shift up} ; DISCORD Micro On
-      }
-
-    Return
-
-    _IsBlank(x) {
-      If (x = " ") ; Frequenzeingabe abbrechen
-      {
-        SetNumLockState Off
-        SetTimer, Aircraft_Scenario, On
-        Err := ToolTipEx(,,,5)
-
-        SoundBeep, 250, 880
-        Return 1
-      }
-    Return 0
+      Return
+    }
   }
 
-  H_SetCom1:
+  If Listen_On ; dann ist Speech ON
+  {
+    Return
+  }
 
-    If RightPedal_pressed ; Wenn ATC on
-      Return
+  SoundGet, SoundVol_On
+  SoundSet, SoundVol_Off
 
-    If (Aktu_Sim == "X-System")
-      Err := _Set_XP_Com(0x5530, 1)
-    Else
-      Err := _Set_P3D_Com(0x311A, 1)
+  Speech_Found := False
+  s.Listen(True)
 
-    If Speech_Mute
-      Err := ToolTipEx("M", x_Tooltip5, y_Tooltip1, 5, HFONT, "Lime", "Black", "", "S")
+  Err := ToolTipEx("?> ", x_Tooltip1, y_Tooltip1, 1, HFONT, "Lime", "Black", "", "S")
 
-    If Speech_On
-      Err := ToolTipEx("S", x_Tooltip5, y_Tooltip1, 5, HFONT, "Lime", "Black", "", "S")
-  Return
+  Send {Shift Down}{Ctrl Down}{q down} ; DISCORD Micro Off
 
-  H_SetCom2:
+  SetTimer, Close_SpeechRec, %CloseSpeech_Delay%
 
-    If RightPedal_pressed ; Wenn ATC on
-      Return
-    If (Aktu_Sim == "X-System")
-      Err := _Set_XP_Com(0x5534, 2)
-    Else
-      Err := _Set_P3D_Com(0x311C, 2)
+Return
 
-    If Speech_Mute
-      Err := ToolTipEx("M", x_Tooltip5, y_Tooltip1, 5, HFONT, "Lime", "Black", "", "S")
+Close_SpeechRec:
 
-    If Speech_On
-      Err := ToolTipEx("S", x_Tooltip5, y_Tooltip1, 5, HFONT, "Lime", "Black", "", "S")
-  Return
+  If Not (Speech_Found OR Speech_On) {
+    Old_CMD_Text := ""
+  }
+  ; If GetKeyState(T_LeftPedal) Or GetKeyState(T_LeftPedal2) Or Speech_On
+  If Speech_On {
+    s.Listen(True)
+    Err := ToolTipEx("?> " Old_CMD_Text, x_Tooltip1, y_Tooltip1, 1, HFONT, "Lime", "Black", "", "S")
+  }
+  Else {
+    SetTimer,, Off
+    SoundSet, SoundVol_On
 
-  _Set_P3D_Com(ComOffsStby, Com) {
-    Local ComStby := 0x1800
-    Local ComActu := 0x1800
-    Local ComX := 0x1800
+    s.Listen(False)
+    Err := ToolTipEx("!> " Old_CMD_Text, x_Tooltip1, y_Tooltip1, 1, HFONT, "White", "Black", "", "S")
 
-    SetTimer, Aircraft_Scenario,Off
-    SetNumLockState On
+    Send {q up}{Ctrl up}{Shift up} ; DISCORD Micro On
+  }
 
-    Err := ToolTipEx("1", x_ToolTip5, y_ToolTip5, 5, HFONT, "RED", "withe", "", "S")
-    SoundBeep, 250, 80
-    While True
-    {
-      Input x, L1 ; x00.000
+Return
 
-      If _IsBlank(x)
-        Return
-
-      If (x = "1")
-      {
-        ComX := 0x1800
-        Break
-      }
-
-      SoundBeep, 250, 880
-    }
-
-    transform, ComStby, chr, %ComX%
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", uint, 0x034E, uint, 2, uint, &ComActu, uint, &dwResult)
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-
-    Err := ToolTipEx("2", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
-    ; s := format("{1:x}", ComX)
-    ; _Message("0x1" s, 0)
-
-    While True
-    {
-      Input x, L1 ; 0x0.000
-
-      If _IsBlank(x)
-        Return
-
-      If (x >= "1") And (x <= "3")
-      {
-        If (x >= "2") And (x <= "3")
-          ComX := 0x1000 * x
-        Break
-      }
-
-      SoundBeep, 250, 880
-    }
-
-    transform, ComStby, chr, %ComX%
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-
-    Err := ToolTipEx("3", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
-
-    If (ComX = 0x1800)
-      ComX := 0x1000
-
-    While True
-    {
-      Input x, L1 ; 00x.000
-
-      If _IsBlank(x)
-        Return
-
-      If (x >= "0") And (x <= "9") And Not ((ComX = 0x3000) And (x > 6))
-      {
-        If (ComX > 0x1000)
-        {
-          ComX := ComX + (0x0100 * x)
-          Break
-        }
-
-        If (x = "8") Or (x = "9")
-        {
-          ComX := 0x1000 + (0x0100 * x)
-          Break
-        }
-      }
-
-      SoundBeep, 250, 880
-    }
-
-    transform, ComStby, chr, %ComX%
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-
-    Err := ToolTipEx("4", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
-
-    While True
-    {
-      Input x, L1 ; 000.x00
-
-      If _IsBlank(x)
-        Return
-
-      If (x >= "0") And (x <= "9")
-      {
-        ComX := ComX + (0x0010 * x)
-        Break
-      }
-
-      SoundBeep, 250, 880
-    }
-
-    transform, ComStby, chr, %ComX%
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-
-    Err := ToolTipEx("5", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
-
-    While True
-    {
-      Input x, L1 ; 000.0x0
-
-      If _IsBlank(x)
-        Return
-
-      If (x >= "0") And (x <= "9")
-      {
-        ComX := ComX + (0x0001 * x)
-        Break
-      }
-
-      SoundBeep, 250, 880
-    }
-
-    transform, ComStby, chr, %ComX%
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-
-    Err := ToolTipEx("6", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
-
-    Input x, L1 ; 000.00x funktioniert bei P3D nicht
-
-    ; If (x >= "0") And (x <= "9")
-    ; {
-    ; ComX := ComX + x
-    ; transform, ComStby, chr, %ComX%
-    ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
-    ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-    ; }
-
-    If (Com == 1)
-    {
-      Err := ToolTipEx("?", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
-
-      Input x, L1 T2
-
-      If (x >= " ")
-      {
-        Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, 0x034E, uint, 2, uint, &ComStby, uint, &dwResult)
-        Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-
-        SoundBeep, 250, 80
-        SoundBeep, 250, 80
-
-        Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComActu, uint, &dwResult)
-        Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-
-        ; Err := _CMD("Switch Radio")
-      }
-      else SoundBeep, 250, 80
-
-    }
-
+_IsBlank(x) {
+  If (x = " ") ; Frequenzeingabe abbrechen
+  {
     SetNumLockState Off
     SetTimer, Aircraft_Scenario, On
     Err := ToolTipEx(,,,5)
-  Return 0
+
+    SoundBeep, 250, 880
+    Return 1
+  }
+Return 0
+}
+
+H_SetCom1:
+
+  If RightPedal_pressed ; Wenn ATC on
+    Return
+
+  If (Aktu_Sim == "X-System")
+    Err := _Set_XP_Com(0x5530, 1)
+  Else
+    Err := _Set_P3D_Com(0x311A, 1)
+
+  If Speech_Mute
+    Err := ToolTipEx("M", x_Tooltip5, y_Tooltip1, 5, HFONT, "Lime", "Black", "", "S")
+
+  If Speech_On
+    Err := ToolTipEx("S", x_Tooltip5, y_Tooltip1, 5, HFONT, "Lime", "Black", "", "S")
+Return
+
+H_SetCom2:
+
+  If RightPedal_pressed ; Wenn ATC on
+    Return
+  If (Aktu_Sim == "X-System")
+    Err := _Set_XP_Com(0x5534, 2)
+  Else
+    Err := _Set_P3D_Com(0x311C, 2)
+
+  If Speech_Mute
+    Err := ToolTipEx("M", x_Tooltip5, y_Tooltip1, 5, HFONT, "Lime", "Black", "", "S")
+
+  If Speech_On
+    Err := ToolTipEx("S", x_Tooltip5, y_Tooltip1, 5, HFONT, "Lime", "Black", "", "S")
+Return
+
+_Set_P3D_Com(ComOffsStby, Com) {
+  Local ComStby := 0x1800
+  Local ComActu := 0x1800
+  Local ComX := 0x1800
+
+  SetTimer, Aircraft_Scenario,Off
+  SetNumLockState On
+
+  Err := ToolTipEx("1", x_ToolTip5, y_ToolTip5, 5, HFONT, "RED", "withe", "", "S")
+  SoundBeep, 250, 80
+  While True
+  {
+    Input x, L1 ; x00.000
+
+    If _IsBlank(x)
+      Return
+
+    If (x = "1")
+    {
+      ComX := 0x1800
+      Break
+    }
+
+    SoundBeep, 250, 880
+  }
+
+  transform, ComStby, chr, %ComX%
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", uint, 0x034E, uint, 2, uint, &ComActu, uint, &dwResult)
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+
+  Err := ToolTipEx("2", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
+  ; s := format("{1:x}", ComX)
+  ; _Message("0x1" s, 0)
+
+  While True
+  {
+    Input x, L1 ; 0x0.000
+
+    If _IsBlank(x)
+      Return
+
+    If (x >= "1") And (x <= "3")
+    {
+      If (x >= "2") And (x <= "3")
+        ComX := 0x1000 * x
+      Break
+    }
+
+    SoundBeep, 250, 880
+  }
+
+  transform, ComStby, chr, %ComX%
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+
+  Err := ToolTipEx("3", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
+
+  If (ComX = 0x1800)
+    ComX := 0x1000
+
+  While True
+  {
+    Input x, L1 ; 00x.000
+
+    If _IsBlank(x)
+      Return
+
+    If (x >= "0") And (x <= "9") And Not ((ComX = 0x3000) And (x > 6))
+    {
+      If (ComX > 0x1000)
+      {
+        ComX := ComX + (0x0100 * x)
+        Break
+      }
+
+      If (x = "8") Or (x = "9")
+      {
+        ComX := 0x1000 + (0x0100 * x)
+        Break
+      }
+    }
+
+    SoundBeep, 250, 880
+  }
+
+  transform, ComStby, chr, %ComX%
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+
+  Err := ToolTipEx("4", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
+
+  While True
+  {
+    Input x, L1 ; 000.x00
+
+    If _IsBlank(x)
+      Return
+
+    If (x >= "0") And (x <= "9")
+    {
+      ComX := ComX + (0x0010 * x)
+      Break
+    }
+
+    SoundBeep, 250, 880
+  }
+
+  transform, ComStby, chr, %ComX%
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+
+  Err := ToolTipEx("5", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
+
+  While True
+  {
+    Input x, L1 ; 000.0x0
+
+    If _IsBlank(x)
+      Return
+
+    If (x >= "0") And (x <= "9")
+    {
+      ComX := ComX + (0x0001 * x)
+      Break
+    }
+
+    SoundBeep, 250, 880
+  }
+
+  transform, ComStby, chr, %ComX%
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
+  Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+
+  Err := ToolTipEx("6", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
+
+  Input x, L1 ; 000.00x funktioniert bei P3D nicht
+
+  ; If (x >= "0") And (x <= "9")
+  ; {
+  ; ComX := ComX + x
+  ; transform, ComStby, chr, %ComX%
+  ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComStby, uint, &dwResult)
+  ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+  ; }
+
+  If (Com == 1)
+  {
+    Err := ToolTipEx("?", x_Tooltip5, y_Tooltip5, 5, HFONT, "RED", "withe", "", "S")
+
+    Input x, L1 T2
+
+    If (x >= " ")
+    {
+      Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, 0x034E, uint, 2, uint, &ComStby, uint, &dwResult)
+      Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+
+      SoundBeep, 250, 80
+      SoundBeep, 250, 80
+
+      Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", uint, ComOffsStby, uint, 2, uint, &ComActu, uint, &dwResult)
+      Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+
+      ; Err := _CMD("Switch Radio")
+    }
+    else SoundBeep, 250, 80
+
+  }
+
+  SetNumLockState Off
+  SetTimer, Aircraft_Scenario, On
+  Err := ToolTipEx(,,,5)
+Return 0
 }
 
 _Set_XP_Com(ComOffsStby, Com) {
@@ -1918,7 +1913,7 @@ _Set_XP_Com(ComOffsStby, Com) {
   SetNumLockState Off
   SetTimer, Aircraft_Scenario, On
   Err := ToolTipEx(,,,5)
-  Return 0
+Return 0
 }
 
 Kill_Apps_before_SIM:
