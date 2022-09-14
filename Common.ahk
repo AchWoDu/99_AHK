@@ -1,8 +1,8 @@
-﻿Common_2022_09_12:
+﻿Common_2022_09_13:
 
 DEV_MAIN_INIT_VARs:
 
-  If false { ; zum testen setzen
+  If 0 { ; zum testen setzen
     MsgBox, Commen.ahk ExitApp zum Test
     ExitApp, 0
   }
@@ -1958,11 +1958,14 @@ Start_Apps_before_SIM:
     _Aircraft_Log("remove flightplans")
     Gosub, DeleteFlightPlans
 
-    _Aircraft_Log("show VATSIM map")
-    Err := _Cmd("show VATSIM map")
-
-    _Aircraft_Log("show IVAO map")
-    Err := _Cmd("show IVAO map")
+    If (ATC_str == "IVAO-ATC") {
+      _Aircraft_Log("show IVAO map")
+      Err := _Cmd("show IVAO map")
+    }
+    Else {
+      _Aircraft_Log("show VATSIM map")
+      Err := _Cmd("show VATSIM map")
+    }
 
     _Aircraft_Log("show simbrief")
     Err := _Cmd("show simbrief")

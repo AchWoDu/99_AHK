@@ -50,27 +50,19 @@ Else If (CMD_Text="take off trim") {
   Send {Shift Down}{Ctrl Down}{NumpadClear}{Shift Up}{Ctrl Up}
   Err := _Text_to_Speech(CMD_Text)
 }
-Else If (CMD_Text="reset aircraft scenario") { ; Lua Script
+Else If (CMD_Text="reset aircraft scenario") { ; LUA Script
 
-  If (Aktu_Sim == XPLANE)
-  {
+  If (Aktu_Sim == XPLANE) {
     Gosub Stop_Aircraft_Scenario		
-    ; mit VATSIM_IVAO_Switch.lua -> XUIPC-plugin neu starten
-    Send {Ctrl Down}{Alt Down}{NumpadDiv}{Alt Up}{Shift Up}{Ctrl Up}
+    ; VATSIM_IVAO_Switch.lua -> XUIPC-plugin neu starten
+    Send {Ctrl Down}{Alt Down}{NumpadDiv}{Alt Up}{Shift Up}{Ctrl Up} ; "NUM /"
+
     sleep, 3000	
     Gosub Start_Aircraft_Scenario		
   }	
 
 }
-;
-; Diffs zu CMD_P3D
-;
-; Else If (CMD_Text="reset heading") {
-; 	{
-; 		Send d
-; 		Err := _Text_to_Speech(CMD_Text)
-; 	}
-Else If (CMD_Text="run timer") {
+Else If (CMD_Text="run timer") { ; ggf. LUA Script
 
   Send {Shift Down}{Ctrl Down}{Alt Down}u{Alt Up}{Shift Up}{Ctrl Up}
   Err := _Text_to_Speech(CMD_Text)

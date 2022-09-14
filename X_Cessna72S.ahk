@@ -27,6 +27,27 @@ DEV_VARS:
   ; Global TRIM := 0 ; Temp VAR für Trim up/down
 
   #Include %A_ScriptDir%\Common.ahk
+
+DEV_VSpeeds_C172N_REMARKS:
+
+  ; Global TRIM := 0 ; Temp VAR für Trim up/down
+
+  ; DEV_VSpeeds_REMARKS:
+
+  ; Rotate (MTOM)			91 KIAS
+  ; Normal Climb (MTOM) 	167 KIA S (2480 fpm)
+  ; Flaps T/O 			200 KIAS
+  ; Full Flaps 			140 KIAS
+  ; Vyse 					130 KIAS
+  ; Performance cruise 	speed at 99.0% N1 	360 KTAS, FL250
+  ; Economy cruise 		speed at 95.4% N1 	332 KIAS, FL410
+  ; Normal max Vno 		285 KIAS
+  ; Never exceed Vne 		285 KIAS
+  ; Stall (clean) 		95 KIAS
+  ; Stall (land) 			76 KIAS
+  ; Final approach (full flaps) 99 KIAS
+  ; Max glide 			140 KIAS
+
 Return
 
 CMD_Process:
@@ -1099,48 +1120,48 @@ Return
 Show_DEBUG_Info:
   DebugText =
   (
-DEBUG Info:
-  Listen_On > %Listen_On%
-  Speech_Found > %Speech_Found%
-  Speech_On > %Speech_On%`n
-  CList_Active > %CheckList_Active%
-  PassFL80 > %PassingFL080%
+    DEBUG Info
+    Listen_On > %Listen_On%
+    Speech_Found > %Speech_Found%
+    Speech_On > %Speech_On%`n
+    CList_Active > %CheckList_Active%
+    PassFL80 > %PassingFL080%
 
-  PP > %PreflightProc_Ok%
-  PC > %PreflightCheck_Ok%
-  BT > %BeforeTaxi_Ok%
-  BTO > %BeforeTakeOff_Ok%
-  ATO > %AfterTakeOff_Ok%
-  BA > %BeforeApproach_Ok%
-  BL > %BeforeLanding_Ok%
-  AL > %AfterLanding_Ok%
-  PC > %Parking_Ok%
+    PP > %PreflightProc_Ok%
+    PC > %PreflightCheck_Ok%
+    BT > %BeforeTaxi_Ok%
+    BTO > %BeforeTakeOff_Ok%
+    ATO > %AfterTakeOff_Ok%
+    BA > %BeforeApproach_Ok%
+    BL > %BeforeLanding_Ok%
+    AL > %AfterLanding_Ok%
+    PC > %Parking_Ok%
 
-  AScr	 > %Aktu_Screen%
-  LScr	 > %Last_Screen%
+    AScr	 > %Aktu_Screen%
+    LScr	 > %Last_Screen%
 
-  FLAPS	 > %FLAPS%
-  FLAPS_V > %FLAPS_V% 
-  QALT	 > %QALT%
-  GALT	 > %GALT%
-  QALT 	 > %QALT%
+    FLAPS	 > %FLAPS%
+    FLAPS_V > %FLAPS_V% 
+    QALT	 > %QALT%
+    GALT	 > %GALT%
+    QALT 	 > %QALT%
 
-  Auto_Baro > %Auto_Baro%
-  STD_On > %STD_On%
+    Auto_Baro > %Auto_Baro%
+    STD_On > %STD_On%
 
-  CMD 	 > %DEBUG_CMD%
-  CMD_Process 	 > %DEBUG_CMD_Process%
-  Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
-  Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
-  Write_Statusbar > %DEBUG_Write_Statusbar%
-  Is_CheckItem	 > %DEBUG_Is_CheckItem%
-  Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
+    CMD 	 > %DEBUG_CMD%
+    CMD_Process 	 > %DEBUG_CMD_Process%
+    Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
+    Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
+    Write_Statusbar > %DEBUG_Write_Statusbar%
+    Is_CheckItem	 > %DEBUG_Is_CheckItem%
+    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
-  CP_Time > %CP_EndTime%
-  RFV_Time > %RFV_Time%
-  WSB_Time > %WSB_Time%	
-  ACS_Time > %ACS_Time% 
-  ACS_EndTime	 > %ACS_EndTime%
+    CP_Time > %CP_EndTime%
+    RFV_Time > %RFV_Time%
+    WSB_Time > %WSB_Time%	
+    ACS_Time > %ACS_Time% 
+    ACS_EndTime	 > %ACS_EndTime%
   )
 
   Err := ToolTipEx(DebugText, x_ToolTip10, y_ToolTip10, 10, HFONT, "WHITE", "BLACK", "", "S")
@@ -1619,7 +1640,7 @@ Return
   ; _Message("4Joy3", 3)
 Return
 
-4Joy4_UseGarmin_:
+4Joy4_UseGarmin_frei:
 4Joy4::
   WinActivate, ahk_class %Aktu_Sim%
 
@@ -1681,7 +1702,6 @@ Return
   Err := _CMD("hold altitude")
   ; _Message("4Joy6", 3)
 Return
-
 
 4Joy7_SpeechRec__HotkeyButton:
   ; WinActivate, ahk_class %Aktu_Sim%

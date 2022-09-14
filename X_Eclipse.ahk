@@ -24,7 +24,9 @@ DEV_VARS:
   Global STR_Flaps := ["FUP", "F10", "F20"]
   Global use_Garmin = False
 
-  ; DEV_VSpeeds_Eclipse550_REMARKS:
+  #Include %A_ScriptDir%\Common.ahk
+
+DEV_VSpeeds_Eclipse550_REMARKS:
 
   ; Rotate (MTOM)			91 KIAS
   ; Normal Climb (MTOM) 	167 KIA S (2480 fpm)
@@ -40,7 +42,6 @@ DEV_VARS:
   ; Final approach (full flaps) 99 KIAS
   ; Max glide 			140 KIAS
 
-  #Include %A_ScriptDir%\Common.ahk
 Return
 
 CMD_Process:

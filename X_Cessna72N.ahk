@@ -24,6 +24,9 @@ DEV_VARS:
   Global STR_Flaps := ["FUP","F10","F20","FDN"]
   Global use_Garmin = False
 
+  #Include %A_ScriptDir%\Common.ahk
+
+DEV_VSpeeds_C172N_REMARKS:
   ; Global TRIM := 0 ; Temp VAR für Trim up/down
 
   ; DEV_VSpeeds_REMARKS:
@@ -42,7 +45,6 @@ DEV_VARS:
   ; Final approach (full flaps) 99 KIAS
   ; Max glide 			140 KIAS
 
-  #Include %A_ScriptDir%\Common.ahk
 Return
 
 CMD_Process:
@@ -1144,48 +1146,48 @@ Show_DEBUG_Info:
 
   DebugText =
   (
-DEBUG Info:
-  Listen_On > %Listen_On%
-  Speech_Found > %Speech_Found%
-  Speech_On > %Speech_On%`n
-  CList_Active > %CheckList_Active%
-  PassFL80 > %PassingFL080%
+    DEBUG Info
+    Listen_On > %Listen_On%
+    Speech_Found > %Speech_Found%
+    Speech_On > %Speech_On%`n
+    CList_Active > %CheckList_Active%
+    PassFL80 > %PassingFL080%
 
-  PP > %PreflightProc_Ok%
-  PC > %PreflightCheck_Ok%
-  BT > %BeforeTaxi_Ok%
-  BTO > %BeforeTakeOff_Ok%
-  ATO > %AfterTakeOff_Ok%
-  BA > %BeforeApproach_Ok%
-  BL > %BeforeLanding_Ok%
-  AL > %AfterLanding_Ok%
-  PC > %Parking_Ok%
+    PP > %PreflightProc_Ok%
+    PC > %PreflightCheck_Ok%
+    BT > %BeforeTaxi_Ok%
+    BTO > %BeforeTakeOff_Ok%
+    ATO > %AfterTakeOff_Ok%
+    BA > %BeforeApproach_Ok%
+    BL > %BeforeLanding_Ok%
+    AL > %AfterLanding_Ok%
+    PC > %Parking_Ok%
 
-  AScr	 > %Aktu_Screen%
-  LScr	 > %Last_Screen%
+    AScr	 > %Aktu_Screen%
+    LScr	 > %Last_Screen%
 
-  FLAPS	 > %FLAPS%
-  FLAPS_V > %FLAPS_V% 
-  QALT	 > %QALT%
-  GALT	 > %GALT%
-  QALT 	 > %QALT%
+    FLAPS	 > %FLAPS%
+    FLAPS_V > %FLAPS_V% 
+    QALT	 > %QALT%
+    GALT	 > %GALT%
+    QALT 	 > %QALT%
 
-  Auto_Baro > %Auto_Baro%
-  STD_On > %STD_On%
+    Auto_Baro > %Auto_Baro%
+    STD_On > %STD_On%
 
-  CMD 	 > %DEBUG_CMD%
-  CMD_Process 	 > %DEBUG_CMD_Process%
-  Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
-  Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
-  Write_Statusbar > %DEBUG_Write_Statusbar%
-  Is_CheckItem	 > %DEBUG_Is_CheckItem%
-  Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
+    CMD 	 > %DEBUG_CMD%
+    CMD_Process 	 > %DEBUG_CMD_Process%
+    Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
+    Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
+    Write_Statusbar > %DEBUG_Write_Statusbar%
+    Is_CheckItem	 > %DEBUG_Is_CheckItem%
+    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
-  CP_Time > %CP_EndTime%
-  RFV_Time > %RFV_Time%
-  WSB_Time > %WSB_Time%	
-  ACS_Time > %ACS_Time% 
-  ACS_EndTime	 > %ACS_EndTime%
+    CP_Time > %CP_EndTime%
+    RFV_Time > %RFV_Time%
+    WSB_Time > %WSB_Time%	
+    ACS_Time > %ACS_Time% 
+    ACS_EndTime	 > %ACS_EndTime%
   )
 
   Err := ToolTipEx(DebugText, x_ToolTip10, y_ToolTip10, 10, HFONT, "WHITE", "BLACK", "", "S")
@@ -1675,7 +1677,7 @@ Return
 Return
 
 ; 4Joy4_HoldNavigation:
-4Joy4_MFDwindow_ChangeMenue:
+4Joy4_UseGarmin_ChangeMenue:
 4Joy4::
   WinActivate, ahk_class %Aktu_Sim%
 

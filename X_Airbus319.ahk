@@ -1,4 +1,4 @@
-X_Airbus319_2022_09_09:
+X_Airbus319_2022_09_13:
 
 DEV_VARS:
   Global TEST := False ; Or True ; Keine Programme starten
@@ -196,13 +196,6 @@ CMD_Process:
   ; 
   ; Controls
   ;
-  ; Else If (CMD_Text="flaps full up") ; warum auch immer
-  ; 	{
-  ; 		Send {F6 3}
-  ; 		; sleep 300
-  ; 		; Send {F6 1}
-  ; 		Err := _Text_to_Speech(CMD_Text)
-  ; 	}
   Else If (CMD_Text="flaps 1")
   {
     Send {F6 4}{F7 1}
@@ -218,13 +211,6 @@ CMD_Process:
     Send {F7 4}{F6 1}
     Err := _Text_to_Speech(CMD_Text)
   }
-  ; Else If (CMD_Text="flaps full down") ; warum auch immer
-  ; 	{
-  ; 		send {F7 3}
-  ; 		sleep 300
-  ; 		send {F7 3}
-  ; 		Err := _Text_to_Speech(CMD_Text)
-  ; 	}
   Else If (CMD_Text="reverse thrust")
   {
     Send {Shift Down}7{Shift Up}
@@ -261,20 +247,22 @@ CMD_Process:
     Err := _Text_to_Speech(CMD_Text)
   }
   Else If (CMD_Text="spoilers on") ; LUA Skript
-
   {
     Send {Ctrl Down}{#}{Ctrl Up}
     Err := _Text_to_Speech(CMD_Text)
   }
-
   Else If (CMD_Text="spoilers off")
   {
     Send {#}
     Err := _Text_to_Speech(CMD_Text)
   }
-  Else If (CMD_Text="go around") ; TODO:
+  Else If (CMD_Text="go around")
   {
-    Err := _Text_to_Speech(CMD_Text "Not implemented")
+    Send g ; gear up
+    Send {F6 4}{F7 2}
+    Send {#} ; spoiler off 
+
+    Err := _Text_to_Speech(CMD_Text)
   }
   Else If (CMD_Text="warnings off") ; ToLissKey (clear master warnings)
   {
@@ -349,16 +337,6 @@ CMD_Process:
   ;
   ; Others
   ;
-  ;
-  ; Else If (CMD_Text="run timer") ; LUA Function
-  ; 	Common XP-Command
-  ; Else If (CMD_Text="stop timer") ; LUA Function
-  ; 	Common XP-Command
-  ; Else If (CMD_Text="reset timer") ; LUA Function
-  ; 	Common XP-Command
-  ; Else If (CMD_Text="baro STANDARD") ; LUA Function
-  ; 	Common XP-Command
-  ; Else If (CMD_Text="baro QNH") ; LUA Function
 
   #Include %A_ScriptDir%\Common_CMD_XP.ahk
   #Include %A_ScriptDir%\Common_CMD.ahk
@@ -1198,7 +1176,7 @@ Return
 AIRCRAFT_INIT:
 
   If Not WinExist("WebFMC Pro")
-    Err := _CMD("browser CDU") ; öffnet 2 CDUs
+    Err := _CMD("browser CDU")
 
   ; 1 Monitor
   FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_1Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf ,
@@ -1207,10 +1185,10 @@ AIRCRAFT_INIT:
   ; FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_2Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf ,
 Return
 
-JOYSTICK_SECTION:
-  ; -------------------------------------------------------
+_JOYSTICK_SECTION:
+
   ; 1JoyX Wireless Gamepad
-  ; 3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
+  ; 3JoyX T-Flight Stick Hotas X (Hands On Throttle And Stick)
   ; 4JoyX Arduino
 
 3JoyPOV:
@@ -1365,9 +1343,7 @@ POV:
 
 Return
 
-3Joy01_CheckitemOk:
-  ; 3Joy1:: ; HOTAS _Joy_HM
-
+3Joy01_CheckitemOk: ; HOTAS _Joy_HM
   ; Als Hotkey Button definiert
 Return
 
@@ -1390,26 +1366,23 @@ Return
   Gosub Screen5
 Return
 
-3Joy03_SpeechRec:
-  ; 3Joy3:: ; HOTAS_Joy_RH
+3Joy03_SpeechRec: ; HOTAS_Joy_RH
   ; Als Hotkey Button definiert
 Return
 
-3Joy04_ATC:
-  ; 3Joy4:: ; HOTAS_Joy_RV
+3Joy04_ATC: ; HOTAS_Joy_RV
+  ; 3Joy4:: 
   ; Als Hotkey Button definiert
 Return
 
 3Joy05_AP_WarningsOff:
 3Joy5:: ; HOTAS_Thrust_RO
   x := 0
-  While GetKeyState("3Joy5")
-  {
+  While GetKeyState("3Joy5") {
     x := x + 1
     Sleep, ButtonWait_Delay
 
-    If x = 10
-    {
+    If x = 10 {
       Err := _CMD("warnings off")
       Return
     }
@@ -1544,17 +1517,19 @@ Return
 3Joy12_StopTimer_GoAround:
 3Joy12:: ; HOTAS _Thrust_UR
   x := 0
-  While GetKeyState("3Joy12")
-  {
+  While GetKeyState("3Joy12") {
     x := x + 1
     Sleep, ButtonWait_Delay
 
-    If x = 10
-    {
+    If x = 10 {
       Err := _CMD("go around")
       Return
     }
   }	
+  ; If AP
+  ;   err := _CMD("autopilot off")
+  ; Else
+  ;   err := _CMD("autopilot on")
 
   Err := _CMD("stop timer")
   Err := _CMD("strobe and landing lights off")
@@ -1669,7 +1644,7 @@ Return
   _Message("4Joy9", 3)
 Return
 
-_ARDUINO_Rotaries:
+_ARDUINO_Rotaries: 
   ;
 4Joy10_CourseDown:
 4Joy10::
@@ -1769,7 +1744,7 @@ Return
   ; _Message("speed up", 0)
 Return
 
-KEYBOARD_SECTION:
+_KEYBOARD_SECTION: ; NUMlock AN
   ; *		= wird immer ausgelöst auch wenn modifikaton
   ; $ 	= keine rekursion
   ; ~  	= Taste weiterleiten

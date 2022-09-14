@@ -1,4 +1,4 @@
-﻿P_Boeing737_2022_09_09: ; -> PMDG B737-800/-900
+﻿P_Boeing737_2022_09_13: ; -> PMDG B737-800/-900
 
 DEV_VARS:
   Global TEST := False ;Or True ; Keine Programme starten
@@ -1246,45 +1246,45 @@ Return
 Show_DEBUG_Info:
   DebugText =
   (
-DEBUG Info:
-  Listen_On > %Listen_On%
-  Speech_Found > %Speech_Found%
-  Speech_On > %Speech_On%`n
-  CList_Active > %CheckList_Active%
-  PassFL80 > %PassingFL080%
+    DEBUG Info
+    Listen_On > %Listen_On%
+    Speech_Found > %Speech_Found%
+    Speech_On > %Speech_On%`n
+    CList_Active > %CheckList_Active%
+    PassFL80 > %PassingFL080%
 
-  PP > %PreflightProc_Ok%
-  PC > %PreflightCheck_Ok%
-  BT > %BeforeTaxi_Ok%
-  BTO > %BeforeTakeOff_Ok%
-  ATO > %AfterTakeOff_Ok%
-  BA > %BeforeApproach_Ok%
-  BL > %BeforeLanding_Ok%
-  AL > %AfterLanding_Ok%
-  PC > %Parking_Ok%
+    PP > %PreflightProc_Ok%
+    PC > %PreflightCheck_Ok%
+    BT > %BeforeTaxi_Ok%
+    BTO > %BeforeTakeOff_Ok%
+    ATO > %AfterTakeOff_Ok%
+    BA > %BeforeApproach_Ok%
+    BL > %BeforeLanding_Ok%
+    AL > %AfterLanding_Ok%
+    PC > %Parking_Ok%
 
-  AScr	 > %Aktu_Screen%
-  LScr	 > %Last_Screen%
+    AScr	 > %Aktu_Screen%
+    LScr	 > %Last_Screen%
 
-  FLAPS	 > %FLAPS%
-  FLAPS_V > %FLAPS_V% 
-  QALT	 > %QALT%
-  GALT	 > %GALT%
-  QNH 	 > %QNH_HP%
+    FLAPS	 > %FLAPS%
+    FLAPS_V > %FLAPS_V% 
+    QALT	 > %QALT%
+    GALT	 > %GALT%
+    QNH 	 > %QNH_HP%
 
-  CMD 	 > %DEBUG_CMD%
-  CMD_Process 	 > %DEBUG_CMD_Process%
-  Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
-  Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
-  Write_Statusbar > %DEBUG_Write_Statusbar%
-  Is_CheckItem	 > %DEBUG_Is_CheckItem%
-  Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
+    CMD 	 > %DEBUG_CMD%
+    CMD_Process 	 > %DEBUG_CMD_Process%
+    Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
+    Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
+    Write_Statusbar > %DEBUG_Write_Statusbar%
+    Is_CheckItem	 > %DEBUG_Is_CheckItem%
+    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
-  CP_Time > %CP_EndTime%
-  RFV_Time > %RFV_Time%
-  WSB_Time > %WSB_Time%	
-  ACS_Time > %ACS_Time% 
-  ACS_EndTime	 > %ACS_EndTime%
+    CP_Time > %CP_EndTime%
+    RFV_Time > %RFV_Time%
+    WSB_Time > %WSB_Time%	
+    ACS_Time > %ACS_Time% 
+    ACS_EndTime	 > %ACS_EndTime%
   )
 
   Err := ToolTipEx(DebugText, x_ToolTip10, y_ToolTip10, 10, HFONT, "WHITE", "BLACK", "", "S")
@@ -1607,9 +1607,9 @@ Return
 Return
 
 _ARDUINO_Buttons:
-; 1 - 4
-; 2 - 5
-; 3 - 6
+  ; 1 - 4
+  ; 2 - 5
+  ; 3 - 6
 
 4Joy01_HoldVNAV:
 4Joy1::
@@ -1843,422 +1843,274 @@ NumpadDel:: ; NumpadDel
   Err := _CMD("reset view")
 Return
 
-; -------------------------------------------------------
 NUMPAD_SHIFT: ; NUMLock Aus
-  ; -------------------------------------------------------
   ; hierdurch wird Ctrl+Alt(6) (langsames Rotari) an LUA weitergegeben 
 
   ; +Home::
 +NumpadHome:: ; Numpad7
-  {
-    Send {Ctrl Down}{Alt Down}{Numpad7}{Alt Up}{Ctrl Up}
-    Return
-  }
-  ; ; +Up::
+  Send {Ctrl Down}{Alt Down}{Numpad7}{Alt Up}{Ctrl Up}
+Return
+; ; +Up::
 +NumpadUp:: ; Numpad8
-  {
-    Send {Ctrl Down}{Alt Down}{Numpad8}{Alt Up}{Ctrl Up}
-    Return
-  }
-  ; +PgUp::
+  Send {Ctrl Down}{Alt Down}{Numpad8}{Alt Up}{Ctrl Up}
+Return
+; +PgUp::
 +NumpadPgUp:: ; Numpad9
-  {
-    Send {Ctrl Down}{Alt Down}{Numpad9}{Alt Up}{Ctrl Up}
-    Return
-  }
-  ; +Left::
+  Send {Ctrl Down}{Alt Down}{Numpad9}{Alt Up}{Ctrl Up}
+Return
+; +Left::
 +NumpadLeft:: ; Numpad4
-  {
-    Send {Ctrl Down}{Alt Down}{Numpad4}{Alt Up}{Ctrl Up}
-    Return
-  }
+  Send {Ctrl Down}{Alt Down}{Numpad4}{Alt Up}{Ctrl Up}
+Return
 +NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Shift", 3)
-    Send {Ctrl Down}{Alt Down}{Numpad5}{Alt Up}{Ctrl Up}
-    Return
-  }
-  ; +Right::
+  _Message("Numpad5 mit Shift", 3)
+  Send {Ctrl Down}{Alt Down}{Numpad5}{Alt Up}{Ctrl Up}
+Return
+; +Right::
 +NumpadRight:: ; Numpad6
-  {
-    Send {Ctrl Down}{Alt Down}{Numpad6}{Alt Up}{Ctrl Up}
-    Return
-  }
-  ; +End::
+  Send {Ctrl Down}{Alt Down}{Numpad6}{Alt Up}{Ctrl Up}
+Return
+; +End::
 +NumpadEnd:: ; Numpad1
-  {
-    Send {Ctrl Down}{Alt Down}{Numpad1}{Alt Up}{Ctrl Up}
-    Return
-  }
-  ; +Down::
+  Send {Ctrl Down}{Alt Down}{Numpad1}{Alt Up}{Ctrl Up}
+Return
+; +Down::
 +NumpadDown:: ; Numpad2
-  {
-    Send {Ctrl Down}{Alt Down}{Numpad2}{Alt Up}{Ctrl Up}
-    Return
-  }
-  ; +PgDn::
+  Send {Ctrl Down}{Alt Down}{Numpad2}{Alt Up}{Ctrl Up}
+Return
+; +PgDn::
 +NumpadPgDn:: ; Numpad3
-  {
-    Send {Ctrl Down}{Alt Down}{Numpad3}{Alt Up}{Ctrl Up}
-    Return
-  }
-  ; +Ins::
+  Send {Ctrl Down}{Alt Down}{Numpad3}{Alt Up}{Ctrl Up}
+Return
+; +Ins::
 +NumpadIns:: ; Numpad0
-  {
-    Send {Ctrl Down}{Alt Down}{Numpad0}{Alt Up}{Ctrl Up}
-    Return
-  }
-  ; Del::
+  Send {Ctrl Down}{Alt Down}{Numpad0}{Alt Up}{Ctrl Up}
+Return
+; Del::
 +NumpadDel:: ; NumpadDel
-  {
-    Send {Ctrl Down}{Alt Down}{NumpadDot}{Alt Up}{Ctrl Up}
-    Return
-  }
+  Send {Ctrl Down}{Alt Down}{NumpadDot}{Alt Up}{Ctrl Up}
+Return
 
-  ; -------------------------------------------------------
 NUMPAD_CTRL: ; NUMLock Aus
-  ; -------------------------------------------------------
   ; hierdurch (schnelles Rotari) an LUA weitergegeben 
 
   ; ^Home::
 ^NumpadHome:: ; Numpad7
-  {
-    Send {Ctrl Down}{Numpad7}{Ctrl Up}
-    Return
-  }
-  ; ^Up::
+  Send {Ctrl Down}{Numpad7}{Ctrl Up}
+Return
+; ^Up::
 ^NumpadUp:: ; Numpad8
-  {
-    Send {Ctrl Down}{Numpad8}{Ctrl Up}
-    Return
-  }
-  ; ^PgUp::
+  Send {Ctrl Down}{Numpad8}{Ctrl Up}
+Return
+; ^PgUp::
 ^NumpadPgUp:: ; Numpad9
-  {
-    Send {Ctrl Down}{Numpad9}{Ctrl Up}
-    Return
-  }
-  ; ^Left::
+  Send {Ctrl Down}{Numpad9}{Ctrl Up}
+Return
+; ^Left::
 ^NumpadLeft:: ; Numpad4
-  {
-    Send {Ctrl Down}{Numpad4}{Ctrl Up}
-    Return
-  }
+  Send {Ctrl Down}{Numpad4}{Ctrl Up}
+Return
 ^NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Ctrl", 3)
-    Send {Ctrl Down}{Numpad5}{Ctrl Up}
-    Return
-  }
-  ; ^Right::
+  _Message("Numpad5 mit Ctrl", 3)
+  Send {Ctrl Down}{Numpad5}{Ctrl Up}
+Return
+; ^Right::
 ^NumpadRight:: ; Numpad6
-  {
-    Send {Ctrl Down}{Numpad6}{Ctrl Up}
-    Return
-  }
-  ; ^End::
+  Send {Ctrl Down}{Numpad6}{Ctrl Up}
+Return
+; ^End::
 ^NumpadEnd:: ; Numpad1
-  {
-    Send {Ctrl Down}{Numpad1}{Ctrl Up}
-    Return
-  }
-  ; ^Down::
+  Send {Ctrl Down}{Numpad1}{Ctrl Up}
+Return
+; ^Down::
 ^NumpadDown:: ; Numpad2
-  {
-    Send {Ctrl Down}{Numpad2}{Ctrl Up}
-    Return
-  }
-  ; ^PgDn::
+  Send {Ctrl Down}{Numpad2}{Ctrl Up}
+Return
+; ^PgDn::
 ^NumpadPgDn:: ; Numpad3
-  {
-    Send {Ctrl Down}{Numpad3}{Ctrl Up}
-    Return
-  }
-  ; ^Ins::
+  Send {Ctrl Down}{Numpad3}{Ctrl Up}
+Return
+; ^Ins::
 ^NumpadIns:: ; Numpad0
-  {
-    Send {Ctrl Down}{Numpad0}{Ctrl Up}
-    Return
-  }
-  ; Del::
+  Send {Ctrl Down}{Numpad0}{Ctrl Up}
+Return
+; Del::
 ^NumpadDel:: ; NumpadDel
-  {
-    Send {Ctrl Down}{NumpadDot}{Ctrl Up}
-    Return
-  }
+  Send {Ctrl Down}{NumpadDot}{Ctrl Up}
+Return
 
-  ; -------------------------------------------------------
 NUMPAD_SHIFT_CTRL: ; NUMLock Aus
-  ; -------------------------------------------------------
 
   ; +^Home::
 +^NumpadHome:: ; Numpad7
-  {
-    Return
-  }
-  ; +^Up::
+Return
+; +^Up::
 +^NumpadUp:: ; Numpad8
-  {
-    Return
-  }
-  ; +^PgUp::
+Return
+; +^PgUp::
 +^NumpadPgUp:: ; Numpad9
-  {
-    Return
-  }
-  ; +^Left::
+Return
+; +^Left::
 +^NumpadLeft:: ; Numpad4
-  {
-    Return
-  }
+Return
 +^NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Shift+Ctrl", 3)
-    Return
-  }
-  ; +^Right::
+  _Message("Numpad5 mit Shift+Ctrl", 3)
+Return
+; +^Right::
 +^NumpadRight:: ; Numpad6
-  {
-    Return
-  }
-  ; +^End::
+Return
+; +^End::
 +^NumpadEnd:: ; Numpad1
-  {
-    Return
-  }
-  ; +^Down::
+Return
+; +^Down::
 +^NumpadDown:: ; Numpad2
-  {
-    Return
-  }
-  ; +^PgDn::
+Return
+; +^PgDn::
 +^NumpadPgDn:: ; Numpad3
-  {
-    Return
-  }
-  ; +^Ins::
+Return
+; +^Ins::
 +^NumpadIns:: ; Numpad0
-  {
-    Return
-  }
-  ; Del::
+Return
+; Del::
 +^NumpadDel:: ; NumpadDel
-  {
-    Return
-  }
+Return
 
-  ; -------------------------------------------------------
 NUMPAD_ALT: ; NUMLock Aus
-  ; -------------------------------------------------------
 
 !NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Alt", 3)
-    Return
-  }
+  _Message("Numpad5 mit Alt", 3)
+Return
 
-  ; -------------------------------------------------------
 NUMPAD_SHIFT_ALT: ; NUMLock Aus
-  ; -------------------------------------------------------
 
 +!NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Shift+Alt", 3)
-    Return
-  }
+  _Message("Numpad5 mit Shift+Alt", 3)
+Return
 
-  ; -------------------------------------------------------
-NUMPAD_CTRL_ALT: ; NUMLock Aus
-  ; -------------------------------------------------------
-
-^!NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Ctrl+Alt", 3)
-    Return
-  }
-
-  ; -------------------------------------------------------
 NUMPAD_CTRL_ALTGr: ; NUMLock Aus
-  ; -------------------------------------------------------
   ; remapt auf POV 1..9
 
   ; +Home::
 ^!NumpadHome:: ; Numpad7
-  {
-    Send {Ctrl Down}{7 3}{Ctrl Up}
-    Return
-  }
-  ; ^!Up::
+  Send {Ctrl Down}{7 3}{Ctrl Up}
+Return
+; ^!Up::
 ^!NumpadUp:: ; Numpad8
-  {
-    Send {Ctrl Down}{8 3}{Ctrl Up}
-    Return
-  }
-  ; ^!PgUp::
+  Send {Ctrl Down}{8 3}{Ctrl Up}
+Return
+; ^!PgUp::
 ^!NumpadPgUp:: ; Numpad9
-  {
-    Send {Ctrl Down}{9 3}{Ctrl Up}
-    Return
-  }
-  ; ^!Left::
+  Send {Ctrl Down}{9 3}{Ctrl Up}
+Return
+; ^!Left::
 ^!NumpadLeft:: ; Numpad4
-  {
-    ; Send {Ctrl Down}{4 3}{Ctrl Up} ; 4 klappt nicht nur bei Aerosoft
-    Send {Ctrl Down}{5 3}{Ctrl Up}
-    Return
-  }
+  ; Send {Ctrl Down}{4 3}{Ctrl Up} ; 4 klappt nicht nur bei Aerosoft
+  Send {Ctrl Down}{5 3}{Ctrl Up}
+Return
 
-  ; ^!NumpadClear:: ; Numpad5
-  ; {
-  ; 	_Message("Numpad5 mit Ctrl+Alt", 3)
-  ; 	Return
-  ; }
+^!NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Ctrl+Alt", 3)
+Return
 
-  ; ^!Right::
+; ^!Right::
 ^!NumpadRight:: ; Numpad6
-  {
-    Send {Ctrl Down}{6 3}{Ctrl Up}
-    Return
-  }
-  ; ^!End::
+  Send {Ctrl Down}{6 3}{Ctrl Up}
+Return
+; ^!End::
 ^!NumpadEnd:: ; Numpad1
-  {
-    Send {Ctrl Down}{1 3}{Ctrl Up}
-    Return
-  }
-  ; ^!Down::
+  Send {Ctrl Down}{1 3}{Ctrl Up}
+Return
+; ^!Down::
 ^!NumpadDown:: ; Numpad2
-  {
-    Send {Ctrl Down}{2 3}{Ctrl Up}
-    Return
-  }
-  ; ^!PgDn::
+  Send {Ctrl Down}{2 3}{Ctrl Up}
+Return
+; ^!PgDn::
 ^!NumpadPgDn:: ; Numpad3
-  {
-    Send {Ctrl Down}{3 3}{Ctrl Up}
-    Return
-  }
-  ; ^!Ins::
+  Send {Ctrl Down}{3 3}{Ctrl Up}
+Return
+; ^!Ins::
 ^!NumpadIns:: ; Numpad0
-  {
-    Return
-  }
-  ; Del::
+Return
+; Del::
 ^!NumpadDel:: ; NumpadDel
-  {
-    Return
-  }
+Return
 
-  ; -------------------------------------------------------
 NUMPAD_SHIFT_CTRL_ALT: ; NUMLock Aus
-  ; -------------------------------------------------------
-
+  ;
 +^!NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Shift+Ctrl+Alt", 3)
-    Return
-  }
+  _Message("Numpad5 mit Shift+Ctrl+Alt", 3)
+Return
 
-  ; -------------------------------------------------------
 NUMPAD_WIN: ; NUMLock Aus
-  ; -------------------------------------------------------
+  ;
 
 #NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Win", 3)
-    Return
-  }
+  _Message("Numpad5 mit Win", 3)
+Return
 
-  ; -------------------------------------------------------
 NUMPAD_SHIFT_WIN: ; NUMLock Aus
-  ; -------------------------------------------------------
-
+  ;
 +#NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Shift+Win", 3)
-    Return
-  }
+  _Message("Numpad5 mit Shift+Win", 3)
+Return
 
-  ; -------------------------------------------------------
 NUMPAD_CTRL_WIN: ; NUMLock Aus
-  ; -------------------------------------------------------
+  ;
 
 ^#NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Ctrl+Win", 3)
-    Return
-  }
+  _Message("Numpad5 mit Ctrl+Win", 3)
+Return
 
-  ; -------------------------------------------------------
 NUMPAD_SHIFT_CTRL_WIN: ; NUMLock Aus
-  ; -------------------------------------------------------
+  ;
 
 +^#NumpadClear:: ; Numpad5
-  {
-    _Message("Numpad5 mit Shift+Ctrl+Win", 3)
-    Return
-  }
+  _Message("Numpad5 mit Shift+Ctrl+Win", 3)
+Return
 
-  ; NUMLock Aus
-  ; Shift  Ctrl  Alt  Win
-  ;	-	  -	    -    -		ok nutzbar in P3D	Views
-  ;	x	  -	    -    -		ok ./. in P3D		remapt Shift-Ctrl Speed/Heading/feet slow
-  ;	-	  x	    -    -		ok nutzbar in P3D	Speed/Heading/feet fast
-  ;	x	  x	    -    -		ok ./. in P3D		
-  ;	-	  -	    x    -		ok ./. in P3D
-  ;	x	  -	    x    -		ok ./. in P3D4
-  ;	-	  x	    x    -		ok AltGr in P3D 	remapt in POV Ctrl-1..9
-  ;	x	  x	    x    -		ok AltGr in P3D 	
-  ;	-	  x	    -    x		ok ./. in P3D 
+; NUMLock Aus
+; Shift  Ctrl  Alt  Win
+;	-	  -	    -    -		ok nutzbar in P3D	Views
+;	x	  -	    -    -		ok ./. in P3D		remapt Shift-Ctrl Speed/Heading/feet slow
+;	-	  x	    -    -		ok nutzbar in P3D	Speed/Heading/feet fast
+;	x	  x	    -    -		ok ./. in P3D		
+;	-	  -	    x    -		ok ./. in P3D
+;	x	  -	    x    -		ok ./. in P3D4
+;	-	  x	    x    -		ok AltGr in P3D 	remapt in POV Ctrl-1..9
+;	x	  x	    x    -		ok AltGr in P3D 	
+;	-	  x	    -    x		ok ./. in P3D 
 
-  ; -------------------------------------------------------
 NUMPAD_mit_NUMLOCK: ; mit NUMLOCK gedrückt
-  ; -------------------------------------------------------
+  ;
 
 Numpad5:: ; !! NOCH FREI
-  {
-    _Message("Numlock Numpad5", 3)
-    Return
-  }
+  _Message("Numlock Numpad5", 3)
+Return
 
 +Numpad5:: ; ./. SHIFT wird ignoriert
-  {
-    _Message("Numlock Numpad5 mit Shift", 3)
-    Return
-  }
+  _Message("Numlock Numpad5 mit Shift", 3)
+Return
 
 ^Numpad5:: ; !! VERGEBEN für Rotari Knobs ...
-  {
-    _Message("Numlock Numpad5 mit Ctrl", 3)
-    Return
-  }
+  _Message("Numlock Numpad5 mit Ctrl", 3)
+Return
 
 +^Numpad5:: ; ./. SHIFT wird ignoriert
-  {
-    _Message("Numlock Numpad5 mit Shift+Ctrl", 3)
-    Return
-  }
+  _Message("Numlock Numpad5 mit Shift+Ctrl", 3)
+Return
 
 !Numpad5:: ; ./. ALT=Menu immer im Flight Sim vergeben
-  {
-    _Message("Numlock Numpad5 mit Alt", 3)
-    Return
-  }
+  _Message("Numlock Numpad5 mit Alt", 3)
+Return
 
 +!Numpad5:: ; ./.  SHIFT wird ignoriert und damit ALT=Menu 
-  {
-    _Message("Numlock Numpad5 mit Shift+Alt", 3)
-    Return
-  }
+  _Message("Numlock Numpad5 mit Shift+Alt", 3)
+Return
 
 ^!Numpad5:: ; !! VERGEBEN für Rotari Knobs ...
-  {
-    _Message("Numlock Numpad5 mit Ctrl+Alt", 3)
-    Return
-  }
+  _Message("Numlock Numpad5 mit Ctrl+Alt", 3)
+Return
 
 +^!Numpad5:: ;./.  ergibt Numpad5 OHNE Numlock
-  {
-    _Message("Numlock Numpad5 mit Shift+Ctrl+Alt", 3)
-    Return
-  }
+  _Message("Numlock Numpad5 mit Shift+Ctrl+Alt", 3)
+Return

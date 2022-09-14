@@ -275,8 +275,8 @@ CMD_Process:
   Else If (CMD_Text="go around")
   {
     Send {F12} ; ToGa thrust
-    Send {F6 6}{F7 3} ; Flaps 5
     Send g ; gear up
+    Send {F6 6}{F7 3} ; Flaps 5
 
     Err := _Text_to_Speech(CMD_Text)
   }
@@ -1177,48 +1177,48 @@ Return
 Show_DEBUG_Info:
   DebugText =
   (
-DEBUG Info:
-  Listen_On > %Listen_On%
-  Speech_Found > %Speech_Found%
-  Speech_On > %Speech_On%`n
-  CList_Active > %CheckList_Active%
-  PassFL80 > %PassingFL080%
+    DEBUG Info
+    Listen_On > %Listen_On%
+    Speech_Found > %Speech_Found%
+    Speech_On > %Speech_On%`n
+    CList_Active > %CheckList_Active%
+    PassFL80 > %PassingFL080%
 
-  PP > %PreflightProc_Ok%
-  PC > %PreflightCheck_Ok%
-  BT > %BeforeTaxi_Ok%
-  BTO > %BeforeTakeOff_Ok%
-  ATO > %AfterTakeOff_Ok%
-  BA > %BeforeApproach_Ok%
-  BL > %BeforeLanding_Ok%
-  AL > %AfterLanding_Ok%
-  PC > %Parking_Ok%
+    PP > %PreflightProc_Ok%
+    PC > %PreflightCheck_Ok%
+    BT > %BeforeTaxi_Ok%
+    BTO > %BeforeTakeOff_Ok%
+    ATO > %AfterTakeOff_Ok%
+    BA > %BeforeApproach_Ok%
+    BL > %BeforeLanding_Ok%
+    AL > %AfterLanding_Ok%
+    PC > %Parking_Ok%
 
-  AScr	 > %Aktu_Screen%
-  LScr	 > %Last_Screen%
+    AScr	 > %Aktu_Screen%
+    LScr	 > %Last_Screen%
 
-  FLAPS	 > %FLAPS%
-  FLAPS_V > %FLAPS_V% 
-  QALT	 > %QALT%
-  GALT	 > %GALT%
-  QALT 	 > %QALT%
+    FLAPS	 > %FLAPS%
+    FLAPS_V > %FLAPS_V% 
+    QALT	 > %QALT%
+    GALT	 > %GALT%
+    QALT 	 > %QALT%
 
-  Auto_Baro > %Auto_Baro%
-  STD_On > %STD_On%
+    Auto_Baro > %Auto_Baro%
+    STD_On > %STD_On%
 
-  CMD 	 > %DEBUG_CMD%
-  CMD_Process 	 > %DEBUG_CMD_Process%
-  Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
-  Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
-  Write_Statusbar > %DEBUG_Write_Statusbar%
-  Is_CheckItem	 > %DEBUG_Is_CheckItem%
-  Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
+    CMD 	 > %DEBUG_CMD%
+    CMD_Process 	 > %DEBUG_CMD_Process%
+    Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
+    Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
+    Write_Statusbar > %DEBUG_Write_Statusbar%
+    Is_CheckItem	 > %DEBUG_Is_CheckItem%
+    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
-  CP_Time > %CP_EndTime%
-  RFV_Time > %RFV_Time%
-  WSB_Time > %WSB_Time%	
-  ACS_Time > %ACS_Time% 
-  ACS_EndTime	 > %ACS_EndTime%
+    CP_Time > %CP_EndTime%
+    RFV_Time > %RFV_Time%
+    WSB_Time > %WSB_Time%	
+    ACS_Time > %ACS_Time% 
+    ACS_EndTime	 > %ACS_EndTime%
   )
 
   Err := ToolTipEx(DebugText, x_ToolTip10, y_ToolTip10, 10, HFONT, "WHITE", "BLACK", "", "S")
@@ -1236,7 +1236,7 @@ AIRCRAFT_INIT:
   ; FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_2Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf ,
 Return
 
-JOYSTICK_SECTION:
+_JOYSTICK_SECTION: 
   ; 1JoyX Wireless Gamepad
   ; 3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
   ; 4JoyX Arduino
@@ -1392,16 +1392,15 @@ POV:
 
 Return
 
-3Joy01_CheckItemOk:
-  ; 3Joy1:: ; HOTAS _Joy_HM
+3Joy01_CheckItemOk: ; HOTAS _Joy_HM
+  ; 3Joy1:: 
   ; Als Hotkey Button definiert
 Return
 
 3Joy02_MainPanel_GreatPanel:
 3Joy2:: ; HOTAS _Joy_VM
   x := 0
-  While GetKeyState("3Joy2")
-  {
+  While GetKeyState("3Joy2") {
     x := x + 1
     Sleep, ButtonWait_Delay
 
@@ -1416,13 +1415,13 @@ Return
   Gosub Screen5
 Return
 
-3Joy03_SpeechRec:
-  ; 3Joy3:: ; HOTAS_Joy_RH
+3Joy03_SpeechRec: ; HOTAS_Joy_RH
+  ; 3Joy3:: 
   ; Als Hotkey Button definiert
 Return
 
-3Joy04_ATC:
-  ; 3Joy4:: ; HOTAS_Joy_RV
+3Joy04_ATC: ; HOTAS_Joy_RV
+  ; 3Joy4:: 
   ; Als Hotkey Button definiert
 Return
 
@@ -1587,11 +1586,10 @@ Return
   Err := _CMD("flaps full up")
 Return
 
-_ARDUINO_Buttons:
+_ARDUINO_Buttons: 
   ; 1 - 4
   ; 2 - 5
   ; 3 - 6
-
 
 4Joy01_HoldVNAV:
 4Joy1::
@@ -1699,8 +1697,8 @@ Return
   _Message("4Joy9", 0)
 Return
 
-_ARDUINO_Rotaries:
-
+_ARDUINO_Rotaries: 
+  ;
 4Joy10_CourseDown:
 4Joy10::
   WinActivate, ahk_class %Aktu_Sim%
@@ -1811,7 +1809,7 @@ Return
   ; _Message("VSpeed up", 0)
 Return
 
-KEYBOARD_SECTION:
+_KEYBOARD_SECTION: ; NUMlock AN
   ; *		= wird immer ausgelöst auch wenn modifikaton
   ; $ 	= keine rekursion
   ; ~  	= Taste weiterleiten
@@ -1915,8 +1913,8 @@ $NumpadDel:: ; NumpadDel
   Send w ; landing panel
 Return
 
-NUMPAD_CTRL: ; NUMLock Aus
-
+_NUMPAD_CTRL: ; NUMLock AUS
+  ;
 Ctrl_NumHome_SpeedUp:
 ^NumpadHome:: ; Numpad7
   WinActivate, ahk_class %Aktu_Sim%

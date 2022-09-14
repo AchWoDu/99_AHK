@@ -19,7 +19,8 @@ Alt+ ↑ / ↓                *Move line up/down
 Shift+Alt + ↓ / ↑         *Copy line up/down
 Ctrl+Enter                *Insert line below
 Ctrl+Shift+Enter          *Insert line above
-Ctrl+Shift+\              *Jump to matching bracket
+Ctrl+Shift+^              *Jump to matching bracket
+Ctrl+Alt+^                *select between brackets
 
 Home / End                 Go to beginning/end of line
 Ctrl+Home                  Go to beginning of file
@@ -83,13 +84,13 @@ Ctrl+Space, Ctrl+I         Trigger suggestion
 Ctrl+Shift+Space           Trigger parameter hints
 Shift+Alt+F               *Format document
 Ctrl+K Ctrl+F             *Format selection
-F12                        Go to Definition
-Alt+F12                    Peek Definition
+F12                       *Go to Definition
+Alt+F12                   *Peek Definition
 Ctrl+K F12                 Open Definition to the side
 Ctrl+.                     Quick Fix
 Shift+F12                  Show References
-F2                         Rename Symbol
-Ctrl+K Ctrl+X              Trim trailing whitespace
+F2                        *Rename Symbol
+Ctrl+K Ctrl+X             *Trim trailing whitespace
 Ctrl+K M                   Change file language
 
 ## VSC_Editor_management
@@ -135,7 +136,7 @@ Ctrl+Shift+J               Toggle Search details
 Ctrl+Shift+U               Show Output panel
 Ctrl+Shift+V               Open Markdown preview
 Ctrl+K V                   Open Markdown preview to the side
-Ctrl+K Z                   Zen Mode (Esc Esc to exit)
+Ctrl+K Z                  *Zen Mode (Esc Esc to exit)
 
 ## VSC_Debug:
 

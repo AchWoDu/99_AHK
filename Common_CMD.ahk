@@ -1,19 +1,17 @@
-﻿; Common_CMD_2022_09_09
+﻿; Common_CMD_2022_09_13
 ; 
 ; Checklisten
 ;
 Else If (CMD_Text="preflight procedure") {
 
-  If Not (CheckList_Active Or RightPedal_Pressed)
-  {
+  If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _Preflight_Procedure, %Checklist_Delay%
   }
 }
 Else If (CMD_Text="preflight checklist") {
 
-  If Not (CheckList_Active Or RightPedal_Pressed)
-  {
+  If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _Preflight_Checklist, %Checklist_Delay%
   }
@@ -36,8 +34,7 @@ Else If (CMD_Text="preflight is ok") {
 }
 Else If (CMD_Text="before taxi checklist") {
 
-  If Not (CheckList_Active Or RightPedal_Pressed)
-  {
+  If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _BeforeTaxi_Checklist, %Checklist_Delay%
   }
@@ -60,8 +57,7 @@ Else If (CMD_Text="before taxi is ok") {
 }
 Else If (CMD_Text="before take off checklist") {
 
-  If Not (CheckList_Active Or RightPedal_Pressed)
-  {
+  If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _BeforeTakeOff_Checklist, %Checklist_Delay%
   }
@@ -84,8 +80,7 @@ Else If (CMD_Text="before take off is ok") {
 }
 Else If (CMD_Text="after take off checklist") {
 
-  If Not (CheckList_Active Or RightPedal_Pressed)
-  {
+  If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _AfterTakeOff_Checklist, %Checklist_Delay%
   }
@@ -108,8 +103,7 @@ Else If (CMD_Text="after take off is ok") {
 }
 Else If (CMD_Text="before approach checklist") {
 
-  If Not (CheckList_Active Or RightPedal_Pressed)
-  {
+  If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _BeforeApproach_Checklist, %Checklist_Delay%
   }
@@ -132,24 +126,21 @@ Else If (CMD_Text="before approach is ok") {
 }
 Else If (CMD_Text="before landing checklist") {
 
-  If Not (CheckList_Active Or RightPedal_Pressed)
-  {
+  If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _BeforeLanding_Checklist, %Checklist_Delay%
   }
 }
 Else If (CMD_Text="after landing checklist") {
 
-  If Not (CheckList_Active Or RightPedal_Pressed)
-  {
+  If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _AfterLanding_Checklist, %Checklist_Delay%
   }
 }
 Else If (CMD_Text="parking checklist") {
 
-  If Not (CheckList_Active Or RightPedal_Pressed)
-  {
+  If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _Parking_Checklist, %Checklist_Delay%
   }
@@ -233,8 +224,7 @@ Else If (CMD_Text="press 3") {
 ; }
 Else If (CMD_Text="speech mute") {
 
-  If Not Speech_On
-  {
+  If Not Speech_On {
     Speech_Mute := True
     Err := ToolTipEx("M", x_Tooltip5, y_Tooltip1, 5, HFONT, "Lime", "Black", "", "S") 
   }
@@ -320,8 +310,7 @@ Else If (CMD_Text="reset status bar") {
 }
 Else If (CMD_Text="move status bar") {
 
-  if (TTex_xVersatz < MoveStatusBar_RL)
-  {
+  if (TTex_xVersatz < MoveStatusBar_RL) {
     TTex_xVersatz := TTex_xVersatz + MoveStatusBar_RL
 
     x_ToolTip1 := x_ToolTip1 + MoveStatusBar_RL ; SpeechRec-Command-Anzeigen
@@ -335,8 +324,7 @@ Else If (CMD_Text="move status bar") {
     x_ToolTip9 := x_ToolTip9 + MoveStatusBar_RL ; _Error_Message()
     x_ToolTip10 := x_ToolTip10 + MoveStatusBar_RL ; !!! ToolTip -> Show_DEBUG_Info
   }	
-  Else
-  {
+  Else {
     TTex_xVersatz := TTex_xVersatz - MoveStatusBar_RL
 
     x_ToolTip1 := x_ToolTip1 - MoveStatusBar_RL ; SpeechRec-Command-Anzeigen
@@ -440,8 +428,7 @@ Else If (CMD_Text="show simbrief") {
 
   WinActivate, SimBrief.com
 
-  If Not WinExist("SimBrief Downloader")
-  {
+  If Not WinExist("SimBrief Downloader") {
     ; _message("Open SimBrief!",3)
     Run, "C:\Users\achim\AppData\Local\Programs\SimBrief Downloader\SimBrief Downloader.exe"
     Run, %Chrome_Tab1%%SimBrief_Web%
@@ -465,8 +452,7 @@ Else If (CMD_Text="show IVAO map") {
 }
 Else If (CMD_Text="show little nav map") {
 
-  If Not WinExist("Little Navmap")
-  {
+  If Not WinExist("Little Navmap") {
     _message("Starte Little Navmap!",3)
     Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_LittleNM,,Hide
   }
@@ -476,14 +462,12 @@ Else If (CMD_Text="show little nav map") {
 }
 Else If (CMD_Text="show active sky") {
 
-  If (Aktu_Sim = XPLANE) And Not WinExist("Active Sky")
-  {
+  If (Aktu_Sim = XPLANE) And Not WinExist("Active Sky") {
     _Message("Starte ActiveSkyXP!", 3)
     Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_ActiveSkyXP,,Hide	
   }
 
-  If (Aktu_Sim = P3DV4) And Not WinExist("Active Sky")
-  {
+  If (Aktu_Sim = P3DV4) And Not WinExist("Active Sky") {
     _Message("Starte ActiveSkyP3D!", 3)
     Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_ActiveSky,,Hide
   }
@@ -494,12 +478,10 @@ Else If (CMD_Text="show active sky") {
 Else If (CMD_Text="show vaBase") {
 
   ; vabase anzeigen/ oder FP laden vabase starten und FP laden
-  If WinExist("vaBase Live")
-  {
+  If WinExist("vaBase Live") {
     WinActivate, vaBase Live
   }
-  Else
-  {
+  Else {
     _Message("vaBase nicht gestartet!?", 3)
   }
 
@@ -507,8 +489,7 @@ Else If (CMD_Text="show vaBase") {
 }
 Else If (CMD_Text="show team speak") {
 
-  If Not WinExist("TeamSpeak 3")
-  {
+  If Not WinExist("TeamSpeak 3") {
     ; _message("Open TeamSpeak 3!",3)
     Run, "D:\Games\TeamSpeak 3 Client\ts3client_win64.exe",,,TeamSpeak3_PID
   }
@@ -518,8 +499,7 @@ Else If (CMD_Text="show team speak") {
 }
 Else If (CMD_Text="show discord") {
 
-  If Not WinExist("Discord")
-  {
+  If Not WinExist("Discord") {
     _message("Open Discord!",3)
     Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_Discord,,Hide
   }
@@ -538,20 +518,17 @@ Else If (CMD_Text="show aircraft type") {
 ;
 Else If (CMD_Text="goto VATSIM") { ; TODO:
 
-  If IVAO_active
-  {
+  If IVAO_active {
     _Error_Message("IVAO is active!", 3)
   }
-  Else
-  {
+  Else {
     VATSIM_active := True
     IVAO_active := False
 
     ; Problem Fahrwerke XCSL/BlueBell TODO:
 
     ; über VATSIM_IVAO_Switch.lua XUIPC-plugin neu starten (LVARS neu einlesen)
-    If (Aktu_Sim == XPLANE)
-    {
+    If (Aktu_Sim == XPLANE) {
       Gosub Stop_Aircraft_Scenario		
       Send {Ctrl Down}{Alt Down}{NumpadDiv}{Alt Up}{Shift Up}{Ctrl Up}
       sleep, 3000	
@@ -568,8 +545,8 @@ Else If (CMD_Text="goto VATSIM") { ; TODO:
       Run, D:\Games\VATSIM\VPilot\VPilot.exe ; TODO: Admin Mode????
 
     If (Aktu_Sim == XPLANE)
-      ; Run, D:\Games\VATSIM\XPilot\XPilot.exe  ; TODO: Admin Mode????
-    Run, C:\Program Files\xPilot\xPilot.exe
+      Run, C:\Program Files\xPilot\xPilot.exe
+    ; Run, D:\Games\VATSIM\XPilot\XPilot.exe  ; TODO: Admin Mode????
 
   }
 
@@ -577,18 +554,15 @@ Else If (CMD_Text="goto VATSIM") { ; TODO:
 }
 Else If (CMD_Text="goto IVAO") {
 
-  If VATSIM_active
-  {
+  If VATSIM_active {
     _Error_Message("VATSIM is active!", 3)
   }
-  Else
-  {
+  Else {
     IVAO_active := True
     VATSIM_active := False
 
     ; über VATSIM_IVAO_Switch.lua XUIPC-plugin neu starten (LVARS neu einlesen)
-    If (Aktu_Sim == XPLANE)
-    {
+    If (Aktu_Sim == XPLANE) {
       Gosub Stop_Aircraft_Scenario		
       Send {Shift Down}{Ctrl Down}{Alt Down}{NumpadDiv}{Alt Up}{Shift Up}{Ctrl Up}
       sleep, 3000	
@@ -598,8 +572,7 @@ Else If (CMD_Text="goto IVAO") {
     ; Process, Close ,VPilot.exe ; bei P3D & MSFS
     ; Process, Close ,XPilot.exe ; bei XP
 
-    If (Aktu_Sim == MSFS)
-    {
+    If (Aktu_Sim == MSFS) {
       Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_IVAO_MSFS_Core,,Hide
       Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_IVAO_MSFS,,Hide
     }
@@ -620,12 +593,10 @@ Else If (CMD_Text="goto air fox") {
 
   Gosub LoadAktuFlightPlan
 
-  If (FP_Departure = "")
-  {
+  If (FP_Departure = "") {
     _Message("No Flightplan loaded!", 10)
   }
-  Else
-  {
+  Else {
     ; Airfox Web login
 
     Run %Chrome_Tab1%%AirFox_Web_Logout%
@@ -664,35 +635,41 @@ Else If (CMD_Text="goto air fox") {
     Process, Close, vaBaseLive.exe
 
     While WinExist("vaBase Live")
-      _Message("Waiting for closing VABase!", 1)
+      _Message("Waiting for closing VABase!", 2)
 
     ; _message("Start vaBase!",3)			
     Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_vaBaseLive,,Hide
 
     While Not WinExist("vaBase Live")
-      _Message("Waiting for VABase is ready!", 1)
+      _Message("Waiting for VABase is ready!", 2)
 
     WinActivate, vaBase Live
     sleep 500
 
     ; Login vaBase ausführen
-    Send {Tab 4}
-    Send AFX6
+    Send {Tab 5}
+    Send AFX6 ; !! login
     Send {Tab}
     sleep 100
     Send achim.wolberg@gmail.com
     Send {Tab}
     sleep 100
-    Send AchWo123
+    Send AchWo123 ; !! Passwort
     Send {Tab 2}
     sleep 100
     Send {Enter}
     sleep 1000
 
     ; dann Flightplan und Route einfügen
-    Send {Tab 6}%FP_FlightLevel%
+    Send {Tab 7} ; %FP_Alternate%
+    sleep 100
+    Send {Tab 1}%FP_FlightLevel%
     sleep 100
     Send {Tab 1}%FP_Route%
+    sleep 100
+    Send {Tab 1} ; %FP_Remarks%
+    sleep 100
+    Send {Tab 1} ; Enter
   }
 
   ActivateSimWin := False

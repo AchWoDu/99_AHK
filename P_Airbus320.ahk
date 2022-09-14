@@ -1,4 +1,4 @@
-﻿P_Airbus320_2022_06_03: ; -> A319-131 IAE //OR// A319-112 CFM // A318-112
+﻿P_Airbus320_2022_09_13: ; -> A319-131 IAE //OR// A319-112 CFM // A318-112
 
 DEV_VARS:
   Global TEST := False ;Or True ; Keine Programme starten
@@ -24,6 +24,11 @@ DEV_VARS:
   Global STR_Flaps := ["FUP", "F01", "F02", "F03", "F04"]
 
   #Include %A_ScriptDir%\Common.ahk
+
+COMMENTS:
+  ; A320-Länge:       37.57
+  ; A320-Spannweite:  34.10
+  ;
 Return
 
 CMD_Process:
@@ -437,9 +442,7 @@ _Preflight_Procedure() { ; Starts manually
 Return
 }
 
-_Preflight_Checklist()
-; Starts manually
-{
+_Preflight_Checklist() { ; Starts manually
   SetTimer,, Off
   CheckList_Active := True
 
@@ -463,9 +466,7 @@ _Preflight_Checklist()
 Return
 }
 
-_BeforeTaxi_Checklist()
-; when parkbrake off
-{
+_BeforeTaxi_Checklist() { ; when parkbrake off
   SetTimer,, Off
   CheckList_Active := True
 
@@ -488,9 +489,7 @@ _BeforeTaxi_Checklist()
 Return
 }
 
-_BeforeTakeOff_Checklist()
-; Starts when the landing lights goes on
-{
+_BeforeTakeOff_Checklist() { ; Starts when the landing lights goes on
   SetTimer,, Off
   CheckList_Active := True
 
@@ -507,9 +506,7 @@ _BeforeTakeOff_Checklist()
 Return
 }
 
-_AfterTakeOff_Checklist()
-; Starts after flaps full up
-{
+_AfterTakeOff_Checklist() { ; Starts after flaps full up
   SetTimer,, Off
   CheckList_Active := True
 
@@ -529,9 +526,8 @@ _AfterTakeOff_Checklist()
 Return
 }
 
-_BeforeApproach_Checklist()
-; Starts after descending 8000 Feets
-{
+_BeforeApproach_Checklist() { ; Starts after descending 8000 Feets
+
   SetTimer,, Off
   CheckList_Active := True
 
@@ -550,9 +546,7 @@ _BeforeApproach_Checklist()
 Return
 }
 
-_BeforeLanding_Checklist()
-; Starts after the Flaps goes in landing config
-{
+_BeforeLanding_Checklist() { ; Starts after the Flaps goes in landing config
   SetTimer,, Off
   CheckList_Active := True
 
@@ -571,9 +565,7 @@ _BeforeLanding_Checklist()
 Return
 }
 
-_AfterLanding_Checklist()
-; Starts when the Flaps are up
-{
+_AfterLanding_Checklist() { ; Starts when the Flaps are up
   SetTimer,, Off
   CheckList_Active := True
 
@@ -589,9 +581,7 @@ _AfterLanding_Checklist()
 Return
 }
 
-_Parking_Checklist()
-; Starts when the taxi lights goes off
-{
+_Parking_Checklist() { ; Starts when the taxi lights goes off
   SetTimer,, Off
   CheckList_Active := True
 
@@ -622,8 +612,7 @@ _Parking_Checklist()
 Return
 }
 
-_Read_FS_VARS()
-{
+_Read_FS_VARS() {
   ; DEVs
   DEBUG_Read_FS_VARS++
 
@@ -832,1494 +821,1278 @@ Return Err
 }
 
 Write_Statusbar:
+  DEBUG_Write_Statusbar++
+
+  GetKeyState, NumLState ,NumLock, T ; NUM state
+
+  If (NumLState = "D")
+    NumLockChar := 1
+  Else
+    NumLockChar:= 0
+
+  If (BlinkerChar = ">")
+    BlinkerChar := "<"
+  Else
+    BlinkerChar := ">"
+
+  TTex_FontB := 10 ; Spaltbreite 7
+  TTex_FontS := 13 ; Breite eines Buchstabens
+
+  TTex_Nr := 11 ; Array fängt bei 11 an
+
+  TTex_StartPos[TTex_Nr] := TTex_xVersatz ; x Startposition wird festgelegt
+
+  If (TTex_oFSVAR[TTex_Nr] <> PBRAKE)
   {
-    DEBUG_Write_Statusbar++
-
-    GetKeyState, NumLState ,NumLock, T ; NUM state
-
-    If (NumLState = "D")
-      NumLockChar := 1
-    Else
-      NumLockChar:= 0
-
-    If (BlinkerChar = ">")
-      BlinkerChar := "<"
-    Else
-      BlinkerChar := ">"
-
-    TTex_FontB := 10 ; Spaltbreite 7
-    TTex_FontS := 13 ; Breite eines Buchstabens
-
-    TTex_Nr := 11 ; Array fängt bei 11 an
-
-    TTex_StartPos[TTex_Nr] := TTex_xVersatz ; x Startposition wird festgelegt
-
-    If (TTex_oFSVAR[TTex_Nr] <> PBRAKE)
-    {
-      TTex_oFSVAR[TTex_Nr] := PBRAKE
-      Err := ToolTipEx("PB", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[PBRAKE], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> GEAR)
-    {
-      TTex_oFSVAR[TTex_Nr] := GEAR
-      Err := ToolTipEx("Gear",	TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[GEAR], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 4) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> FLAPS_V)
-    {
-      TTex_oFSVAR[TTex_Nr] := FLAPS_V
-      Err := ToolTipEx(STR_Flaps[FLAPS_V+1], TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[FLAPS_V], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 3) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> FD)
-    {
-      TTex_oFSVAR[TTex_Nr] := FD
-      Err := ToolTipEx("FD", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[FD], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> AT)
-    {
-      TTex_oFSVAR[TTex_Nr] := AT
-      Err := ToolTipEx("AT", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[AT], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> AP)
-    {
-      TTex_oFSVAR[TTex_Nr] := AP
-      Err := ToolTipEx("AP", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[AP], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> BEACON_L)
-    {
-      TTex_oFSVAR[TTex_Nr] := BEACON_L
-      Err := ToolTipEx("B", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[BEACON_L+10], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> TAXI_L)
-    {
-      TTex_oFSVAR[TTex_Nr] := TAXI_L
-      Err := ToolTipEx("T", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[TAXI_L+10], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> STROBE_L)
-    {
-      TTex_oFSVAR[TTex_Nr] := STROBE_L
-      Err := ToolTipEx("S", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[STROBE_L+10], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> LAND_L)
-    {
-      TTex_oFSVAR[TTex_Nr] := LAND_L
-      Err := ToolTipEx("L", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[LAND_L+10], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> IVAP_TP)
-    {
-      TTex_oFSVAR[TTex_Nr] := IVAP_TP
-      Err := ToolTipEx("TP", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[IVAP_TP], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> STD)
-    {
-      TTex_oFSVAR[TTex_Nr] := STD
-      Err := ToolTipEx("STD", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[STD], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 3) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> NumLockChar)
-    {
-      TTex_oFSVAR[TTex_Nr] := NumLockChar
-      Err := ToolTipEx("N", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[NumLockChar], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (WinActive(Aktu_Sim))
-    {
-      Err := ToolTipEx(BlinkerChar, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, "RED", "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
-    }
-    Else
-    {
-      Err := ToolTipEx(BlinkerChar, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, "WHITE", "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> AC_TYPE)
-    {
-      TTex_oFSVAR[TTex_Nr] := AC_TYPE
-      Err := ToolTipEx(AC_TYPE, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[0], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 4) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> COM1_ACT_F)
-    {
-      TTex_oFSVAR[TTex_Nr] := COM1_ACT_F
-      Err := ToolTipEx("CA " COM1_ACT_F, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, "GREEN", "WHITE", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 9 ) + TTex_FontS
-    }
-
-    ++TTex_Nr
-
-    If (TTex_oFSVAR[TTex_Nr] <> COM1_STB_F)
-    {
-      TTex_oFSVAR[TTex_Nr] := COM1_STB_F
-      Err := ToolTipEx("CS " COM1_STB_F, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, "GREEN", "WHITE", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 9 ) + TTex_FontS
-    }
-
-    If Not TD_FLAG
-    {
-      ++TTex_Nr
-
-      Err := ToolTipEx("TD "Format("{1:5}",VSPEED_TD), TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[1], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 8 ) + TTex_FontS
-
-      ++TTex_Nr
-
-      Err := ToolTipEx("GS "Format("{1:2}",GS), TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[0], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 4) + TTex_FontS
-    }
-    Else
-    {
-      ++TTex_Nr
-      Err := ToolTipEx(,,,TTex_Nr)
-
-      ++TTex_Nr
-      Err := ToolTipEx(,,,TTex_Nr)
-    }
-
-    DEBUG_Write_Statusbar+= 1000
-    Return
+    TTex_oFSVAR[TTex_Nr] := PBRAKE
+    Err := ToolTipEx("PB", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[PBRAKE], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
   }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> GEAR)
+  {
+    TTex_oFSVAR[TTex_Nr] := GEAR
+    Err := ToolTipEx("Gear",	TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[GEAR], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 4) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> FLAPS_V)
+  {
+    TTex_oFSVAR[TTex_Nr] := FLAPS_V
+    Err := ToolTipEx(STR_Flaps[FLAPS_V+1], TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[FLAPS_V], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 3) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> FD)
+  {
+    TTex_oFSVAR[TTex_Nr] := FD
+    Err := ToolTipEx("FD", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[FD], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> AT)
+  {
+    TTex_oFSVAR[TTex_Nr] := AT
+    Err := ToolTipEx("AT", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[AT], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> AP)
+  {
+    TTex_oFSVAR[TTex_Nr] := AP
+    Err := ToolTipEx("AP", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[AP], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> BEACON_L)
+  {
+    TTex_oFSVAR[TTex_Nr] := BEACON_L
+    Err := ToolTipEx("B", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[BEACON_L+10], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> TAXI_L)
+  {
+    TTex_oFSVAR[TTex_Nr] := TAXI_L
+    Err := ToolTipEx("T", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[TAXI_L+10], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> STROBE_L)
+  {
+    TTex_oFSVAR[TTex_Nr] := STROBE_L
+    Err := ToolTipEx("S", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[STROBE_L+10], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> LAND_L)
+  {
+    TTex_oFSVAR[TTex_Nr] := LAND_L
+    Err := ToolTipEx("L", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[LAND_L+10], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> IVAP_TP)
+  {
+    TTex_oFSVAR[TTex_Nr] := IVAP_TP
+    Err := ToolTipEx("TP", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[IVAP_TP], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> STD)
+  {
+    TTex_oFSVAR[TTex_Nr] := STD
+    Err := ToolTipEx("STD", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[STD], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 3) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> NumLockChar)
+  {
+    TTex_oFSVAR[TTex_Nr] := NumLockChar
+    Err := ToolTipEx("N", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[NumLockChar], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (WinActive(Aktu_Sim))
+  {
+    Err := ToolTipEx(BlinkerChar, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, "RED", "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
+  }
+  Else
+  {
+    Err := ToolTipEx(BlinkerChar, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, "WHITE", "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> AC_TYPE)
+  {
+    TTex_oFSVAR[TTex_Nr] := AC_TYPE
+    Err := ToolTipEx(AC_TYPE, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[0], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 4) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> COM1_ACT_F)
+  {
+    TTex_oFSVAR[TTex_Nr] := COM1_ACT_F
+    Err := ToolTipEx("CA " COM1_ACT_F, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, "GREEN", "WHITE", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 9 ) + TTex_FontS
+  }
+
+  ++TTex_Nr
+
+  If (TTex_oFSVAR[TTex_Nr] <> COM1_STB_F)
+  {
+    TTex_oFSVAR[TTex_Nr] := COM1_STB_F
+    Err := ToolTipEx("CS " COM1_STB_F, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, "GREEN", "WHITE", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 9 ) + TTex_FontS
+  }
+
+  If Not TD_FLAG
+  {
+    ++TTex_Nr
+
+    Err := ToolTipEx("TD "Format("{1:5}",VSPEED_TD), TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[1], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 8 ) + TTex_FontS
+
+    ++TTex_Nr
+
+    Err := ToolTipEx("GS "Format("{1:2}",GS), TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[0], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 4) + TTex_FontS
+  }
+  Else
+  {
+    ++TTex_Nr
+    Err := ToolTipEx(,,,TTex_Nr)
+
+    ++TTex_Nr
+    Err := ToolTipEx(,,,TTex_Nr)
+  }
+
+  DEBUG_Write_Statusbar+= 1000
+Return
 
 Aircraft_Scenario:
+  ; Global ACS_StartTime 	; Aircraft Scenario
+  ; Global RFV_Time		; Read Flightsim Vars
+  ; Global WSB_Time		; Write Statusbar
+  ; Global ACS_Time		; Aircraft Scenario 
+  ; Global ACS_EndTime	; Aircraft Scenario 
+
+  DEBUG_Aircraft_Scenario++
+
+  Critical ,On
+
+  ACS_StartTime := A_TickCount
+
+  If Not _Read_FS_VARS()
   {
-    ; Global ACS_StartTime 	; Aircraft Scenario
-    ; Global RFV_Time		; Read Flightsim Vars
-    ; Global WSB_Time		; Write Statusbar
-    ; Global ACS_Time		; Aircraft Scenario 
-    ; Global ACS_EndTime	; Aircraft Scenario 
-
-    DEBUG_Aircraft_Scenario++
-
-    Critical ,On
-
-    ACS_StartTime := A_TickCount
-
-    If Not _Read_FS_VARS()
-    {
-      AC_TYPE := "FSVE"
-      Gosub Write_Statusbar
-      Gosub Stop_Aircraft_Scenario
-      Gosub Start_Aircraft_Scenario
-      Return
-    }
-    RFV_Time := A_TickCount - ACS_StartTime
-
+    AC_TYPE := "FSVE"
     Gosub Write_Statusbar
-    WSB_Time := A_TickCount - ACS_StartTime - RFV_Time
+    Gosub Stop_Aircraft_Scenario
+    Gosub Start_Aircraft_Scenario
+    Return
+  }
+  RFV_Time := A_TickCount - ACS_StartTime
 
-    Critical ,Off
+  Gosub Write_Statusbar
+  WSB_Time := A_TickCount - ACS_StartTime - RFV_Time
 
-    ; passing FL100
+  Critical ,Off
 
-    If ((QALT > 10050) And LAND_L)
+  ; passing FL100
+
+  If ((QALT > 10050) And LAND_L)
+  {
+    Err := _CMD("landing lights off")
+  }
+
+  If ((QALT > 9000) And (QALT < 9950) And Not LAND_L)
+  {
+    Err := _CMD("landing lights on")
+  }
+
+  ; passing TRA oder TRL
+
+  If Auto_Baro
+  {
+    InTrans := (QALT > 5000) And (QALT < 6000)
+
+    If Not AboveTrans
+      AboveTrans := (QALT > 6100)
+
+    If Not BelowTrans
+      BelowTrans := (QALT < 4900)
+
+    If (InTrans)
     {
-      Err := _CMD("landing lights off")
-    }
-
-    If ((QALT > 9000) And (QALT < 9950) And Not LAND_L)
-    {
-      Err := _CMD("landing lights on")
-    }
-
-    ; passing TRA oder TRL
-
-    If Auto_Baro
-    {
-      InTrans := (QALT > 5000) And (QALT < 6000)
-
-      If Not AboveTrans
-        AboveTrans := (QALT > 6100)
-
-      If Not BelowTrans
-        BelowTrans := (QALT < 4900)
-
-      If (InTrans)
+      If (AboveTrans And STD)
       {
-        If (AboveTrans And STD)
-        {
-          AboveTrans := False
-          Err := _CMD("baro QNH")
-        }
-
-        If (BelowTrans And Not STD)
-        {
-          BelowTrans := False
-          Err := _CMD("baro STANDARD")
-        }
-
+        AboveTrans := False
+        Err := _CMD("baro QNH")
       }
-      Else ; If in Transiton
+
+      If (BelowTrans And Not STD)
       {
-        If ((QALT > 6100) And Not STD) ; über 6000 immer STD
-        {
-          Err := _CMD("baro STANDARD")
-        }
+        BelowTrans := False
+        Err := _CMD("baro STANDARD")
+      }
 
-        If ((QALT < 4900) And STD) ; unter 5000 immer QNH
-        {
-          Err := _CMD("baro QNH")
-        }
+    }
+    Else ; If in Transiton
+    {
+      If ((QALT > 6100) And Not STD) ; über 6000 immer STD
+      {
+        Err := _CMD("baro STANDARD")
+      }
+
+      If ((QALT < 4900) And STD) ; unter 5000 immer QNH
+      {
+        Err := _CMD("baro QNH")
       }
     }
+  }
 
-    ; Checklisten
+  ; Checklisten
 
-    ; ; "PREFLIGHT CHECKLIST"
-    ; If (FD And Not PreflightCheck_Ok And PreflightProc_Ok And Not CheckList_Active)
-    ; {
-    ; Err := _CMD("Preflight Checklist")
-    ; }
+  ; ; "PREFLIGHT CHECKLIST"
+  ; If (FD And Not PreflightCheck_Ok And PreflightProc_Ok And Not CheckList_Active)
+  ; {
+  ; Err := _CMD("Preflight Checklist")
+  ; }
 
-    ; "BEFORE TAXI CHECKLIST"
-    If (Not PBRAKE And Not BeforeTaxi_Ok And PreflightCheck_Ok And Not CheckList_Active)
+  ; "BEFORE TAXI CHECKLIST"
+  If (Not PBRAKE And Not BeforeTaxi_Ok And PreflightCheck_Ok And Not CheckList_Active)
+  {
+    Err := _CMD("before taxi checklist")
+  }
+
+  If TAXI_L And Not GEAR
+  {
+    Err := _CMD("taxi lights off")
+  }
+
+  ; "BEFORE TAKE OFF CHECKLIST"
+  If (LAND_L And Not BeforeTakeOff_Ok And BeforeTaxi_Ok And Not CheckList_Active)
+  {
+    Err := _CMD("before take off checklist")
+  }
+
+  ; "AFTER TAKE OFF CHECKLIST"
+  If (Not FLAPS And Not AfterTakeOff_Ok And BeforeTakeOff_Ok And Not CheckList_Active)
+  {
+    Err := _CMD("after take off checklist")
+  }
+
+  ; damit "BEFORE APPROACH CHECKLIST" klappt
+  If (Not PassingFL080)
+    PassingFL080 := (QALT > 8000)
+
+  ; "BEFORE APPROACH CHECKLIST"
+  If ((QALT < 8000) And PassingFL080 And Not BeforeApproach_Ok And AfterTakeOff_Ok And Not CheckList_Active)
+  {
+    Err := _CMD("before approach checklist")
+  }
+
+  ; "BEFORE LANDING CHECKLIST"
+  If ((FLAPS_V > 3) And Not BeforeLanding_Ok And BeforeApproach_Ok And Not CheckList_Active)
+  {
+    If (Not TAXI_L)
+      Err := _CMD("taxi lights on")
+
+    Err := _CMD("before landing checklist")
+  }
+
+  ; "AFTER LANDING CHECKLIST"
+  If ((FLAPS_V < 1) And Not AfterLanding_Ok And BeforeLanding_Ok And Not CheckList_Active)
+  {
+    Err := _CMD("after landing checklist")
+    PassingFL080 := False
+  }
+
+  ; "PARKING CHECKLIST"
+  If (Not TAXI_L And Not Parking_Ok And AfterLanding_Ok And Not CheckList_Active)
+  {
+    Err := _CMD("parking checklist")
+  }
+
+  ; Tempomat :-)
+  If (TAXI_L And (GS > TempoLow) And (GS < TempoHigh) And Not LAND_L)
+  {
+    Send ...
+    SoundBeep, 300, 50
+  }
+
+  ACS_EndTime := A_TickCount - ACS_StartTime
+  ACS_Time := ACS_EndTime - RFV_Time - WSB_Time
+
+  DEBUG_Aircraft_Scenario += 1000
+Return
+
+Show_DEBUG_Info:
+  DebugText =
+  (
+    DEBUG Info
+    Listen_On > %Listen_On%
+    Speech_Found > %Speech_Found%
+    Speech_On > %Speech_On%`n
+    CList_Active > %CheckList_Active%
+    PassFL80 > %PassingFL080%
+
+    PP > %PreflightProc_Ok%
+    PC > %PreflightCheck_Ok%
+    BT > %BeforeTaxi_Ok%
+    BTO > %BeforeTakeOff_Ok%
+    ATO > %AfterTakeOff_Ok%
+    BA > %BeforeApproach_Ok%
+    BL > %BeforeLanding_Ok%
+    AL > %AfterLanding_Ok%
+    PC > %Parking_Ok%
+
+    AScr	 > %Aktu_Screen%
+    LScr	 > %Last_Screen%
+
+    FLAPS	 > %FLAPS%
+    FLAPS_V > %FLAPS_V% 
+    QALT	 > %QALT%
+    GALT	 > %GALT%
+    QNH 	 > %QNH_HP%
+
+    CMD 	 > %DEBUG_CMD%
+    CMD_Process 	 > %DEBUG_CMD_Process%
+    Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
+    Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
+    Write_Statusbar > %DEBUG_Write_Statusbar%
+    Is_CheckItem	 > %DEBUG_Is_CheckItem%
+    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
+
+    CP_Time > %CP_EndTime%
+    RFV_Time > %RFV_Time%
+    WSB_Time > %WSB_Time%	
+    ACS_Time > %ACS_Time% 
+    ACS_EndTime	 > %ACS_EndTime%
+  )
+
+  Err := ToolTipEx(DebugText, x_ToolTip10, y_ToolTip10, 10, HFONT, "WHITE", "BLACK", "", "S")
+
+Return
+
+AIRCRAFT_INIT:
+  ;
+Return
+
+_POV_Send(Screen) {
+  WinActivate, %Aktu_Sim%
+
+  If Not (Aktu_Screen = Screen)
+  {
+    If (Screen = 4)
+      Send {Shift down}{F4}{Shift up} 	; nur bei Aerosoft
+    Else
+      Send %Screen%
+
+    Last_Screen := Aktu_Screen
+    Aktu_Screen := Screen
+  }
+
+Return Aktu_Screen
+}
+
+_NUMPAD_Send(Screen) {
+  WinActivate, %Aktu_Sim%
+
+  If (Aktu_Screen = Screen)
+  {
+    Aktu_Screen := Last_Screen
+  }
+  else
+  {
+    Last_Screen := Aktu_Screen
+    Aktu_Screen := Screen
+  }
+
+  If (Aktu_Screen = 4)
+    Send {Shift down}{F4}{Shift up} 	; nur bei Aerosoft / Camerapos LeftWin setzen
+  Else
+    Send %Aktu_Screen%
+
+Return Aktu_Screen
+}
+
+JOYSTICK_SECTION: 
+  ;  1JoyX Wireless Gamepad
+  ;  3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
+  ;  4JoyX Arduino
+
+Joy3POV:
+POV:
+  Global POV_Step := 2
+  Global POV_Value := GetKeyState("3JoyPOV")
+
+  if (POV_Value < 0)
+    Return
+
+  If ((Aktu_Screen = 9) Or GetKeyState("LCtrl"))
+  {
+    if (POV_Value = 31500) ; Numpad7
     {
-      Err := _CMD("before taxi checklist")
+      SendInput {Ctrl Down}{7 %POV_Step%}{Ctrl Up}
+    }
+    else if (POV_Value = 0) ; Numpad8
+    {
+      SendInput {Ctrl Down}{8 %POV_Step%}{Ctrl Up}
+    }
+    else if (POV_Value = 4500) ; Numpad9
+    {
+      SendInput {Ctrl Down}{9 %POV_Step%}{Ctrl Up}
+    }
+    else if (POV_Value = 27000) ; Numpad4
+    {
+      ; SendInput {Ctrl Down}{4 %POV_Step%}{Ctrl Up}
+      SendInput {Ctrl Down}{5 %POV_Step%}{Ctrl Up} ; 4 klappt nicht nur bei Aerosoft
+    }
+    else if (POV_Value = 9000) ; Numpad6
+    {
+      SendInput {Ctrl Down}{6 %POV_Step%}{Ctrl Up}
+    }
+    else if (POV_Value = 22500) ; Numpad1
+    {
+      SendInput {Ctrl Down}{1 %POV_Step%}{Ctrl Up}
+    }
+    else if (POV_Value = 18000) ;Numpad2
+    {
+      SendInput {Ctrl Down}{2 %POV_Step%}{Ctrl Up}
+    }
+    else if (POV_Value = 13500) ; Numpad3
+    {
+      SendInput {Ctrl Down}{3 %POV_Step%}{Ctrl Up}
     }
 
-    If TAXI_L And Not GEAR
-    {
-      Err := _CMD("taxi lights off")
-    }
-
-    ; "BEFORE TAKE OFF CHECKLIST"
-    If (LAND_L And Not BeforeTakeOff_Ok And BeforeTaxi_Ok And Not CheckList_Active)
-    {
-      Err := _CMD("before take off checklist")
-    }
-
-    ; "AFTER TAKE OFF CHECKLIST"
-    If (Not FLAPS And Not AfterTakeOff_Ok And BeforeTakeOff_Ok And Not CheckList_Active)
-    {
-      Err := _CMD("after take off checklist")
-    }
-
-    ; damit "BEFORE APPROACH CHECKLIST" klappt
-    If (Not PassingFL080)
-      PassingFL080 := (QALT > 8000)
-
-    ; "BEFORE APPROACH CHECKLIST"
-    If ((QALT < 8000) And PassingFL080 And Not BeforeApproach_Ok And AfterTakeOff_Ok And Not CheckList_Active)
-    {
-      Err := _CMD("before approach checklist")
-    }
-
-    ; "BEFORE LANDING CHECKLIST"
-    If ((FLAPS_V > 3) And Not BeforeLanding_Ok And BeforeApproach_Ok And Not CheckList_Active)
-    {
-      If (Not TAXI_L)
-        Err := _CMD("taxi lights on")
-
-      Err := _CMD("before landing checklist")
-    }
-
-    ; "AFTER LANDING CHECKLIST"
-    If ((FLAPS_V < 1) And Not AfterLanding_Ok And BeforeLanding_Ok And Not CheckList_Active)
-    {
-      Err := _CMD("after landing checklist")
-      PassingFL080 := False
-    }
-
-    ; "PARKING CHECKLIST"
-    If (Not TAXI_L And Not Parking_Ok And AfterLanding_Ok And Not CheckList_Active)
-    {
-      Err := _CMD("parking checklist")
-    }
-
-    ; Tempomat :-)
-    If (TAXI_L And (GS > TempoLow) And (GS < TempoHigh) And Not LAND_L)
-    {
-      Send ...
-      SoundBeep, 300, 50
-    }
-
-    ACS_EndTime := A_TickCount - ACS_StartTime
-    ACS_Time := ACS_EndTime - RFV_Time - WSB_Time
-
-    DEBUG_Aircraft_Scenario += 1000
     Return
   }
 
-Show_DEBUG_Info:
+  if (POV_Value = 31500) ; Numpad7
   {
-    DebugText =
-    (
-      DEBUG Info:
-        Listen_On > %Listen_On%
-        Speech_Found > %Speech_Found%
-        Speech_On > %Speech_On%`n
-        CList_Active > %CheckList_Active%
-        PassFL80 > %PassingFL080%
+    _POV_Send(7)
+  }
+  else if (POV_Value = 0) ; Numpad8
+  {
+    _POV_Send(8)
+  }
+  else if (POV_Value = 4500) ; Numpad9
+  {
+    _POV_Send(9)
+  }
+  else if (POV_Value = 27000) ; Numbad4
+  {
+    _POV_Send(4)
+  }
+  else if (POV_Value = 9000) ; Numpad6
+  {
+    _POV_Send(6)
+  }
+  else if (POV_Value = 22500) ; Numpad1
+  {
+    _POV_Send(1)
+  }
+  else if (POV_Value = 18000) ;Numpad2
+  {
+    _POV_Send(2)
+  }
+  else if (POV_Value = 13500) ; Numpad3
+  {
+    _POV_Send(3)
+  }
 
-        PP > %PreflightProc_Ok%
-        PC > %PreflightCheck_Ok%
-        BT > %BeforeTaxi_Ok%
-        BTO > %BeforeTakeOff_Ok%
-        ATO > %AfterTakeOff_Ok%
-        BA > %BeforeApproach_Ok%
-        BL > %BeforeLanding_Ok%
-        AL > %AfterLanding_Ok%
-        PC > %Parking_Ok%
+Return
 
-        AScr	 > %Aktu_Screen%
-        LScr	 > %Last_Screen%
+3Joy01_CheckitemOk:
+  ; 3Joy1:: ; HOTAS _Joy_HM
+  ; Brake in P3D
+Return
 
-        FLAPS	 > %FLAPS%
-        FLAPS_V > %FLAPS_V% 
-        QALT	 > %QALT%
-        GALT	 > %GALT%
-        QNH 	 > %QNH_HP%
+3Joy02_MainPanel_GreatPanel:
+3Joy2:: ; HOTAS _Joy_VM
+  x := 0
+  While GetKeyState("3Joy2")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
 
-        CMD 	 > %DEBUG_CMD%
-        CMD_Process 	 > %DEBUG_CMD_Process%
-        Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
-        Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
-        Write_Statusbar > %DEBUG_Write_Statusbar%
-        Is_CheckItem	 > %DEBUG_Is_CheckItem%
-        Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
-
-        CP_Time > %CP_EndTime%
-        RFV_Time > %RFV_Time%
-        WSB_Time > %WSB_Time%	
-        ACS_Time > %ACS_Time% 
-        ACS_EndTime	 > %ACS_EndTime%
-      )
-
-      Err := ToolTipEx(DebugText, x_ToolTip10, y_ToolTip10, 10, HFONT, "WHITE", "BLACK", "", "S")
-
+    If x = 10
+    {
+      Gosub Screen0
       Return
     }
-
-    AIRCRAFT_INIT:
-      {
-        Return
-      }
-
-      _POV_Send(Screen)
-      {
-        WinActivate, %Aktu_Sim%
-
-        If Not (Aktu_Screen = Screen)
-        {
-          If (Screen = 4)
-            Send {Shift down}{F4}{Shift up} 	; nur bei Aerosoft
-          Else
-            Send %Screen%
-
-          Last_Screen := Aktu_Screen
-          Aktu_Screen := Screen
-        }
-
-        Return Aktu_Screen
-      }
-
-      _NUMPAD_Send(Screen)
-      {
-        WinActivate, %Aktu_Sim%
-
-        If (Aktu_Screen = Screen)
-        {
-          Aktu_Screen := Last_Screen
-        }
-        else
-        {
-          Last_Screen := Aktu_Screen
-          Aktu_Screen := Screen
-        }
-
-        If (Aktu_Screen = 4)
-          Send {Shift down}{F4}{Shift up} 	; nur bei Aerosoft / Camerapos LeftWin setzen
-        Else
-          Send %Aktu_Screen%
-
-        Return Aktu_Screen
-      }
-
-      ; -------------------------------------------------------
-    JOYSTICK_SECTION:
-      ; -------------------------------------------------------
-      ; 1JoyX Wireless Gamepad
-      ; 3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
-      ; 4JoyX Arduino
-
-    3JoyPOV:
-    POV:
-      {
-        Global POV_Step := 2
-        Global POV_Value := GetKeyState("3JoyPOV")
-
-        if (POV_Value < 0)
-          Return
-
-        If ((Aktu_Screen = 9) Or GetKeyState("LCtrl"))
-        {
-          if (POV_Value = 31500) ; Numpad7
-          {
-            SendInput {Ctrl Down}{7 %POV_Step%}{Ctrl Up}
-          }
-          else if (POV_Value = 0) ; Numpad8
-          {
-            SendInput {Ctrl Down}{8 %POV_Step%}{Ctrl Up}
-          }
-          else if (POV_Value = 4500) ; Numpad9
-          {
-            SendInput {Ctrl Down}{9 %POV_Step%}{Ctrl Up}
-          }
-          else if (POV_Value = 27000) ; Numpad4
-          {
-            ; SendInput {Ctrl Down}{4 %POV_Step%}{Ctrl Up}
-            SendInput {Ctrl Down}{5 %POV_Step%}{Ctrl Up} ; 4 klappt nicht nur bei Aerosoft
-          }
-          else if (POV_Value = 9000) ; Numpad6
-          {
-            SendInput {Ctrl Down}{6 %POV_Step%}{Ctrl Up}
-          }
-          else if (POV_Value = 22500) ; Numpad1
-          {
-            SendInput {Ctrl Down}{1 %POV_Step%}{Ctrl Up}
-          }
-          else if (POV_Value = 18000) ;Numpad2
-          {
-            SendInput {Ctrl Down}{2 %POV_Step%}{Ctrl Up}
-          }
-          else if (POV_Value = 13500) ; Numpad3
-          {
-            SendInput {Ctrl Down}{3 %POV_Step%}{Ctrl Up}
-          }
-
-          Return
-        }
-
-        if (POV_Value = 31500) ; Numpad7
-        {
-          _POV_Send(7)
-        }
-        else if (POV_Value = 0) ; Numpad8
-        {
-          _POV_Send(8)
-        }
-        else if (POV_Value = 4500) ; Numpad9
-        {
-          _POV_Send(9)
-        }
-        else if (POV_Value = 27000) ; Numbad4
-        {
-          _POV_Send(4)
-        }
-        else if (POV_Value = 9000) ; Numpad6
-        {
-          _POV_Send(6)
-        }
-        else if (POV_Value = 22500) ; Numpad1
-        {
-          _POV_Send(1)
-        }
-        else if (POV_Value = 18000) ;Numpad2
-        {
-          _POV_Send(2)
-        }
-        else if (POV_Value = 13500) ; Numpad3
-        {
-          _POV_Send(3)
-        }
-
-        Return
-      }
-
-    3Joy01_CheckitemOk:
-      ; 3Joy1:: ; HOTAS _Joy_HM
-      {
-        ; Brake in P3D
-        Return
-      }
-
-    3Joy02_MainPanel_GreatPanel:
-    3Joy2:: ; HOTAS _Joy_VM
-      {
-        x := 0
-        While GetKeyState("3Joy2")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Gosub Screen0
-            Return
-          }
-        }
-        Send {Alt Up}{Shift Up}{Ctrl Up} ; alle Tasten löschen
-
-        Gosub Screen5
-        Return
-      }
-
-    3Joy03_SpeechOn:
-      ; 3Joy3:: ; HOTAS_Joy_RH
-      {
-        ; Zoom in -> in P3D configuriert
-        Return
-      }
-
-    3Joy04_ATC:
-      ; 3Joy4:: ; HOTAS_Joy_RV
-      {
-        ; Zoom out -> in P3D configuriert
-        Return
-      }
-
-    3Joy05_AP_WarningsOff:
-    3Joy5:: ; HOTAS_Thrust_RO
-      {
-        x := 0
-        While GetKeyState("3Joy5")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("warnings off")
-            Return
-          }
-        }
-
-        If AP
-          err := _CMD("autopilot off")
-        Else
-          err := _CMD("autopilot on")
-
-        Return
-      }
-
-    3Joy06_AT_WarningsOff:
-    3Joy6:: ; HOTAS_Thrust_RM
-      {
-        x := 0
-        While GetKeyState("3Joy6")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("warnings off")
-            Return
-          }
-        }
-
-        If AT
-          Err := _CMD("autothrust off")
-        Else
-          Err := _CMD("autothrust on")
-
-        Return
-      }
-
-    3Joy07_TakeOffThrust_ReverseThrust:
-    3Joy7:: ; HOTAS_Thrust_RU
-      {
-        x := 0
-        While GetKeyState("3Joy7")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("reverse thrust")
-            Return
-          }
-        }
-
-        Err := _CMD("take off thrust")
-        Return
-      }
-
-    3Joy08_OutsideView_TopDownView:
-    3Joy8:: ; HOTAS_Thrust_VM
-      {
-        x := 0
-        While GetKeyState("3Joy8")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("top down view")
-            Return
-          }
-        }
-
-        Err := _CMD("outside view")
-        Return
-      }
-
-    3Joy09_FlapsStepUp_FlapsUP:
-    3Joy9:: ; HOTAS_Thrust_HO
-      {
-        x := 0
-        While GetKeyState("3Joy9")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("flaps full up")
-            Return
-          }
-        }
-
-        Err := _CMD("flaps step up")
-        Return
-      }
-
-    3Joy10_FlapsStepDown_FlapsDown:
-    3Joy10:: ; HOTAS_Thrust_HU
-      {
-        x := 0
-        While GetKeyState("3Joy10")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("flaps full down")
-            Return
-          }
-        }
-        Err := _CMD("flaps step down")
-        Return
-      }
-
-    3Joy11_ParkingBrake_Gear:
-    3Joy11:: ; HOTAS_Thrust_UL
-      {
-        x := 0
-        While GetKeyState("3Joy11")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            If GEAR
-              Err := _CMD("gear up")
-            Else
-              Err := _CMD("gear down")
-            Return
-          }
-        }	
-
-        If PBRAKE
-          Err := _CMD("parking brake off")
-        Else
-          Err := _CMD("parking brake on")
-
-        Return
-      }
-
-    3Joy12_StopTimer_GoAround:
-    3Joy12:: ; HOTAS _Thrust_UR
-      {
-        x := 0
-        While GetKeyState("3Joy12")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("go around")
-            Return
-          }
-        }	
-
-        Err := _CMD("stop timer")
-        Err := _CMD("strobe and landing lights off")
-        Err := _CMD("flaps full up")
-        Return
-      }
-
-    4Joy01_:
-    4Joy1::
-      {
-        _Message("4Joy1", 3)
-        Return
-      }	
-    4Joy02_managed_hold_Speed:
-    4Joy2::
-      {
-        x := 0
-        While GetKeyState("4Joy2")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("hold speed")
-            Return
-          }
-        }	
-
-        Err := _CMD("managed speed")
-        ; _Message("4Joy2", 3)
-        Return
-      }	
-    4Joy03_managed_hold_Heading:
-    4Joy3::
-      {
-        x := 0
-        While GetKeyState("4Joy3")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("hold heading")
-            Return
-          }
-        }	
-
-        Err := _CMD("managed heading")
-        ; _Message("4Joy3", 3)
-        Return
-      }	
-    4Joy04_:
-    4Joy4::
-      {
-        _Message("4Joy4", 3)
-        Return
-      }	
-    4Joy05_managed_hold_VS:
-    4Joy5::
-      {
-
-        x := 0
-        While GetKeyState("4Joy5")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("hold vertical speed")
-            Return
-          }
-        }	
-
-        Err := _CMD("managed vertical speed")
-
-        ; _Message("4Joy5", 3)
-        Return
-      }	
-    4Joy06_managed_hold_Altitude:
-    4Joy6::
-      {
-        x := 0
-        While GetKeyState("4Joy6")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("hold altitude")
-            Return
-          }
-        }	
-
-        Err := _CMD("managed altitude")
-        ; _Message("4Joy6", 3)
-        Return
-      }	
-
-    4Joy07_SpeechRec:
-      ; 4Joy7::
-      {
-        ; Als Hotkey Button definiert
-        _Message("4Joy7", 0)
-        Return
-      }	
-
-    4Joy08_ATC:
-      ; 4Joy8::
-      {
-        ; Als Hotkey Button definiert
-        _Message("4Joy8", 0)
-        Return
-      }	
-
-    4Joy09_Cecklist_OK:
-      ; 4Joy9::
-      {
-        ; Als Hotkey Button definiert
-        _Message("4Joy9", 0)
-        Return
-      }	
-
-    ROTARIS:
-
-    4Joy10_Course_down:
-    4Joy10::
-      {
-        _Message("Course down", 0)
-        Return
-      }	
-    4Joy11_Course_up:
-    4Joy11::
-      {
-        _Message("Course up", 0)
-        Return
-      }
-
-    4Joy12_Speed_down:
-    4Joy12::
-      {
-        WinActivate, %Aktu_Sim%
-        Send {Ctrl Down}{Numpad1}{Ctrl Up}
-        ; _Message("speed up", 0)
-        Return
-      }	
-    4Joy13_Speed_up:
-    4Joy13::
-      {
-        WinActivate, %Aktu_Sim%
-        Send {Ctrl Down}{Numpad7}{Ctrl Up}
-        ; _Message("speed down", 0)
-        Return
-      }
-
-    4Joy14_Heading_down:
-    4Joy14::
-      {
-        WinActivate, %Aktu_Sim%
-        Send {Ctrl Down}{Numpad4}{Ctrl Up}
-        ; _Message("Hading down", 0)
-        Return
-      }	
-    4Joy15_Heading_up:
-    4Joy15::
-      {
-        WinActivate, %Aktu_Sim%
-        Send {Ctrl Down}{Numpad6}{Ctrl Up}
-        ; _Message("Heading up", 0)
-        Return
-      }
-
-    4Joy16_Altitude_down:
-    4Joy16::
-      {
-        WinActivate, %Aktu_Sim%
-        Send {Ctrl Down}{Numpad2}{Ctrl Up}
-        ; _Message("speed up", 0)
-        Return
-      }	
-    4Joy17_Altitude_up:
-    4Joy17::
-      {
-        WinActivate, %Aktu_Sim%
-        Send {Ctrl Down}{Numpad8}{Ctrl Up}
-        ; _Message("speed down", 0)
-        Return
-      }
-
-    4Joy18_VS_down:
-    4Joy18::
-      {
-        WinActivate, %Aktu_Sim%
-        Send {Ctrl Down}{Numpad3}{Ctrl Up}
-        ; _Message("speed up", 0)
-        Return
-      }	
-    4Joy19_VS_up:
-    4Joy19::
-      {
-        WinActivate, %Aktu_Sim%
-        Send {Ctrl Down}{Numpad9}{Ctrl Up}
-        ; _Message("speed down", 0)
-        Return
-      }
-
-      ; -------------------------------------------------------
-    MOUSE_SECTION:
-      ; -------------------------------------------------------
-
-    MButton::
-      { 
-        ; While GetKeyState("MButton" ) 
-        ; {
-        ; 	; _Message("schlafe", 0)
-        ; 	sleep, 100 
-        ; }		
-
-        Send {Space down}
-        ; _Message("schlafe", 0)
-        sleep, 500
-        Send {Space up}
-        ; _Message("weg bin ich", 0)
-      }
-
-      ; -------------------------------------------------------
-    KEYBOARD_SECTION:
-      ; -------------------------------------------------------
-      ; *		= wird immer ausgelöst auch wenn modifikaton
-      ; $ 	= keine rekursion
-      ; ~  	= Taste weiterleiten
-      ; + 	= [Shift]-Taste
-      ; ^ 	= [Ctrl]-Taste
-      ; ! 	= [QALT]-Taste
-      ; # 	= [Win] -Taste
-      ; <# 	= [Left Win Taste]
-
-    ~F9::
-    ~F10::
-    ~F11::
-    ~F12::
-      {
-        Aktu_Screen = -1
-        Return
-      }
-
-    Screen7:
-    NumpadHome:: ; Numpad7
-      {
-        Err := _NUMPAD_Send(7)
-        Return
-      }
-
-    Screen8:
-    NumpadUp:: ; Numpad8
-      {
-        Err := _NUMPAD_Send(8)
-        Return
-      }
-
-    Screen9:
-    NumpadPgUp:: ; Numpad9
-      {
-        Err := _NUMPAD_Send(9)
-        Return
-      }
-
-    Screen4:
-    NumpadLeft:: ; Numpad4
-      {
-        Err := _NUMPAD_Send(4)
-        Return
-      }
-
-    Screen5:
-    NumpadClear:: ; Numpad5
-      {
-        Err := _NUMPAD_Send(5)
-        Return
-      }
-
-    Screen6:
-    NumpadRight:: ; Numpad6
-      {
-        Err := _NUMPAD_Send(6)
-        Return
-      }
-
-    Screen1:
-    NumpadEnd:: ; Numpad1
-      {
-        Err := _NUMPAD_Send(1)
-        Return
-      }
-
-    Screen2:
-    NumpadDown:: ; Numpad2
-      {
-        Err := _NUMPAD_Send(2)
-        Return
-      }
-
-    Screen3:
-    NumpadPgDn:: ; Numpad3
-      {
-        Err := _NUMPAD_Send(3)
-        Return
-      }
-
-    Screen0:
-    NumpadIns:: ; Numpad0
-      {
-        Err := _NUMPAD_Send(0)
-        Return
-      }
-
-    ScreenDel:
-    NumpadDel:: ; NumpadDel
-      {
-        Err := _CMD("reset view")
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_SHIFT: ; NUMLock Aus
-      ; -------------------------------------------------------
-      ; hierdurch wird Ctrl+Alt(6) remapt (langsames Rotari) an LUA weitergegeben 
-
-      ; +Home::
-    +NumpadHome:: ; Numpad7
-      {
-        Send {Ctrl Down}{Alt Down}{Numpad7}{Alt Up}{Ctrl Up}
-        Return
-      }
-      ; +Up::
-    +NumpadUp:: ; Numpad8
-      {
-        Send {Ctrl Down}{Alt Down}{Numpad8}{Alt Up}{Ctrl Up}
-        Return
-      }
-      ; +PgUp::
-    +NumpadPgUp:: ; Numpad9
-      {
-        Send {Ctrl Down}{Alt Down}{Numpad9}{Alt Up}{Ctrl Up}
-        Return
-      }
-      ; +Left::
-    +NumpadLeft:: ; Numpad4
-      {
-        ; Send {Ctrl Down}{Alt Down}{Numpad4}{Alt Up}{Ctrl Up}  ; 4 klappt nicht nur bei Aerosoft
-        Send {Ctrl Down}{5 3}{Ctrl Up}
-        Return
-      }
-    +NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Shift", 3)
-        Send {Ctrl Down}{Alt Down}{Numpad5}{Alt Up}{Ctrl Up}
-        Return
-      }
-      ; +Right::
-    +NumpadRight:: ; Numpad6
-      {
-        Send {Ctrl Down}{Alt Down}{Numpad6}{Alt Up}{Ctrl Up}
-        Return
-      }
-      ; +End::
-    +NumpadEnd:: ; Numpad1
-      {
-        Send {Ctrl Down}{Alt Down}{Numpad1}{Alt Up}{Ctrl Up}
-        Return
-      }
-      ; +Down::
-    +NumpadDown:: ; Numpad2
-      {
-        Send {Ctrl Down}{Alt Down}{Numpad2}{Alt Up}{Ctrl Up}
-        Return
-      }
-      ; +PgDn::
-    +NumpadPgDn:: ; Numpad3
-      {
-        Send {Ctrl Down}{Alt Down}{Numpad3}{Alt Up}{Ctrl Up}
-        Return
-      }
-      ; +Ins::
-    +NumpadIns:: ; Numpad0
-      {
-        Send {Ctrl Down}{Alt Down}{Numpad0}{Alt Up}{Ctrl Up}
-        Return
-      }
-      ; Del::
-    +NumpadDel:: ; NumpadDel
-      {
-        Send {Ctrl Down}{Alt Down}{NumpadDot}{Alt Up}{Ctrl Up}
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_CTRL: ; NUMLock Aus
-      ; -------------------------------------------------------
-
-      ; ^Home::
-    ^NumpadHome:: ; Numpad7
-      {
-        Send {Ctrl Down}{Numpad7}{Ctrl Up}
-        Return
-      }
-      ; ^Up::
-    ^NumpadUp:: ; Numpad8
-      {
-        Send {Ctrl Down}{Numpad8}{Ctrl Up}
-        Return
-      }
-      ; ^PgUp::
-    ^NumpadPgUp:: ; Numpad9
-      {
-        Send {Ctrl Down}{Numpad9}{Ctrl Up}
-        Return
-      }
-      ; ^Left::
-    ^NumpadLeft:: ; Numpad4
-      {
-        Send {Ctrl Down}{Numpad4}{Ctrl Up}
-        Return
-      }
-    ^NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Ctrl", 3)
-        Send {Ctrl Down}{Numpad5}{Ctrl Up}
-        Return
-      }
-      ; ^Right::
-    ^NumpadRight:: ; Numpad6
-      {
-        Send {Ctrl Down}{Numpad6}{Ctrl Up}
-        Return
-      }
-      ; ^End::
-    ^NumpadEnd:: ; Numpad1
-      {
-        Send {Ctrl Down}{Numpad1}{Ctrl Up}
-        Return
-      }
-      ; ^Down::
-    ^NumpadDown:: ; Numpad2
-      {
-        Send {Ctrl Down}{Numpad2}{Ctrl Up}
-        Return
-      }
-      ; ^PgDn::
-    ^NumpadPgDn:: ; Numpad3
-      {
-        Send {Ctrl Down}{Numpad3}{Ctrl Up}
-        Return
-      }
-      ; ^Ins::
-    ^NumpadIns:: ; Numpad0
-      {
-        Return
-      }
-      ; Del::
-    ^NumpadDel:: ; NumpadDel
-      {
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_SHIFT_CTRL: ; NUMLock Aus
-      ; -------------------------------------------------------
-
-      ; +^Home::
-    +^NumpadHome:: ; Numpad7
-      {
-        Return
-      }
-      ; +^Up::
-    +^NumpadUp:: ; Numpad8
-      {
-        Return
-      }
-      ; +^PgUp::
-    +^NumpadPgUp:: ; Numpad9
-      {
-        Return
-      }
-      ; +^Left::
-    +^NumpadLeft:: ; Numpad4
-      {
-        Return
-      }
-    +^NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Shift+Ctrl", 3)
-        Return
-      }
-      ; +^Right::
-    +^NumpadRight:: ; Numpad6
-      {
-        Return
-      }
-      ; +^End::
-    +^NumpadEnd:: ; Numpad1
-      {
-        Return
-      }
-      ; +^Down::
-    +^NumpadDown:: ; Numpad2
-      {
-        Return
-      }
-      ; +^PgDn::
-    +^NumpadPgDn:: ; Numpad3
-      {
-        Return
-      }
-      ; +^Ins::
-    +^NumpadIns:: ; Numpad0
-      {
-        Return
-      }
-      ; Del::
-    +^NumpadDel:: ; NumpadDel
-      {
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_ALT: ; NUMLock Aus
-      ; -------------------------------------------------------
-
-    !NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Alt", 3)
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_SHIFT_ALT: ; NUMLock Aus
-      ; -------------------------------------------------------
-
-    +!NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Shift+Alt", 3)
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_CTRL_ALTGr: ; NUMLock Aus
-      ; -------------------------------------------------------
-      ; remapt auf POV 1..9
-
-      ; +Home::
-    ^!NumpadHome:: ; Numpad7
-      {
-        Send {Ctrl Down}{7 3}{Ctrl Up}
-        Return
-      }
-      ; ^!Up::
-    ^!NumpadUp:: ; Numpad8
-      {
-        Send {Ctrl Down}{8 3}{Ctrl Up}
-        Return
-      }
-      ; ^!PgUp::
-    ^!NumpadPgUp:: ; Numpad9
-      {
-        Send {Ctrl Down}{9 3}{Ctrl Up}
-        Return
-      }
-      ; ^!Left::
-    ^!NumpadLeft:: ; Numpad4
-      {
-        ; Send {Ctrl Down}{4 3}{Ctrl Up} ; 4 klappt nicht nur bei Aerosoft
-        Send {Ctrl Down}{5 3}{Ctrl Up}
-        Return
-      }
-
-    ^!NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Ctrl+Alt", 3)
-        Return
-      }
-
-      ; ^!Right::
-    ^!NumpadRight:: ; Numpad6
-      {
-        Send {Ctrl Down}{6 3}{Ctrl Up}
-        Return
-      }
-      ; ^!End::
-    ^!NumpadEnd:: ; Numpad1
-      {
-        Send {Ctrl Down}{1 3}{Ctrl Up}
-        Return
-      }
-      ; ^!Down::
-    ^!NumpadDown:: ; Numpad2
-      {
-        Send {Ctrl Down}{2 3}{Ctrl Up}
-        Return
-      }
-      ; ^!PgDn::
-    ^!NumpadPgDn:: ; Numpad3
-      {
-        Send {Ctrl Down}{3 3}{Ctrl Up}
-        Return
-      }
-      ; ^!Ins::
-    ^!NumpadIns:: ; Numpad0
-      {
-        Return
-      }
-      ; Del::
-    ^!NumpadDel:: ; NumpadDel
-      {
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_SHIFT_CTRL_ALT: ; NUMLock Aus
-      ; -------------------------------------------------------
-
-    +^!NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Shift+Ctrl+Alt", 3)
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_WIN: ; NUMLock Aus
-      ; -------------------------------------------------------
-
-    #NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Win", 3)
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_SHIFT_WIN: ; NUMLock Aus
-      ; -------------------------------------------------------
-
-    +#NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Shift+Win", 3)
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_CTRL_WIN: ; NUMLock Aus
-      ; -------------------------------------------------------
-
-    ^#NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Ctrl+Win", 3)
-        Return
-      }
-
-      ; -------------------------------------------------------
-    NUMPAD_SHIFT_CTRL_WIN: ; NUMLock Aus
-      ; -------------------------------------------------------
-
-    +^#NumpadClear:: ; Numpad5
-      {
-        _Message("Numpad5 mit Shift+Ctrl+Win", 3)
-        Return
-      }
-
-      ; NUMLock Aus
-      ; Shift  Ctrl  Alt  Win
-      ;	-	  -	    -    -		ok nutzbar in P3D	Views
-      ;	x	  -	    -    -		ok ./. in P3D		remapt Shift-Ctrl Speed/Heading/feet slow
-      ;	-	  x	    -    -		ok nutzbar in P3D	Speed/Heading/feet fast
-      ;	x	  x	    -    -		ok ./. in P3D		
-      ;	-	  -	    x    -		ok ./. in P3D
-      ;	x	  -	    x    -		ok ./. in P3D4
-      ;	-	  x	    x    -		ok AltGr in P3D 	remapt in POV Ctrl-1..9
-      ;	x	  x	    x    -		ok AltGr in P3D 	
-      ;	-	  x	    -    x		ok ./. in P3D 
-
-      ; -------------------------------------------------------
-    NUMPAD_mit_NUMLOCK: ; mit NUMLOCK gedrückt
-      ; -------------------------------------------------------
-
-    Numpad5:: ; !! NOCH FREI
-      {
-        _Message("Numlock Numpad5", 3)
-        Return
-      }
-
-    +Numpad5:: ; ./. SHIFT wird ignoriert
-      {
-        _Message("Numlock Numpad5 mit Shift", 3)
-        Return
-      }
-
-    ^Numpad5:: ; !! VERGEBEN für Rotari Knobs ...
-      {
-        _Message("Numlock Numpad5 mit Ctrl", 3)
-        Return
-      }
-
-    +^Numpad5:: ; ./. SHIFT wird ignoriert
-      {
-        _Message("Numlock Numpad5 mit Shift+Ctrl", 3)
-        Return
-      }
-
-    !Numpad5:: ; ./. ALT=Menu immer im Flight Sim vergeben
-      {
-        _Message("Numlock Numpad5 mit Alt", 3)
-        Return
-      }
-
-    +!Numpad5:: ; ./.  SHIFT wird ignoriert und damit ALT=Menu 
-      {
-        _Message("Numlock Numpad5 mit Shift+Alt", 3)
-        Return
-      }
-
-    ^!Numpad5:: ; !! VERGEBEN für Rotari Knobs ...
-      {
-        _Message("Numlock Numpad5 mit Ctrl+Alt", 3)
-        Return
-      }
-
-    +^!Numpad5:: ;./.  ergibt Numpad5 OHNE Numlock
-      {
-        _Message("Numlock Numpad5 mit Shift+Ctrl+Alt", 3)
-        Return
-      }
+  }
+  Send {Alt Up}{Shift Up}{Ctrl Up} ; alle Tasten löschen
+
+  Gosub Screen5
+Return
+
+3Joy03_SpeechOn:
+  ; 3Joy3:: ; HOTAS_Joy_RH
+  ; Zoom in -> in P3D configuriert
+Return
+
+3Joy04_ATC:
+  ; 3Joy4:: ; HOTAS_Joy_RV
+  ; Zoom out -> in P3D configuriert
+Return
+
+3Joy05_AP_WarningsOff:
+3Joy5:: ; HOTAS_Thrust_RO
+  x := 0
+  While GetKeyState("3Joy5")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("warnings off")
+      Return
+    }
+  }
+
+  If AP
+    err := _CMD("autopilot off")
+  Else
+    err := _CMD("autopilot on")
+
+Return
+
+3Joy06_AT_WarningsOff:
+3Joy6:: ; HOTAS_Thrust_RM
+  x := 0
+  While GetKeyState("3Joy6")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("warnings off")
+      Return
+    }
+  }
+
+  If AT
+    Err := _CMD("autothrust off")
+  Else
+    Err := _CMD("autothrust on")
+
+Return
+
+3Joy07_TakeOffThrust_ReverseThrust:
+3Joy7:: ; HOTAS_Thrust_RU
+  x := 0
+  While GetKeyState("3Joy7")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("reverse thrust")
+      Return
+    }
+  }
+
+  Err := _CMD("take off thrust")
+Return
+
+3Joy08_OutsideView_TopDownView:
+3Joy8:: ; HOTAS_Thrust_VM
+  x := 0
+  While GetKeyState("3Joy8")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("top down view")
+      Return
+    }
+  }
+
+  Err := _CMD("outside view")
+Return
+
+3Joy09_FlapsStepUp_FlapsUP:
+3Joy9:: ; HOTAS_Thrust_HO
+  x := 0
+  While GetKeyState("3Joy9")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("flaps full up")
+      Return
+    }
+  }
+
+  Err := _CMD("flaps step up")
+Return
+
+3Joy10_FlapsStepDown_FlapsDown:
+3Joy10:: ; HOTAS_Thrust_HU
+  x := 0
+  While GetKeyState("3Joy10")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("flaps full down")
+      Return
+    }
+  }
+  Err := _CMD("flaps step down")
+Return
+
+3Joy11_ParkingBrake_Gear:
+3Joy11:: ; HOTAS_Thrust_UL
+  x := 0
+  While GetKeyState("3Joy11")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      If GEAR
+        Err := _CMD("gear up")
+      Else
+        Err := _CMD("gear down")
+      Return
+    }
+  }	
+
+  If PBRAKE
+    Err := _CMD("parking brake off")
+  Else
+    Err := _CMD("parking brake on")
+
+Return
+
+3Joy12_StopTimer_GoAround:
+3Joy12:: ; HOTAS _Thrust_UR
+  x := 0
+  While GetKeyState("3Joy12")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("go around")
+      Return
+    }
+  }	
+
+  Err := _CMD("stop timer")
+  Err := _CMD("strobe and landing lights off")
+  Err := _CMD("flaps full up")
+Return
+
+_ARDUINO_Buttons: 
+  ; 1 - 4
+  ; 2 - 5
+  ; 3 - 6
+
+4Joy01_frei:
+4Joy1::
+  _Message("4Joy1", 3)
+Return
+4Joy02_managed_hold_Speed:
+4Joy2::
+  x := 0
+  While GetKeyState("4Joy2")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("hold speed")
+      Return
+    }
+  }	
+
+  Err := _CMD("managed speed")
+  ; _Message("4Joy2", 3)
+Return
+
+4Joy03_managed_hold_Heading:
+4Joy3::
+  x := 0
+  While GetKeyState("4Joy3")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("hold heading")
+      Return
+    }
+  }	
+
+  Err := _CMD("managed heading")
+  ; _Message("4Joy3", 3)
+Return
+
+4Joy04_frei:
+4Joy4::
+  _Message("4Joy4", 3)
+Return
+
+4Joy05_managed_hold_VS:
+4Joy5::
+
+  x := 0
+  While GetKeyState("4Joy5")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("hold vertical speed")
+      Return
+    }
+  }	
+
+  Err := _CMD("managed vertical speed")
+
+  ; _Message("4Joy5", 3)
+Return
+
+4Joy06_managed_hold_Altitude:
+4Joy6::
+  x := 0
+  While GetKeyState("4Joy6")
+  {
+    x := x + 1
+    Sleep, ButtonWait_Delay
+
+    If x = 10
+    {
+      Err := _CMD("hold altitude")
+      Return
+    }
+  }	
+
+  Err := _CMD("managed altitude")
+  ; _Message("4Joy6", 3)
+Return
+
+4Joy07_SpeechRec:
+  ; 4Joy7::
+  ; Als Hotkey Button definiert
+  _Message("4Joy7", 0)
+Return
+
+4Joy08_ATC:
+  ; 4Joy8::
+  ; Als Hotkey Button definiert
+  _Message("4Joy8", 0)
+Return
+
+4Joy09_Cecklist_OK:
+  ; 4Joy9::
+  ; Als Hotkey Button definiert
+  _Message("4Joy9", 0)
+Return
+
+_ARDUINO_Rotaries: 
+  ;
+
+4Joy10_Course_down:
+4Joy10::
+  _Message("Course down", 0)
+Return
+4Joy11_Course_up:
+4Joy11::
+  _Message("Course up", 0)
+Return
+
+4Joy12_Speed_down:
+4Joy12::
+  WinActivate, %Aktu_Sim%
+  Send {Ctrl Down}{Numpad1}{Ctrl Up}
+  ; _Message("speed up", 0)
+Return
+4Joy13_Speed_up:
+4Joy13::
+  WinActivate, %Aktu_Sim%
+  Send {Ctrl Down}{Numpad7}{Ctrl Up}
+  ; _Message("speed down", 0)
+Return
+
+4Joy14_Heading_down:
+4Joy14::
+  WinActivate, %Aktu_Sim%
+  Send {Ctrl Down}{Numpad4}{Ctrl Up}
+  ; _Message("Hading down", 0)
+Return
+4Joy15_Heading_up:
+4Joy15::
+  WinActivate, %Aktu_Sim%
+  Send {Ctrl Down}{Numpad6}{Ctrl Up}
+  ; _Message("Heading up", 0)
+Return
+
+4Joy16_Altitude_down:
+4Joy16::
+  WinActivate, %Aktu_Sim%
+  Send {Ctrl Down}{Numpad2}{Ctrl Up}
+  ; _Message("speed up", 0)
+Return
+4Joy17_Altitude_up:
+4Joy17::
+  WinActivate, %Aktu_Sim%
+  Send {Ctrl Down}{Numpad8}{Ctrl Up}
+  ; _Message("speed down", 0)
+Return
+
+4Joy18_VS_down:
+4Joy18::
+  WinActivate, %Aktu_Sim%
+  Send {Ctrl Down}{Numpad3}{Ctrl Up}
+  ; _Message("speed up", 0)
+Return
+4Joy19_VS_up:
+4Joy19::
+  WinActivate, %Aktu_Sim%
+  Send {Ctrl Down}{Numpad9}{Ctrl Up}
+  ; _Message("speed down", 0)
+Return
+
+_MOUSE_SECTION: 
+  ;
+
+MButton::
+  ; While GetKeyState("MButton" ) 
+  ; {
+  ; 	; _Message("schlafe", 0)
+  ; 	sleep, 100 
+  ; }		
+
+  Send {Space down}
+  ; _Message("schlafe", 0)
+  sleep, 500
+  Send {Space up}
+  ; _Message("weg bin ich", 0)
+Return
+
+KEYBOARD_SECTION: 
+
+  ; *		= wird immer ausgelöst auch wenn modifikaton
+  ; $ 	= keine rekursion
+  ; ~  	= Taste weiterleiten
+  ; + 	= [Shift]-Taste
+  ; ^ 	= [Ctrl]-Taste
+  ; ! 	= [QALT]-Taste
+  ; # 	= [Win] -Taste
+  ; <# 	= [Left Win Taste]
+
+~F9::
+~F10::
+~F11::
+~F12::
+  Aktu_Screen = -1
+Return
+
+Screen7:
+NumpadHome:: ; Numpad7
+  Err := _NUMPAD_Send(7)
+Return
+
+Screen8:
+NumpadUp:: ; Numpad8
+  Err := _NUMPAD_Send(8)
+Return
+
+Screen9:
+NumpadPgUp:: ; Numpad9
+  Err := _NUMPAD_Send(9)
+Return
+
+Screen4:
+NumpadLeft:: ; Numpad4
+  Err := _NUMPAD_Send(4)
+Return
+
+Screen5:
+NumpadClear:: ; Numpad5
+  Err := _NUMPAD_Send(5)
+Return
+
+Screen6:
+NumpadRight:: ; Numpad6
+  Err := _NUMPAD_Send(6)
+Return
+
+Screen1:
+NumpadEnd:: ; Numpad1
+  Err := _NUMPAD_Send(1)
+Return
+
+Screen2:
+NumpadDown:: ; Numpad2
+  Err := _NUMPAD_Send(2)
+Return
+
+Screen3:
+NumpadPgDn:: ; Numpad3
+  Err := _NUMPAD_Send(3)
+Return
+
+Screen0:
+NumpadIns:: ; Numpad0
+  Err := _NUMPAD_Send(0)
+Return
+
+ScreenDel:
+NumpadDel:: ; NumpadDel
+  Err := _CMD("reset view")
+Return
+
+_NUMPAD_SHIFT: ; NUMLock Aus
+  ; hierdurch wird Ctrl+Alt(6) remapt (langsames Rotari) an LUA weitergegeben 
+
+  ; +Home::
++NumpadHome:: ; Numpad7
+  Send {Ctrl Down}{Alt Down}{Numpad7}{Alt Up}{Ctrl Up}
+Return
+; +Up::
++NumpadUp:: ; Numpad8
+  Send {Ctrl Down}{Alt Down}{Numpad8}{Alt Up}{Ctrl Up}
+Return
+; +PgUp::
++NumpadPgUp:: ; Numpad9
+  Send {Ctrl Down}{Alt Down}{Numpad9}{Alt Up}{Ctrl Up}
+Return
+; +Left::
++NumpadLeft:: ; Numpad4
+  ; Send {Ctrl Down}{Alt Down}{Numpad4}{Alt Up}{Ctrl Up}  ; 4 klappt nicht nur bei Aerosoft
+  Send {Ctrl Down}{5 3}{Ctrl Up}
+Return
++NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Shift", 3)
+  Send {Ctrl Down}{Alt Down}{Numpad5}{Alt Up}{Ctrl Up}
+Return
+; +Right::
++NumpadRight:: ; Numpad6
+  Send {Ctrl Down}{Alt Down}{Numpad6}{Alt Up}{Ctrl Up}
+Return
+; +End::
++NumpadEnd:: ; Numpad1
+  Send {Ctrl Down}{Alt Down}{Numpad1}{Alt Up}{Ctrl Up}
+Return
+; +Down::
++NumpadDown:: ; Numpad2
+  Send {Ctrl Down}{Alt Down}{Numpad2}{Alt Up}{Ctrl Up}
+Return
+; +PgDn::
++NumpadPgDn:: ; Numpad3
+  Send {Ctrl Down}{Alt Down}{Numpad3}{Alt Up}{Ctrl Up}
+Return
+; +Ins::
++NumpadIns:: ; Numpad0
+  Send {Ctrl Down}{Alt Down}{Numpad0}{Alt Up}{Ctrl Up}
+Return
+; Del::
++NumpadDel:: ; NumpadDel
+  Send {Ctrl Down}{Alt Down}{NumpadDot}{Alt Up}{Ctrl Up}
+Return
+
+_NUMPAD_CTRL: ; NUMLock Aus
+  ;
+
+  ; ^Home::
+^NumpadHome:: ; Numpad7
+  Send {Ctrl Down}{Numpad7}{Ctrl Up}
+Return
+; ^Up::
+^NumpadUp:: ; Numpad8
+  Send {Ctrl Down}{Numpad8}{Ctrl Up}
+Return
+; ^PgUp::
+^NumpadPgUp:: ; Numpad9
+  Send {Ctrl Down}{Numpad9}{Ctrl Up}
+Return
+; ^Left::
+^NumpadLeft:: ; Numpad4
+  Send {Ctrl Down}{Numpad4}{Ctrl Up}
+Return
+^NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Ctrl", 3)
+  Send {Ctrl Down}{Numpad5}{Ctrl Up}
+Return
+; ^Right::
+^NumpadRight:: ; Numpad6
+  Send {Ctrl Down}{Numpad6}{Ctrl Up}
+Return
+; ^End::
+^NumpadEnd:: ; Numpad1
+  Send {Ctrl Down}{Numpad1}{Ctrl Up}
+Return
+; ^Down::
+^NumpadDown:: ; Numpad2
+  Send {Ctrl Down}{Numpad2}{Ctrl Up}
+Return
+; ^PgDn::
+^NumpadPgDn:: ; Numpad3
+  Send {Ctrl Down}{Numpad3}{Ctrl Up}
+Return
+; ^Ins::
+^NumpadIns:: ; Numpad0
+Return
+; Del::
+^NumpadDel:: ; NumpadDel
+Return
+
+_NUMPAD_SHIFT_CTRL: ; NUMLock Aus
+  ; -------------------------------------------------------
+
+  ; +^Home::
++^NumpadHome:: ; Numpad7
+Return
+; +^Up::
++^NumpadUp:: ; Numpad8
+Return
+; +^PgUp::
++^NumpadPgUp:: ; Numpad9
+Return
+; +^Left::
++^NumpadLeft:: ; Numpad4
+Return
++^NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Shift+Ctrl", 3)
+Return
+; +^Right::
++^NumpadRight:: ; Numpad6
+Return
+; +^End::
++^NumpadEnd:: ; Numpad1
+Return
+; +^Down::
++^NumpadDown:: ; Numpad2
+Return
+; +^PgDn::
++^NumpadPgDn:: ; Numpad3
+Return
+; +^Ins::
++^NumpadIns:: ; Numpad0
+Return
+; Del::
++^NumpadDel:: ; NumpadDel
+Return
+
+_NUMPAD_ALT: ; NUMLock Aus
+  ;
+
+!NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Alt", 3)
+Return
+
+_NUMPAD_SHIFT_ALT: ; NUMLock Aus
+  ;
+
++!NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Shift+Alt", 3)
+Return
+
+_NUMPAD_CTRL_ALTGr: ; NUMLock Aus
+  ; remapt auf POV 1..9
+
+  ; +Home::
+^!NumpadHome:: ; Numpad7
+  Send {Ctrl Down}{7 3}{Ctrl Up}
+Return
+
+; ^!Up::
+^!NumpadUp:: ; Numpad8
+  Send {Ctrl Down}{8 3}{Ctrl Up}
+Return
+
+; ^!PgUp::
+^!NumpadPgUp:: ; Numpad9
+  Send {Ctrl Down}{9 3}{Ctrl Up}
+Return
+
+; ^!Left::
+^!NumpadLeft:: ; Numpad4
+  ; Send {Ctrl Down}{4 3}{Ctrl Up} ; 4 klappt nicht nur bei Aerosoft
+  Send {Ctrl Down}{5 3}{Ctrl Up}
+Return
+
+^!NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Ctrl+Alt", 3)
+Return
+
+; ^!Right::
+^!NumpadRight:: ; Numpad6
+  Send {Ctrl Down}{6 3}{Ctrl Up}
+Return
+
+; ^!End::
+^!NumpadEnd:: ; Numpad1
+  Send {Ctrl Down}{1 3}{Ctrl Up}
+Return
+
+; ^!Down::
+^!NumpadDown:: ; Numpad2
+  Send {Ctrl Down}{2 3}{Ctrl Up}
+Return
+
+; ^!PgDn::
+^!NumpadPgDn:: ; Numpad3
+  Send {Ctrl Down}{3 3}{Ctrl Up}
+Return
+
+; ^!Ins::
+^!NumpadIns:: ; Numpad0
+Return
+
+; Del::
+^!NumpadDel:: ; NumpadDel
+Return
+
+_NUMPAD_SHIFT_CTRL_ALT: ; NUMLock Aus
+  ;
+
++^!NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Shift+Ctrl+Alt", 3)
+Return
+
+_NUMPAD_WIN: ; NUMLock Aus
+  ;
+
+#NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Win", 3)
+Return
+
+_NUMPAD_SHIFT_WIN: ; NUMLock Aus
+  ;
+
++#NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Shift+Win", 3)
+Return
+
+NUMPAD_CTRL_WIN: ; NUMLock Aus
+  ;
+
+^#NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Ctrl+Win", 3)
+Return
+
+NUMPAD_SHIFT_CTRL_WIN: ; NUMLock Aus
+  ;
+
++^#NumpadClear:: ; Numpad5
+  _Message("Numpad5 mit Shift+Ctrl+Win", 3)
+Return
+
+; NUMLock Aus
+; Shift  Ctrl  Alt  Win
+;	-	  -	    -    -		ok nutzbar in P3D	Views
+;	x	  -	    -    -		ok ./. in P3D		remapt Shift-Ctrl Speed/Heading/feet slow
+;	-	  x	    -    -		ok nutzbar in P3D	Speed/Heading/feet fast
+;	x	  x	    -    -		ok ./. in P3D		
+;	-	  -	    x    -		ok ./. in P3D
+;	x	  -	    x    -		ok ./. in P3D4
+;	-	  x	    x    -		ok AltGr in P3D 	remapt in POV Ctrl-1..9
+;	x	  x	    x    -		ok AltGr in P3D 	
+;	-	  x	    -    x		ok ./. in P3D 
+
+NUMPAD_mit_NUMLOCK: ; mit NUMLOCK gedrückt
+  ;
+
+Numpad5:: ; !! NOCH FREI
+  _Message("Numlock Numpad5", 3)
+Return
+
++Numpad5:: ; ./. SHIFT wird ignoriert
+  _Message("Numlock Numpad5 mit Shift", 3)
+Return
+
+^Numpad5:: ; !! VERGEBEN für Rotari Knobs ...
+  _Message("Numlock Numpad5 mit Ctrl", 3)
+Return
+
++^Numpad5:: ; ./. SHIFT wird ignoriert
+  _Message("Numlock Numpad5 mit Shift+Ctrl", 3)
+Return
+
+!Numpad5:: ; ./. ALT=Menu immer im Flight Sim vergeben
+  _Message("Numlock Numpad5 mit Alt", 3)
+Return
+
++!Numpad5:: ; ./.  SHIFT wird ignoriert und damit ALT=Menu 
+  _Message("Numlock Numpad5 mit Shift+Alt", 3)
+Return
+
+^!Numpad5:: ; !! VERGEBEN für Rotari Knobs ...
+  _Message("Numlock Numpad5 mit Ctrl+Alt", 3)
+Return
+
++^!Numpad5:: ;./.  ergibt Numpad5 OHNE Numlock
+  _Message("Numlock Numpad5 mit Shift+Ctrl+Alt", 3)
+Return
