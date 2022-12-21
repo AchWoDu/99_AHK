@@ -485,6 +485,7 @@ _Preflight_Checklist() { ; Starts manually
     If _Is_CheckItem("Check if doors and windows are closed!")
     If _Is_CheckItem("Switch beacon light on!")
     If _Is_CheckItem("Check if jetway and the groundequippment is removed!")
+    If _Is_CheckItem("Start the engines!")
 
   If _Is_CheckItem("Preflight checklist is complete! Request push back!")
     PreflightCheck_Ok := True
@@ -524,7 +525,6 @@ _BeforeTaxi_Checklist() { ; when parkbrake off
   Err := _Text_to_Speech("Before taxi checklist")
 
   If _Is_CheckItem("Set transponder mode charly!")
-    If _Is_CheckItem("Start the engines!")
     If _Is_CheckItem("Check if flaps in take off position!")
     If _Is_CheckItem("Trim elevator!")
     If _Is_CheckItem("There after switch engine generators on!")
@@ -1278,7 +1278,6 @@ Show_DEBUG_Info:
     Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
     Write_Statusbar > %DEBUG_Write_Statusbar%
     Is_CheckItem	 > %DEBUG_Is_CheckItem%
-    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
     CP_Time > %CP_EndTime%
     RFV_Time > %RFV_Time%

@@ -1121,7 +1121,6 @@ Show_DEBUG_Info:
         Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
         Write_Statusbar > %DEBUG_Write_Statusbar%
         Is_CheckItem	 > %DEBUG_Is_CheckItem%
-        Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
         CP_Time > %CP_EndTime%
         RFV_Time > %RFV_Time%

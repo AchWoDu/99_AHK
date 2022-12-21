@@ -1,5 +1,5 @@
 
-Info_11.09.2022
+Info_2022_11_01
                               
 # VSC_General:
 
@@ -398,9 +398,9 @@ xpilot
   ;        Ctrl  Alt Y    Reset elevator trim
   ; Shift  Ctrl  Alt Y    Com_Stby_Radio_Swap (Function Switch Radios in FSUIPC-Taste)
 
-##                   Z    Autopilot on /off
+##                   Z    Autopilot 1 on /off
   ; Shift            Z
-  ;        Ctrl      Z    
+  ;        Ctrl      Z    Autopilot 2 on /off
   ; Shift  Ctrl      Z    
   ;              Alt Z
   ; Shift        Alt Z

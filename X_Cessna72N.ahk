@@ -1,4 +1,4 @@
-﻿X_C72N_2022_09_09:
+﻿X_C72N_2022_11_08:
 
 DEV_VARS:
   Global TEST := False ;Or True ; Keine Programme starten
@@ -81,7 +81,7 @@ CMD_Process:
   Else If (CMD_Text="switch GARMIN") ; PFD and MFG
   {
     Send 12
-  }	
+  }
   ;
   ; NUMPAD Views
   ;
@@ -313,10 +313,10 @@ _Preflight_Procedure() { ; Starts manually
 
   PreflightProc_Ok := PreflightProc_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
-_Preflight_Checklist() { ; Starts manually 
+_Preflight_Checklist() { ; Starts manually
 
   SetTimer,, Off
   CheckList_Active := True
@@ -336,16 +336,16 @@ _Preflight_Checklist() { ; Starts manually
     If _Is_CheckItem("Check the trimm wheel and fuel selector position!")
     If _Is_CheckItem("Check if hold heading and vertical speed armed!")
     ; If _Is_CheckItem("Check if gyro and magnet compass synchronized!")
-  If _Is_CheckItem("Check if heading and OBS on runway course!")
+    If _Is_CheckItem("Check if heading and OBS on runway course!")
     If _Is_CheckItem("Check the altimeter setting!")
 
-  If _Is_CheckItem("Preflight checklist is complete! You can request taxi!")
+    If _Is_CheckItem("Preflight checklist is complete! You can request taxi!")
     PreflightCheck_Ok := True
 
   PreflightCheck_Ok := PreflightCheck_Ok Or CheckOK_Break
   CheckList_Active := False
 
-Return
+  Return
 }
 
 _BeforeTaxi_Checklist() { ; when parkbrake off
@@ -358,11 +358,11 @@ _BeforeTaxi_Checklist() { ; when parkbrake off
   If _Is_CheckItem("Set transponder mode charly!")
     If _Is_CheckItem("Check if the flaps in take off configuration!")
 
-  If _Is_CheckItem("Before taxi checklist is complete. Request taxi!")
+    If _Is_CheckItem("Before taxi checklist is complete. Request taxi!")
     BeforeTaxi_Ok := True
   BeforeTaxi_Ok := BeforeTaxi_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _BeforeTakeOff_Checklist() { ; Starts when the landing lights goes on
@@ -375,12 +375,12 @@ _BeforeTakeOff_Checklist() { ; Starts when the landing lights goes on
   If _Is_CheckItem("Check the heading and navigation settings!")
     If _Is_CheckItem("Check transponder and run the timer!")
 
-  If _Is_CheckItem("Before take off checklist is complete. Request ready for departure!")
+    If _Is_CheckItem("Before take off checklist is complete. Request ready for departure!")
     BeforeTakeOff_Ok := True
 
   BeforeTakeOff_Ok := BeforeTakeOff_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _AfterTakeOff_Checklist() { ; Starts after flaps full up
@@ -393,12 +393,12 @@ _AfterTakeOff_Checklist() { ; Starts after flaps full up
   If _Is_CheckItem("Check if the flaps full up!")
     If _Is_CheckItem("Check autopilot settings!")
 
-  If _Is_CheckItem("After take off checklist is complete.")
+    If _Is_CheckItem("After take off checklist is complete.")
     AfterTakeOff_Ok := True
 
   AfterTakeOff_Ok := AfterTakeOff_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _BeforeApproach_Checklist() { ; Starts after descending 8000 Feets
@@ -411,12 +411,12 @@ _BeforeApproach_Checklist() { ; Starts after descending 8000 Feets
   If _Is_CheckItem("Check if approach transition in GPS is loaded!")
     If _Is_CheckItem("Check if landing lights switched on!")
 
-  If _Is_CheckItem("Before approach checklist is complete!")
+    If _Is_CheckItem("Before approach checklist is complete!")
     BeforeApproach_Ok := True
 
   BeforeApproach_Ok := BeforeApproach_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _BeforeLanding_Checklist() { ; Starts after the Flaps goes in landing configuration
@@ -428,15 +428,15 @@ _BeforeLanding_Checklist() { ; Starts after the Flaps goes in landing configurat
 
   If _Is_CheckItem("Check if GPS is disengaged and approach engaged!")
 
-  If _Is_CheckItem("Check the altimeter!")
+    If _Is_CheckItem("Check the altimeter!")
     If _Is_CheckItem("Check if flaps in landing position!")
 
-  If _Is_CheckItem("Before landing checklist is complete.")
+    If _Is_CheckItem("Before landing checklist is complete.")
     BeforeLanding_Ok := True
 
   BeforeLanding_Ok := BeforeLanding_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _AfterLanding_Checklist() { ; Starts when the Flaps are up
@@ -449,12 +449,12 @@ _AfterLanding_Checklist() { ; Starts when the Flaps are up
   If _Is_CheckItem("Check lights, flaps and timer!")
     If _Is_CheckItem("Check if the autopilot switched off!")
 
-  If _Is_CheckItem("After landing checklist is complete. Request taxi to the gate!")
+    If _Is_CheckItem("After landing checklist is complete. Request taxi to the gate!")
     AfterLanding_Ok := True
 
   AfterLanding_Ok := AfterLanding_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _Parking_Checklist() { ; Starts when the taxi lights goes off
@@ -467,14 +467,14 @@ _Parking_Checklist() { ; Starts when the taxi lights goes off
   If _Is_CheckItem("Transponder mode standby!")
     If _Is_CheckItem("Check if battery master and avionic switched off!")
 
-  If _Is_CheckItem("Parking checklist is complete!")
+    If _Is_CheckItem("Parking checklist is complete!")
     Parking_Ok := True
 
   Parking_Ok := Parking_Ok Or CheckOK_Break
   CheckList_Active := False
 
   Gosub Auto_Checklists
-Return
+  Return
 }
 
 _Read_FS_VARS() {
@@ -552,7 +552,7 @@ _Read_FS_VARS() {
   Global FLAPS := 0x0BDC ; Klappenstellung als Wert von 100%
   Global FLAPS_V := 999 ; Klappenstellung als Nr
   Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, FLAPS, int, 4, int, &FLAPS, int, &dwResult)
-  ; 
+  ;
   Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", int, &dwResult)
 
   ; Standard VARs convert
@@ -565,12 +565,12 @@ _Read_FS_VARS() {
     ; MsgBox, %AC_Type%
 
     ; bei AFL wird Livery Kennung benötigt z.B.: OK-DSF or G-Lane
-    If (AC_TYPE == "C172 N") Or (AC_TYPE == " G-LAN") 		
+    If (AC_TYPE == "C172 N") Or (AC_TYPE == " G-LAN")
     {
       AC_TYPE := "C72N" ; 4 stellig
-    }		
+    }
     Else
-    {	
+    {
       _Error_Message("AC_TYPE: C72N ->" AC_TYPE "<", 6)
       AC_TYPE := "????"
     }
@@ -710,7 +710,7 @@ _Read_FS_VARS() {
   LAND_L		:= (LIGHTS & 4) == 4
 
   DEBUG_Read_FS_VARS += 1000
-Return Err
+  Return Err
 }
 
 Write_Statusbar:
@@ -986,8 +986,8 @@ Aircraft_Scenario:
   ; Global ACS_StartTime 	; Aircraft Scenario
   ; Global RFV_Time		; Read Flightsim Vars
   ; Global WSB_Time		; Write Statusbar
-  ; Global ACS_Time		; Aircraft Scenario 
-  ; Global ACS_EndTime	; Aircraft Scenario 
+  ; Global ACS_Time		; Aircraft Scenario
+  ; Global ACS_EndTime	; Aircraft Scenario
 
   DEBUG_Aircraft_Scenario++
 
@@ -1167,7 +1167,7 @@ Show_DEBUG_Info:
     LScr	 > %Last_Screen%
 
     FLAPS	 > %FLAPS%
-    FLAPS_V > %FLAPS_V% 
+    FLAPS_V > %FLAPS_V%
     QALT	 > %QALT%
     GALT	 > %GALT%
     QALT 	 > %QALT%
@@ -1181,12 +1181,11 @@ Show_DEBUG_Info:
     Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
     Write_Statusbar > %DEBUG_Write_Statusbar%
     Is_CheckItem	 > %DEBUG_Is_CheckItem%
-    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
     CP_Time > %CP_EndTime%
     RFV_Time > %RFV_Time%
-    WSB_Time > %WSB_Time%	
-    ACS_Time > %ACS_Time% 
+    WSB_Time > %WSB_Time%
+    ACS_Time > %ACS_Time%
     ACS_EndTime	 > %ACS_EndTime%
   )
 
@@ -1206,7 +1205,7 @@ Return
 _Write_Aircraft_Info(Filename) {
 
   FileAppend, "Test Text", Filename
-Return, 0
+  Return, 0
 }
 
 JOYSTICK_SECTION:
@@ -1220,7 +1219,7 @@ POV:
   Global POV_Step
   Global POV_Value
 
-  POV_Value := GetKeyState("3JoyPOV")	
+  POV_Value := GetKeyState("3JoyPOV")
   if (POV_Value < 0)
     Return
 
@@ -1444,7 +1443,7 @@ Return
       Err := _CMD("hold altitude")
       Return
     }
-  }	
+  }
 
   Send {Ctrl Down}{NumpadPgup}{Ctrl Up}
 
@@ -1479,7 +1478,7 @@ Return
       Err := _CMD("hold heading")
       Return
     }
-  }	
+  }
 
   Send {Ctrl Down}{NumpadPgdn}{Ctrl Up}
 
@@ -1506,7 +1505,7 @@ Return
   {
     Gosub Screen5
     Return
-  }	
+  }
 
   x := 0
   While GetKeyState("3Joy8")
@@ -1576,7 +1575,7 @@ Return
         Err := _CMD("gear down")
       Return
     }
-  }	
+  }
 
   If PBRAKE
     Err := _CMD("parking brake off")
@@ -1598,7 +1597,7 @@ Return
       Err := _CMD("autostart")
       Return
     }
-  }	
+  }
 
   Err := _CMD("stop timer")
   Err := _CMD("strobe and landing lights off")
@@ -1626,7 +1625,7 @@ _ARDUINO_Buttons:
       Send 44 ; MFD out window
       Return
     }
-  }	
+  }
 
   Send 12
   ; Err := _CMD("switch P F D")
@@ -1649,7 +1648,7 @@ Return
       Err := _CMD("synchronised heading")
       Return
     }
-  }	
+  }
 
   Err := _CMD("hold speed")
   ; _Message("4Joy2", 3)
@@ -1670,7 +1669,7 @@ Return
       Err := _CMD("hold navigation")
       Return
     }
-  }	
+  }
 
   Err := _CMD("hold heading bug")
   ; _Message("4Joy3", 3)
@@ -1693,7 +1692,7 @@ Return
       ; Err := _CMD("synchronised heading")
       Return
     }
-  }	
+  }
 
   Err := _CMD("use garmin")
   ; Err := _CMD("switch M F D")
@@ -1715,7 +1714,7 @@ Return
       Err := _CMD("hold V NAV")
       Return
     }
-  }	
+  }
 
   Err := _CMD("hold vertical speed")
   ; _Message("4Joy5", 3)
@@ -1736,7 +1735,7 @@ Return
       Err := _CMD("hold V NAV")
       Return
     }
-  }	
+  }
 
   Err := _CMD("hold altitude")
   ; _Message("4Joy6", 3)
@@ -1821,7 +1820,7 @@ Return
 
   If GetKeyState("Ctrl")
     Send {Ctrl Down}{Alt Down}{Home}{Alt Up}{Ctrl Up}
-  Else		
+  Else
     Send {Shift Down}{Alt Down}{Home}{Alt Up}{Shift Up}
 
   ; _Message("speed up", 0)
@@ -1856,7 +1855,7 @@ Return
 
   If GetKeyState("Ctrl")
     Send {Ctrl Down}{Alt Down}{Right}{Alt Up}{Ctrl Up}
-  Else	
+  Else
     Send {Shift Down}{Alt Down}{Right 1}{Alt Up}{Shift Up}{Ctrl Up}
 
   ; _Message("Heading up", 0)
@@ -1867,7 +1866,7 @@ Return
   WinActivate, ahk_class %Aktu_Sim%
 
   If use_Garmin
-  {	
+  {
     Send {Alt Down}{3}{Alt Up}
     Return
   }
@@ -1905,7 +1904,7 @@ Return
   {
     Send {Alt Down}{1}{Alt Up} ; FMS outer Ring
     Return
-  }	
+  }
 
   If GetKeyState("Ctrl")
     Send {Ctrl Down}{Alt Down}{PgDn}{Alt Up}{Ctrl Up}
@@ -1990,8 +1989,8 @@ $NumpadClear:: ; Numpad5
   If (Aktu_Screen == 7) Or (Aktu_Screen == 9)
   {
     Send {ShiftDown}9{ShiftUp} ; Back to Cockpit
-    Aktu_Screen := 9		
-  }	
+    Aktu_Screen := 9
+  }
 
   Send {NumpadClear}
   Last_Screen := Aktu_Screen

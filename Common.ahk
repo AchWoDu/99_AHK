@@ -1,5 +1,4 @@
-﻿Common_2022_09_13:
-
+﻿Common_2022_12_21:
 DEV_MAIN_INIT_VARs:
 
   If 0 { ; zum testen setzen
@@ -43,7 +42,6 @@ DEV_Global_VARs:
   Global DEBUG_Write_Statusbar := 0
   Global DEBUG_Is_CheckItem := 0
   Global DEBUG_CMD := 0
-  Global DEBUG_Check_ARCARS_Error_Win := 0
 
   Global CP_LastTime 	:= 0 ; CMD_Process A_TickCount -> ToolTip Nr.7 in "Common_CMD.ahk"
   Global ACS_LastTime := 0 ; Aircraft_Scenario A_TickCount -> ToolTip Nr.8 im "Aircraft.ahk"
@@ -134,9 +132,9 @@ DEV_VATSIM_IVAO_Switch:
 DEV_Output_Devices:
 
   Global Boxen 		 	 := 0
-  Global Headset		 	:= 1
-  Global Monitor_Rechts := 3
-  Global Monitor_Mitte 	:= 2
+  Global Headset		 	:= 3
+  Global Monitor_Rechts := 2
+  Global Monitor_Mitte 	:= 1
 
   Global Boxen_OutputDevice 	:= Boxen ; text to speech
   Global Headset_OutputDevice := Headset ; text to speech
@@ -165,9 +163,15 @@ DEV_Browser_VARs:
   Global Chrome_New1	:= Chrome_Exe " " Chrome_User1 " " Chrome_NewWindow " " Chrome_wSize1 " " Chrome_wPos1 " "
   Global Chrome_Tab1	:= Chrome_Exe " " Chrome_User1 " "
 
-  ; WebFMC Fenster 1 und 2
-  Global Web_FMC	:= "http://192.168.1.100:9090"
+  ; FBWFMC Fenster 1 und 
+  Global FBW_FMC := "http://192.168.1.100:8380/interfaces/mcdu/"
+  Global Chrome_wSize_FBW_CDU1 := "--window-size=420,665"
+  Global Chrome_wPos_FBW_CDU1	 := "--window-position=-820,400"
+  Global Chrome_FBW_CDU1	 := Chrome_Exe " " Chrome_User2 " " Chrome_App FBW_FMC " " Chrome_wPos_FBW_CDU1 " " Chrome_wSize_FBW_CDU1
 
+
+  ; WebFMC Fenster 1 und 2
+  Global Web_FMC := "http://192.168.1.100:9090"
   Global Chrome_wSize_CDU1 := "--window-size=420,665"
   Global Chrome_wPos_CDU1	 := "--window-position=-820,400"
   Global Chrome_CDU1		 := Chrome_Exe " " Chrome_User2 " " Chrome_App Web_FMC " " Chrome_wPos_CDU1 " " Chrome_wSize_CDU1
@@ -802,19 +806,27 @@ Check_AdminMode:
 
   Aircraft := StrReplace(CMD_File, ".ahk" , ".exe") ; Name aus Aircraft-Datei erstellen
 
+  ; _Message("AircraftFile= " Aircraft " " A_ScriptName " " CMD_File, 15)
+  ; _Message("AircraftFile= " Aircraft " " A_ScriptName " " CMD_File, 15)
+  ; _Message("AircraftFile= " Aircraft " " CMD_File " " A_ScriptName, 30)
+
   If (A_ScriptName == CMD_File) ; Wenn es noch .ahk file -> .exe compilieren?
   {
-    ; _Message("?" Aircraft A_ScriptName CMD_File, 10)
+; _Message("?" Aircraft A_ScriptName CMD_File, )
 
     RunWait, C:\WINDOWS\system32\schtasks.exe /run /tn SkipUAC_KillAircraft
     Sleep, 1000
 
     FileDelete, %BIN_Path%StartAircraft.exe
     Sleep, 1000
-
+  
+;  _Message("StartAircraft.exe gelöscht??", 10)
+  
     RunWait, %AHK_EXE% /in "%AHK_Path%%CMD_File%" /out "%BIN_Path%%Aircraft%" /bin "%AHK_Compiler%" /icon "%FILE_ICON%"
 
     FileCopy, %BIN_Path%%Aircraft%, %BIN_Path%StartAircraft.exe
+
+; _Message("StartAircraft.exe erstellt!!", 10)
 
     ; mit admin Rechten H_Start_Menu
 
@@ -823,6 +835,9 @@ Check_AdminMode:
 
     If !ErrorLevel ; wenn kein Fehler und somit SkipUAC vorhanden war
       ExitApp
+    Else 
+      _Error_Message("SkipUAC_StartAircraft faild", 10)
+ 
   }
 
   if Not A_IsAdmin

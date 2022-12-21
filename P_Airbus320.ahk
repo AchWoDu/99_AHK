@@ -457,8 +457,9 @@ _Preflight_Checklist() { ; Starts manually
     If _Is_CheckItem("Check if the doors are closed!")
     If _Is_CheckItem("Check if jetway and the groundequippment is removed!")
     If _Is_CheckItem("Switch beacon light on!")
+    If _Is_CheckItem("Start the engines!")
 
-  If _Is_CheckItem("Preflight checklist is complete. Request push back!")
+    If _Is_CheckItem("Preflight checklist is complete. Request push back!")
     PreflightCheck_Ok := True
 
   PreflightCheck_Ok := PreflightCheck_Ok Or CheckOK_Break
@@ -473,10 +474,9 @@ _BeforeTaxi_Checklist() { ; when parkbrake off
   Err := _Text_to_Speech("Before taxi checklist")
 
   If _Is_CheckItem("Set transponder mode charly!")
-    If _Is_CheckItem("Start the engines!")
-    If _Is_CheckItem("Check flight controls!")
     If _Is_CheckItem("Set flaps to take off position!")
     If _Is_CheckItem("Check elevator!")
+    If _Is_CheckItem("Check flight controls!")
     If _Is_CheckItem("Arm spoilers and set autobrake to max")
     If _Is_CheckItem("Check take off config is normal!")
     If _Is_CheckItem("Set taxi lights on!")
@@ -613,7 +613,6 @@ Return
 }
 
 _Read_FS_VARS() {
-  ; DEVs
   DEBUG_Read_FS_VARS++
 
   ; Typ	Wertebereich								Länge
@@ -638,8 +637,7 @@ _Read_FS_VARS() {
 
   ; Standard VARs read
 
-  If AC_TYPE_read ; Nur beim ersten Durchlauf
-  {
+  If AC_TYPE_read {
     Global AC_TYPE := 0x3D00
     Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, AC_TYPE, int, 14, char, &AC_TYPE, int, &dwResult)
   }
@@ -1182,44 +1180,47 @@ Show_DEBUG_Info:
   DebugText =
   (
     DEBUG Info
-    Listen_On > %Listen_On%
-    Speech_Found > %Speech_Found%
-    Speech_On > %Speech_On%`n
-    CList_Active > %CheckList_Active%
-    PassFL80 > %PassingFL080%
 
-    PP > %PreflightProc_Ok%
-    PC > %PreflightCheck_Ok%
-    BT > %BeforeTaxi_Ok%
-    BTO > %BeforeTakeOff_Ok%
-    ATO > %AfterTakeOff_Ok%
-    BA > %BeforeApproach_Ok%
-    BL > %BeforeLanding_Ok%
-    AL > %AfterLanding_Ok%
-    PC > %Parking_Ok%
+    Listen_On.....> %Listen_On%
+    Speech_Found..> %Speech_Found%
+    Speech_On.....> %Speech_On%
 
-    AScr	 > %Aktu_Screen%
-    LScr	 > %Last_Screen%
+    PP...> %PreflightProc_Ok%
+    PC...> %PreflightCheck_Ok%
+    BT...> %BeforeTaxi_Ok%
+    BTO..> %BeforeTakeOff_Ok%
+    ATO..> %AfterTakeOff_Ok%
+    BA...> %BeforeApproach_Ok%
+    BL...> %BeforeLanding_Ok%
+    AL...> %AfterLanding_Ok%
+    PC...> %Parking_Ok%
 
-    FLAPS	 > %FLAPS%
-    FLAPS_V > %FLAPS_V% 
-    QALT	 > %QALT%
-    GALT	 > %GALT%
-    QNH 	 > %QNH_HP%
+    CList_Active...> %CheckList_Active%
+    Is_CheckItem...> %DEBUG_Is_CheckItem%
 
-    CMD 	 > %DEBUG_CMD%
-    CMD_Process 	 > %DEBUG_CMD_Process%
-    Aircraft_Scenario > %DEBUG_Aircraft_Scenario%
-    Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
-    Write_Statusbar > %DEBUG_Write_Statusbar%
-    Is_CheckItem	 > %DEBUG_Is_CheckItem%
-    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
+    Auto_Baro.> %Auto_Baro%
+    PassFL80..> %PassingFL080%
+    
+    FLAPS.....> %FLAPS%
+    FLAPS_V...> %FLAPS_V% 
+    QALT......> %QALT%
+    GALT......> %GALT%
+    QNH.......> %QNH_HP%
 
-    CP_Time > %CP_EndTime%
-    RFV_Time > %RFV_Time%
-    WSB_Time > %WSB_Time%	
-    ACS_Time > %ACS_Time% 
-    ACS_EndTime	 > %ACS_EndTime%
+    AScr.....> %Aktu_Screen%
+    LScr.....> %Last_Screen%
+
+    CMD................> %DEBUG_CMD%
+    CMD_Process........> %DEBUG_CMD_Process%
+    Aircraft_Scenario..> %DEBUG_Aircraft_Scenario%
+    Read_FS_VARS.......> %DEBUG_Read_FS_VARS%
+    Write_Statusbar....> %DEBUG_Write_Statusbar%
+
+    CP_Time.....> %CP_EndTime%
+    RFV_Time....> %RFV_Time%
+    WSB_Time....> %WSB_Time%	
+    ACS_Time....> %ACS_Time% 
+    ACS_EndTime.> %ACS_EndTime%
   )
 
   Err := ToolTipEx(DebugText, x_ToolTip10, y_ToolTip10, 10, HFONT, "WHITE", "BLACK", "", "S")

@@ -1,4 +1,4 @@
-﻿M_Airbus320_2022_09_14: ; FlyByWire Airbus
+﻿M_Airbus320_2022_12_21: ; FlyByWire Airbus
 
 DEV_VARS:
   Global TEST := False ;Or True ; Keine Programme starten
@@ -25,6 +25,16 @@ DEV_VARS:
 
   #Include %A_ScriptDir%\Common.ahk
 
+Return
+
+DEV_VSpeeds_C172N_REMARKS:
+  /*
+  1. Import SB über EFB
+  2. MCDU-Menu -> ATSU -> AOC -> INIT/PRES
+  3. INIT-Data Request
+  4. -> INIT PAGE -> INIT-Request
+  5. ggf. Weights laden
+  */
 Return
 
 CMD_Process:
@@ -405,12 +415,12 @@ CMD_Process:
   ; 	}
   Else If (CMD_Text="reload lua")
   {
-    Send {AppsKey Down}5{AppsKey Up}	
+    Send {AppsKey Down}5{AppsKey Up}
     Err := _Text_to_Speech(CMD_Text)
   }
   Else If (CMD_Text="kill lua")
   {
-    Send {AppsKey Down}5{AppsKey Up}	
+    Send {AppsKey Down}5{AppsKey Up}
     Err := _Text_to_Speech(CMD_Text)
   }
   ;
@@ -429,25 +439,25 @@ _Preflight_Procedure() { ; Starts manually
 
   If _Is_CheckItem("Check battery and external power on!")
     If _Is_CheckItem("When all flightplans are filed, load cargo and fuel!")
-    If _Is_CheckItem("Check ACARS!")
-    If _Is_CheckItem("Start the APU and set APU bleed on!")
-    If _Is_CheckItem("Set navigation lights on!")
-    If _Is_CheckItem("Set ADIRS to NAV!")
-    If _Is_CheckItem("Prepare CDU!")
-    If _Is_CheckItem("Set signs to auto!")
-    If _Is_CheckItem("Set fuel pumps on!")
-    If _Is_CheckItem("Set actual baro!")
-    If _Is_CheckItem("Set initial climb and check the 3 dots!")
-    If _Is_CheckItem("Reset timer")
-    If _Is_CheckItem("Check com radio!")
-    If _Is_CheckItem("Check parking brake on!")
+      If _Is_CheckItem("Check ACARS!")
+        If _Is_CheckItem("Start the APU and set APU bleed on!")
+          If _Is_CheckItem("Set navigation lights on!")
+            If _Is_CheckItem("Set ADIRS to NAV!")
+              If _Is_CheckItem("Prepare CDU!")
+                If _Is_CheckItem("Set signs to auto!")
+                  If _Is_CheckItem("Set fuel pumps on!")
+                    If _Is_CheckItem("Set actual baro!")
+                      If _Is_CheckItem("Set initial climb and check the 3 dots!")
+                        If _Is_CheckItem("Reset timer")
+                          If _Is_CheckItem("Check com radio!")
+                            If _Is_CheckItem("Check parking brake on!")
 
-  If _Is_CheckItem("Preflight procedure is complete. Request start up or switch to unicom!")
-    PreflightProc_Ok := True
+                              If _Is_CheckItem("Preflight procedure is complete. Request start up or switch to unicom!")
+                                PreflightProc_Ok := True
 
   PreflightProc_Ok := PreflightProc_Ok Or CheckOk_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _Preflight_Checklist() { ; Starts manually
@@ -458,20 +468,20 @@ _Preflight_Checklist() { ; Starts manually
 
   If _Is_CheckItem("Is startup approved?")
     If _Is_CheckItem("Check departure and flightplan route!")
-    If _Is_CheckItem("Check transponder code!")
-    If _Is_CheckItem("Check the fuel!")
-    If _Is_CheckItem("Check if PWS and TCAS on!")
-    If _Is_CheckItem("Check Thrust Lever IDLE position!")
-    If _Is_CheckItem("Check if the doors are closed!")
-    If _Is_CheckItem("Check if jetway and the groundequippment is removed!")
-    If _Is_CheckItem("Switch beacon light on!")
+      If _Is_CheckItem("Check transponder code!")
+        If _Is_CheckItem("Check the fuel!")
+          If _Is_CheckItem("Check if PWS and TCAS on!")
+            If _Is_CheckItem("Check Thrust Lever IDLE position!")
+              If _Is_CheckItem("Check if the doors are closed!")
+                If _Is_CheckItem("Check if jetway and the groundequippment is removed!")
+                  If _Is_CheckItem("Switch beacon light on!")
 
-  If _Is_CheckItem("Preflight checklist is complete. Request push back!")
-    PreflightCheck_Ok := True
+                    If _Is_CheckItem("Preflight checklist is complete. Request push back!")
+                      PreflightCheck_Ok := True
 
   PreflightCheck_Ok := PreflightCheck_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _BeforeTaxi_Checklist() { ; when parkbrake off
@@ -482,19 +492,19 @@ _BeforeTaxi_Checklist() { ; when parkbrake off
 
   If _Is_CheckItem("Set transponder mode charly!")
     If _Is_CheckItem("Start the engines!")
-    If _Is_CheckItem("Check flight controls!")
-    If _Is_CheckItem("Set flaps to take off position!")
-    If _Is_CheckItem("Check elevator!")
-    If _Is_CheckItem("Arm spoilers and set autobrake to max")
-    If _Is_CheckItem("Check take off config is normal!")
-    If _Is_CheckItem("Set taxi lights on!")
+      If _Is_CheckItem("Check flight controls!")
+        If _Is_CheckItem("Set flaps to take off position!")
+          If _Is_CheckItem("Check elevator!")
+            If _Is_CheckItem("Arm spoilers and set autobrake to max")
+              If _Is_CheckItem("Check take off config is normal!")
+                If _Is_CheckItem("Set taxi lights on!")
 
-  If _Is_CheckItem("Before taxi checklist is complete. Request taxi!")
-    BeforeTaxi_Ok := True
+                  If _Is_CheckItem("Before taxi checklist is complete. Request taxi!")
+                    BeforeTaxi_Ok := True
 
   BeforeTaxi_Ok := BeforeTaxi_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _BeforeTakeOff_Checklist() { ; Starts when the landing lights goes on
@@ -506,12 +516,12 @@ _BeforeTakeOff_Checklist() { ; Starts when the landing lights goes on
   If _Is_CheckItem("Advise cabin crew and check no blues!")
     If _Is_CheckItem("Check transponder and run the timer!")
 
-  If _Is_CheckItem("Before take off checklist is complete. Request ready for departure!")
-    BeforeTakeOff_Ok := True
+      If _Is_CheckItem("Before take off checklist is complete. Request ready for departure!")
+        BeforeTakeOff_Ok := True
 
   BeforeTakeOff_Ok := BeforeTakeOff_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _AfterTakeOff_Checklist() { ; Starts after flaps full up
@@ -522,16 +532,16 @@ _AfterTakeOff_Checklist() { ; Starts after flaps full up
 
   If _Is_CheckItem("Check if flaps and the gear are up!")
     If _Is_CheckItem("Check if spoilers are disarmed!")
-    If _Is_CheckItem("Set engines mode selector to normal!")
-    If _Is_CheckItem("Switch weather radar on!")
-    If _Is_CheckItem("Switch APU off!")
+      If _Is_CheckItem("Set engines mode selector to normal!")
+        If _Is_CheckItem("Switch weather radar on!")
+          If _Is_CheckItem("Switch APU off!")
 
-  If _Is_CheckItem("After take off checklist is complete.")
-    AfterTakeOff_Ok := True
+            If _Is_CheckItem("After take off checklist is complete.")
+              AfterTakeOff_Ok := True
 
   AfterTakeOff_Ok := AfterTakeOff_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _BeforeApproach_Checklist() { ; Starts after descending 8000 Feets
@@ -542,15 +552,15 @@ _BeforeApproach_Checklist() { ; Starts after descending 8000 Feets
 
   If _Is_CheckItem("Check if landing lights are on!")
     If _Is_CheckItem("Check if CDU approach page set!")
-    If _Is_CheckItem("Check if autobrake and spoilers are armed!")
-    If _Is_CheckItem("Check if localiser switch is active!")
+      If _Is_CheckItem("Check if autobrake and spoilers are armed!")
+        If _Is_CheckItem("Check if localiser switch is active!")
 
-  If _Is_CheckItem("Before Approach checklist is complete.")
-    BeforeApproach_Ok := True
+          If _Is_CheckItem("Before Approach checklist is complete.")
+            BeforeApproach_Ok := True
 
   BeforeApproach_Ok := BeforeApproach_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _BeforeLanding_Checklist() { ; Starts after the Flaps goes in landing config
@@ -561,15 +571,15 @@ _BeforeLanding_Checklist() { ; Starts after the Flaps goes in landing config
 
   If _Is_CheckItem("Check landing speed!")
     If _Is_CheckItem("Check if the gear down and the spoilers are armed!")
-    If _Is_CheckItem("Check if second autopilot is on!")
-    If _Is_CheckItem("Check if the go around altitude is set!")
+      If _Is_CheckItem("Check if second autopilot is on!")
+        If _Is_CheckItem("Check if the go around altitude is set!")
 
-  If _Is_CheckItem("Before landing checklist is complete.")
-    BeforeLanding_Ok := True
+          If _Is_CheckItem("Before landing checklist is complete.")
+            BeforeLanding_Ok := True
 
   BeforeLanding_Ok := BeforeLanding_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _AfterLanding_Checklist() { ; Starts when the Flaps are up
@@ -580,12 +590,12 @@ _AfterLanding_Checklist() { ; Starts when the Flaps are up
 
   If _Is_CheckItem("Check lights, flaps and timer!")
 
-  If _Is_CheckItem("After landing checklist is complete. Request taxi to the gate!")
-    AfterLanding_Ok := True
+    If _Is_CheckItem("After landing checklist is complete. Request taxi to the gate!")
+      AfterLanding_Ok := True
 
   AfterLanding_Ok := AfterLanding_Ok Or CheckOK_Break
   CheckList_Active := False
-Return
+  Return
 }
 
 _Parking_Checklist() { ; Starts when the taxi lights goes off
@@ -596,27 +606,27 @@ _Parking_Checklist() { ; Starts when the taxi lights goes off
 
   If _Is_CheckItem("Transponder mode standby!")
     If _Is_CheckItem("Activate ground equippment!")
-    ; If _Is_CheckItem("Release parking brake!")
-  If _Is_CheckItem("Switch localiser off!")
-    If _Is_CheckItem("Disarmed speedbrakers and autobreak!")
-    If _Is_CheckItem("Start the APU or use external power!")
-    If _Is_CheckItem("There after switch the engines off!")
-    If _Is_CheckItem("Switch fuel pumps off")
-    If _Is_CheckItem("Switch beacon lights off!")
-    If _Is_CheckItem("Set the PAX signs off!")
-    If _Is_CheckItem("Switch weather radar and PWS to off!")
-    If _Is_CheckItem("Set TCAS to standby!")
-    If _Is_CheckItem("Push the jetway and open the doors!")
-    If _Is_CheckItem("Deactivate ACARS!")
+      ; If _Is_CheckItem("Release parking brake!")
+      If _Is_CheckItem("Switch localiser off!")
+        If _Is_CheckItem("Disarmed speedbrakers and autobreak!")
+          If _Is_CheckItem("Start the APU or use external power!")
+            If _Is_CheckItem("There after switch the engines off!")
+              If _Is_CheckItem("Switch fuel pumps off")
+                If _Is_CheckItem("Switch beacon lights off!")
+                  If _Is_CheckItem("Set the PAX signs off!")
+                    If _Is_CheckItem("Switch weather radar and PWS to off!")
+                      If _Is_CheckItem("Set TCAS to standby!")
+                        If _Is_CheckItem("Push the jetway and open the doors!")
+                          If _Is_CheckItem("Deactivate ACARS!")
 
-  If _Is_CheckItem("Parking checklist is complete!")
-    Parking_Ok := True
+                            If _Is_CheckItem("Parking checklist is complete!")
+                              Parking_Ok := True
 
   Parking_Ok := Parking_Ok Or CheckOK_Break
   CheckList_Active := False
 
   Gosub Auto_Checklists
-Return
+  Return
 }
 
 _Read_FS_VARS() {
@@ -691,7 +701,7 @@ _Read_FS_VARS() {
   Global QNH_HP :=0x0330 ; DruckAltitude
   Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, QNH_HP, int, 2, short, &QNH_HP, int, &dwResult)
 
-  Global ALT_KOLLSMANN :=0x3324 ; 
+  Global ALT_KOLLSMANN :=0x3324 ;
   Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, ALT_KOLLSMANN, int, 4,int, &ALT_KOLLSMANN, int, &dwResult)
 
   Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", int, &dwResult)
@@ -837,7 +847,7 @@ _Read_FS_VARS() {
   LAND_L := NumGet(&LAND_L, 0, "short") > 0
 
   DEBUG_Read_FS_VARS += 1000
-Return Err
+  Return Err
 }
 
 Write_Statusbar:
@@ -1050,8 +1060,8 @@ Aircraft_Scenario:
   ; Global ACS_StartTime 	; Aircraft Scenario
   ; Global RFV_Time		; Read Flightsim Vars
   ; Global WSB_Time		; Write Statusbar
-  ; Global ACS_Time		; Aircraft Scenario 
-  ; Global ACS_EndTime	; Aircraft Scenario 
+  ; Global ACS_Time		; Aircraft Scenario
+  ; Global ACS_EndTime	; Aircraft Scenario
 
   DEBUG_Aircraft_Scenario++
 
@@ -1199,6 +1209,7 @@ Aircraft_Scenario:
 Return
 
 Show_DEBUG_Info:
+
   DebugText =
   (
     DEBUG Info
@@ -1222,7 +1233,7 @@ Show_DEBUG_Info:
     LScr	 > %Last_Screen%
 
     FLAPS	 > %FLAPS%
-    FLAPS_V > %FLAPS_V% 
+    FLAPS_V > %FLAPS_V%
     QALT	 > %QALT%
     GALT	 > %GALT%
 
@@ -1232,12 +1243,11 @@ Show_DEBUG_Info:
     Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
     Write_Statusbar > %DEBUG_Write_Statusbar%
     Is_CheckItem	 > %DEBUG_Is_CheckItem%
-    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
     CP_Time > %CP_EndTime%
     RFV_Time > %RFV_Time%
-    WSB_Time > %WSB_Time%	
-    ACS_Time > %ACS_Time% 
+    WSB_Time > %WSB_Time%
+    ACS_Time > %ACS_Time%
     ACS_EndTime	 > %ACS_EndTime%
   )
 
@@ -1246,12 +1256,18 @@ Show_DEBUG_Info:
 Return
 
 AIRCRAFT_INIT:
+  ; If Not WinExist("FBW_CDU")
+  ;   Err := _CMD("FBW CDU")
+
+  Run %Chrome_FBW_CDU1%
+; Run %Chrome_FBW_CDU2%
+
 Return
 
 JOYSTICK_SECTION:
-  ; 1JoyX Wireless Gamepad
-  ; 3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
-  ; 4JoyX Arduino
+; 1JoyX Wireless Gamepad
+; 3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
+; 4JoyX Arduino
 3JoyPOV:
 POV:
   Global POV_Step := 2
@@ -1339,8 +1355,8 @@ POV:
 Return
 
 3Joy01_CheckitemOk:
-  ; 3Joy1:: ; HOTAS _Joy_HM
-  ; Brake in P3D
+; 3Joy1:: ; HOTAS _Joy_HM
+; Brake in P3D
 Return
 
 3Joy02_MainPanel:
@@ -1351,13 +1367,13 @@ Return
 Return
 
 3Joy03_SpeechOn:
-  ; 3Joy3:: ; HOTAS_Joy_RH
-  ; Zoom in -> in P3D configuriert
+; 3Joy3:: ; HOTAS_Joy_RH
+; Zoom in -> in P3D configuriert
 Return
 
 3Joy04_ATC:
-  ; 3Joy4:: ; HOTAS_Joy_RV
-  ; Zoom out -> in P3D configuriert
+; 3Joy4:: ; HOTAS_Joy_RV
+; Zoom out -> in P3D configuriert
 Return
 
 3Joy05_AP_WarningsOff:
@@ -1442,34 +1458,34 @@ Return
 
 3Joy09_FlapsStepUp_FlapsUP:
 3Joy9:: ; HOTAS_Thrust_HO
-  ; Flaps Step up
+; Flaps Step up
 Return
 
 3Joy10_FlapsStepDown_FlapsDown:
 3Joy10:: ; HOTAS_Thrust_HU
-  ; Flaps Step down
+; Flaps Step down
 Return
 
 3Joy11_ParkingBrake_Gear:
 3Joy11:: ; HOTAS_Thrust_UL
-  ; If PBRAKE
-  ; {
-  ; 	PBRAKE :=  0
-  ; 	NumPut(PBRAKE, PBRAKE, 0, "short")
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0BC8, int, 2, short, &PBRAKE, int, &dwResult)
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-  ; 	Send {Ctrl Down}.{Alt Up}{Shift Up}{Ctrl Up}
-  ; 	; Err := _CMD("parking brake off")
-  ; }
-  ; Else
-  ; {
-  ; 	PBRAKE :=  32000
-  ; 	NumPut(PBRAKE, PBRAKE, 0, "short")
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0BC8, int, 2, short, &PBRAKE, int, &dwResult)
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-  ; 	Send {Ctrl Down}.{Alt Up}{Shift Up}{Ctrl Up}
-  ; 	; Err := _CMD("parking brake on")
-  ; }
+; If PBRAKE
+; {
+; 	PBRAKE :=  0
+; 	NumPut(PBRAKE, PBRAKE, 0, "short")
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0BC8, int, 2, short, &PBRAKE, int, &dwResult)
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+; 	Send {Ctrl Down}.{Alt Up}{Shift Up}{Ctrl Up}
+; 	; Err := _CMD("parking brake off")
+; }
+; Else
+; {
+; 	PBRAKE :=  32000
+; 	NumPut(PBRAKE, PBRAKE, 0, "short")
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0BC8, int, 2, short, &PBRAKE, int, &dwResult)
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+; 	Send {Ctrl Down}.{Alt Up}{Shift Up}{Ctrl Up}
+; 	; Err := _CMD("parking brake on")
+; }
 
 Return
 
@@ -1486,7 +1502,7 @@ Return
       Err := _CMD("go around")
       Return
     }
-  }	
+  }
 
   ; Err := _CMD("stop timer")
   Err := _CMD("strobe and landing lights off")
@@ -1544,65 +1560,65 @@ Return
 4Joy12_Speed_down:
 4Joy12::
   Send {Ctrl Down}{NumpadEnd}{Ctrl Up}
-  ; _Message("speed down", 0)
+; _Message("speed down", 0)
 Return
 4Joy13_Speed_up:
 4Joy13::
   Send {Ctrl Down}{NumpadHome}{Ctrl Up}
-  ; _Message("speed up", 0)
+; _Message("speed up", 0)
 Return
 
 4Joy14_Heading_down:
 4Joy14::
   Send {Ctrl Down}{NumpadLeft}{Ctrl Up}
-  ; _Message("Heading down", 0)
+; _Message("Heading down", 0)
 Return
 4Joy15_Heading_up:
 4Joy15::
   Send {Ctrl Down}{NumpadRight}{Ctrl Up}
-  ; _Message("Heading up", 0)
+; _Message("Heading up", 0)
 Return
 
 4Joy16_Altitude_down:
 4Joy16::
   Send {Ctrl Down}{NumpadDown}{Ctrl Up}
 
-  ; x := 0
-  ; while x < 7
-  ; {
-  ; 	x += 1
-  ; 	Send {Ctrl Down}{NumpadDown }{Ctrl Up}
-  ; 	sleep, 200
-  ; }
+; x := 0
+; while x < 7
+; {
+; 	x += 1
+; 	Send {Ctrl Down}{NumpadDown }{Ctrl Up}
+; 	sleep, 200
+; }
 
-  ; _Message("Altitude down", 0)
+; _Message("Altitude down", 0)
 Return
 4Joy17_Altitude_up:
 4Joy17::
   Send {Ctrl Down}{NumpadUp}{Ctrl Up}
-  ; _Message("Altitude up", 0)
+; _Message("Altitude up", 0)
 Return
 
 4Joy18_VS_down:
 4Joy18::
   Send {Ctrl Down}{NumpadPgdn}{Ctrl Up}
-  ; _Message("speed down", 0)
+; _Message("speed down", 0)
 Return
 4Joy19_VS_up:
 4Joy19::
   Send {Ctrl Down}{NumpadPgup}{Ctrl Up}
-  ; _Message("speed up", 0)
+; _Message("speed up", 0)
 Return
 
 KEYBOARD_SECTION:
-  ; *		= wird immer ausgelöst auch wenn modifikaton
-  ; $ 	= keine rekursion
-  ; ~  	= Taste weiterleiten
-  ; + 	= [Shift]-Taste
-  ; ^ 	= [Ctrl]-Taste
-  ; ! 	= [ALT]-Taste
-  ; # 	= [Win] -Taste
-  ; <# 	= [Left Win Taste]
+; *		= wird immer ausgelöst auch wenn modifikaton
+; $ 	= keine rekursion
+; ~  	= Taste weiterleiten
+; + 	= [Shift]-Taste
+; ^ 	= [Ctrl]-Taste
+; ! 	= [ALT]-Taste
+; # 	= [Win] -Taste
+; <# 	= [Left Win Taste]
 Return
 
 _NUMPAD_Send(ScreenX, KeyX) {
@@ -1612,15 +1628,15 @@ _NUMPAD_Send(ScreenX, KeyX) {
   {
     Gosub Screen7
     Return
-  }	
+  }
 
-  Send {%KeyX%} 
-  ; Send {%KeyX% Down} 
+  Send {%KeyX%}
+  ; Send {%KeyX% Down}
   Last_Screen := Aktu_Screen
   Aktu_Screen := ScreenX
   ; Sleep, 100
-  ; Send {%KeyX% Up} 
-Return
+  ; Send {%KeyX% Up}
+  Return
 }
 
 Screen7:
@@ -1628,7 +1644,7 @@ $NumpadHome::
   ; Numpad7::
   Screen7_On := Not Screen7_On
 
-  Send {Home} 
+  Send {Home}
   Last_Screen := Aktu_Screen
   Aktu_Screen := 7
 Return
@@ -1692,7 +1708,7 @@ $NumpadDel::
   ; NumpadDel::
   Screen7_On := Not Screen7_On ; Problem mit TopDown Screen
 
-  ; CoordMode, Mouse, Screen
-  ; Click,right, 1919,35
-  ; MouseMove, 1930,5,0
+; CoordMode, Mouse, Screen
+; Click,right, 1919,35
+; MouseMove, 1930,5,0
 Return

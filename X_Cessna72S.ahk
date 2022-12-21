@@ -1,4 +1,4 @@
-﻿X_C72S_2022_09_09:
+﻿X_C72S_2022_11_08:
 
 DEV_VARS:
   Global TEST := False ;Or True ; Keine Programme starten
@@ -1155,7 +1155,6 @@ Show_DEBUG_Info:
     Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
     Write_Statusbar > %DEBUG_Write_Statusbar%
     Is_CheckItem	 > %DEBUG_Is_CheckItem%
-    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
     CP_Time > %CP_EndTime%
     RFV_Time > %RFV_Time%

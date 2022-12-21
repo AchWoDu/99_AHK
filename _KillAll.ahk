@@ -1,4 +1,4 @@
-Version := "KillAll V.2022_09_13"
+Version := "KillAll V.2022_10_29"
 
 DEFINITIONEN:
 
@@ -14,6 +14,7 @@ DEFINITIONEN:
   Gosub Kill_Start_Aircraft_File
   Gosub Kill_MFFS_Files
   Gosub Kill_P3D_Files
+  Gosub Kill_XPlan_Files
   Gosub Kill_FS_Tools
   ; Gosub Kill_Allgem_Tools
 

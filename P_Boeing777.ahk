@@ -486,15 +486,17 @@ _Preflight_Checklist() { ; Starts manually
     If _Is_CheckItem("Check transponder and com radios settings!")
     If _Is_CheckItem("Check all AFDS settings!") ; f/d, nav, ias,, hdg, alt
     If _Is_CheckItem("Check actual QNH!")
-    ; If _Is_CheckItem("Are the speed limits set?")
-  If _Is_CheckItem("Check the V speeds!")
+    If _Is_CheckItem("Check the V speeds!")
     If _Is_CheckItem("Check if autobrakes is set to RTO!")
     If _Is_CheckItem("Is the timer reseted!")
     If _Is_CheckItem("Set parking brake and check thrust lever!")
     If _Is_CheckItem("Check if doors and windows are closed!")
     If _Is_CheckItem("Switch beacon light on!")
     If _Is_CheckItem("Check if jetway and the groundequippment is removed!")
-    If _Is_CheckItem("Preflight checklist is complete! Request push back!")
+    If _Is_CheckItem("Is Autothrust off?")
+    If _Is_CheckItem("Start the engines!")
+
+  If _Is_CheckItem("Preflight checklist is complete! Request push back!")
     PreflightCheck_Ok := True
 
   ; If _Is_CheckItem("CONFIGURE Fuel Pumps!"
@@ -533,8 +535,6 @@ _BeforeTaxi_Checklist() { ; when parkbrake off
   Err := _Text_to_Speech("Before taxi checklist")
 
   If _Is_CheckItem("Set transponder mode charly!")
-    If _Is_CheckItem("Is Autothrust off?")
-    If _Is_CheckItem("Start the engines!")
     If _Is_CheckItem("Check flight controls!")
     If _Is_CheckItem("Set flaps to take off position!")
     If _Is_CheckItem("Trim elevator!")
@@ -1264,7 +1264,6 @@ Show_DEBUG_Info:
     Read_FS_VARS 	 > %DEBUG_Read_FS_VARS%
     Write_Statusbar > %DEBUG_Write_Statusbar%
     Is_CheckItem	 > %DEBUG_Is_CheckItem%
-    Check_ARCARS	 > %DEBUG_Check_ARCARS_Error_Win%
 
     CP_Time > %CP_EndTime%
     RFV_Time > %RFV_Time%
@@ -1710,7 +1709,7 @@ Return
 Return
 
 _ARDUINO_Rotaries: 
- ;
+  ;
 4Joy10_CourseDown:
 4Joy10::
   Send {Ctrl Down}{Numpad1}{Ctrl Up}

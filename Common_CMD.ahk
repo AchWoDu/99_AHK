@@ -1,15 +1,19 @@
-﻿; Common_CMD_2022_09_13
+﻿; Common_CMD_2022_12_21
 ; 
 ; Checklisten
 ;
 Else If (CMD_Text="preflight procedure") {
-
+  
+  AC_TYPE_read := True ; nocheinmal Aircraft checken
+ 
   If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
     SetTimer, _Preflight_Procedure, %Checklist_Delay%
   }
 }
 Else If (CMD_Text="preflight checklist") {
+
+  AC_TYPE_read := True ; und nocheinmal Aircraft checken
 
   If Not (CheckList_Active Or RightPedal_Pressed) {
     CheckList_Active := True
@@ -345,11 +349,6 @@ Else If (CMD_Text="move status bar") {
   loop ,%MAX_TOOLTIPS%
     TTex_oFSVAR[A_Index ] := 999
 }
-Else If (CMD_Text="desktop 2") {
-
-  Send {Ctrl Down}{LWin Down}{right}{Ctrl Up}{LWin Up}
-  ActivateSimWin := False
-}
 Else If (CMD_Text="auto baro on") {
 
   Auto_Baro := True
@@ -380,17 +379,28 @@ Else If (CMD_Text="snap shot") {
 
   Send {LWin Down}{Alt Down}{PrintScreen}{Alt Up}{LWin Up}
 }
-Else If (CMD_Text="switch gamebar on") {
-
-  Send {LWin Down}g{LWin Up}
-}
-Else If (CMD_Text="gamebar off") {
-
-  Send {LWin Down}g{LWin Up}
-}
 ; 
 ; show
 ;
+Else If (CMD_Text="show gamebar") {
+
+  Send {LWin Down}g{LWin Up}
+  ActivateSimWin := False
+}
+Else If (CMD_Text="show simbrief") {
+
+  WinActivate, SimBrief.com
+
+  If Not WinExist("SimBrief Downloader") {
+    ; _message("Run SimBrief!",3)
+    Run, "C:\Users\achim\AppData\Local\Programs\SimBrief Downloader\SimBrief Downloader.exe"
+    Run, %Chrome_Tab1%%SimBrief_Web%
+  }
+  Else
+    WinActivate, SimBrief Downloader
+
+  ActivateSimWin := False
+}
 Else If (CMD_Text="show commands") {
 
   Run, %Chrome_Tab1%D:\Games\99_AHK\CMD_Lists\%CMD_List%
@@ -421,20 +431,6 @@ Else If (CMD_Text="show diverses") {
 Else If (CMD_Text="show formulas") {
 
   Run, D:\Games\00_FS_ORDNER\Formeln.ods
-
-  ActivateSimWin := False
-}
-Else If (CMD_Text="show simbrief") {
-
-  WinActivate, SimBrief.com
-
-  If Not WinExist("SimBrief Downloader") {
-    ; _message("Open SimBrief!",3)
-    Run, "C:\Users\achim\AppData\Local\Programs\SimBrief Downloader\SimBrief Downloader.exe"
-    Run, %Chrome_Tab1%%SimBrief_Web%
-  }
-  Else
-    WinActivate, SimBrief Downloader
 
   ActivateSimWin := False
 }
@@ -588,8 +584,13 @@ Else If (CMD_Text="goto IVAO") {
 }
 Else If (CMD_Text="goto air fox") {
 
-  ; https://www.airfox-virtual.de/site_pilot_functions/dispatch.php
-  ; https://www.airfox-virtual.de/authentication/login.php?logout=yes
+  ; AirFox_Web 		          := "http://www.airfox-virtual.de/"
+  ; AirFox_Web_Login        := "https://www.airfox-virtual.de/authentication/login.php?crew"
+  ; AirFox_Web_Logout       := "https://www.airfox-virtual.de/site_pilot_functions/pilot_centre.php?function=logout"
+  ; AirFox_Web_Charter      := "https://www.airfox-virtual.de//site_pilot_functions/book_charter_flight.php"
+  ; AirFox_Web_Charter_Kill := "https://www.airfox-virtual.de/site_pilot_functions/dispatch.php"
+  ; Strg-w -> Tab schließen
+  
 
   Gosub LoadAktuFlightPlan
 
@@ -597,47 +598,54 @@ Else If (CMD_Text="goto air fox") {
     _Message("No Flightplan loaded!", 10)
   }
   Else {
-    ; Airfox Web login
+    ; Airfox Web logout/login
 
+    ; AirFox_Web_Logout := "https://www.airfox-virtual.de/site_pilot_functions/pilot_centre.php?function=logout"
     Run %Chrome_Tab1%%AirFox_Web_Logout%
     sleep,2000
     send {TAB 10}{Enter}
-    sleep,2000
+    sleep,4000
+    ; _Message("Airfox Logout/ Login!",3)
     send ^w ; close Tab
+    sleep,1000
 
     ; Vorhandenen Charter ggf. entfernen
 
+    ; AirFox_Web_Charter := "https://www.airfox-virtual.de//site_pilot_functions/book_charter_flight.php"
     Run %Chrome_Tab1%%AirFox_Web_Charter_Kill%
     sleep,2000
     Send, {Tab 7}{Enter}
     sleep,2000
+    ; _Message("Charter gekillt!",3)
     send ^w ; close Tab
+    sleep,3000
 
     ; Charter buchen
 
+    ; AirFox_Web_Charter := "https://www.airfox-virtual.de//site_pilot_functions/book_charter_flight.php"
     Run %Chrome_Tab1%%AirFox_Web_Charter%
-    sleep,2000
+    sleep,4000
     Send, {Tab 7}{Enter}{Down}{Enter}
-    sleep,2000
+    sleep,3000
     Send, {Tab 7}%FP_Departure%{Tab}%FP_Destination%
-    sleep,2000
+    sleep,3000
     Send, {Tab 2}%FP_AircraftICAO%{Tab}%FP_Paxe%{Tab}%FP_Cargo%
-    sleep,2000
+    sleep,3000
     Send, {Tab}{Enter} ; Flug prüfen
-    sleep,2000
+    sleep,3000
     Send, { Tab 14}{Enter} ; Flug buchen
+    ; _Message("Charter gebucht!",3)		
     ; sleep,2000
     ; send ^w ; close Tab
 
-    ; vaBase beenden und wieder starten
 
-    ; _message("Close vaBase!",3)			
+    ; _Message("Close vaBase!",3)			
     Process, Close, vaBaseLive.exe
 
     While WinExist("vaBase Live")
       _Message("Waiting for closing VABase!", 2)
 
-    ; _message("Start vaBase!",3)			
+    ; _Message("Start vaBase!",3)			
     Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_vaBaseLive,,Hide
 
     While Not WinExist("vaBase Live")
@@ -658,7 +666,7 @@ Else If (CMD_Text="goto air fox") {
     Send {Tab 2}
     sleep 100
     Send {Enter}
-    sleep 1000
+    sleep 2000
 
     ; dann Flightplan und Route einfügen
     Send {Tab 7} ; %FP_Alternate%
