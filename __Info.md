@@ -327,13 +327,13 @@ xpilot
   ; Shift  Ctrl  Alt Q    QNH/STD ON    
 
 ##                   R
-  ; Shift            R    Autothrust on/off -> P3D 777
+  ; Shift            R    
   ;        Ctrl      R
   ; Shift  Ctrl      R    C72N Roll Mode
   ;              Alt R
   ; Shift        Alt R
   ;        Ctrl  Alt R
-  ; Shift  Ctrl  Alt R    Switch Radios in FSUIPC-Taste
+  ; Shift  Ctrl  Alt R   Autothrust on/off
 
 ##                   S    C72N: walk backwards
   ; Shift            S
@@ -396,7 +396,7 @@ xpilot
   ;              Alt Y
   ; Shift        Alt Y
   ;        Ctrl  Alt Y    Reset elevator trim
-  ; Shift  Ctrl  Alt Y    Com_Stby_Radio_Swap (Function Switch Radios in FSUIPC-Taste)
+  ; Shift  Ctrl  Alt Y    Com_Stby_Radio_Swap
 
 ##                   Z    Autopilot 1 on /off
   ; Shift            Z

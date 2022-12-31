@@ -1,4 +1,4 @@
-﻿X_C72S_2022_11_08:
+﻿X_C72S_2022_12_30:
 
 DEV_VARS:
   Global TEST := False ;Or True ; Keine Programme starten
@@ -6,6 +6,7 @@ DEV_VARS:
 
   Global Aktu_Sim := "X-System"
   Global Aktu_Scenario := "Cessna72S" ; zum suchen in Load Scenario
+  Global XP12 := False
   Global CMD_File := "X_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
   Global CMD_List := "X_" Aktu_Scenario "_CMD.txt"
 

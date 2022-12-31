@@ -1,4 +1,4 @@
-X_Airbus319_2022_11_08:
+X_Airbus319_2022_12_30:
   ; Autopilot 2 implementiert (AP2)
 
 DEV_VARS:
@@ -6,6 +6,7 @@ DEV_VARS:
   Global DEBUG := False ; Or True ; Debug anzeigen
 
   Global Aktu_Sim := "X-System"
+  Global XP12 := False
   Global Aktu_Scenario := "Airbus319" ; zum suchen in Load Scenario
   Global CMD_File := "X_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
   Global CMD_List := "X_" Aktu_Scenario "_CMD.txt"

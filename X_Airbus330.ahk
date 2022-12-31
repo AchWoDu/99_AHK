@@ -1,10 +1,11 @@
-﻿X_Airbus330_2022_11_08:
+﻿X_Airbus330_2022_12_30:
 
 DEV_VARS:
   Global TEST := False ;Or True ; Keine Programme starten
   Global DEBUG := False ; Or True ; Debug anzeigen
 
   Global Aktu_Sim := "X-System"
+  Global XP12 := False
   Global Aktu_Scenario := "Airbus330" ; zum suchen in Load Scenario
   Global CMD_File := "X_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
   Global CMD_List := "X_" Aktu_Scenario "_CMD.txt"

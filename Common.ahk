@@ -1,10 +1,15 @@
-﻿Common_2022_12_21:
+﻿Common_2022_12_28:
+
 DEV_MAIN_INIT_VARs:
 
-  If 0 { ; zum testen setzen
+  If False ; Or True ; = ExitApp zum testen setzen
+  {
     MsgBox, Commen.ahk ExitApp zum Test
     ExitApp, 0
   }
+
+  Global TEST := False ; Or True ; keine Programme starten, oder in Aircraft File setzen
+  Global DEBUG := False ; Or True ; Debug anzeigen, oder in Aircraft File setzen
 
   ; ListHotkeys
   ; #KeyHistory
@@ -33,9 +38,6 @@ DEV_MAIN_INIT_VARs:
 
 DEV_Global_VARs:
 
-  ; Global TEST := False ; Or True ; keine Programme starten, oder in Aircraft File setzen
-  ; Global DEBUG := False ; Or True ; Debug anzeigen, oder in Aircraft File setzen
-
   Global DEBUG_CMD_Process := 0
   Global DEBUG_Aircraft_Scenario := 0
   Global DEBUG_Read_FS_VARS := 0
@@ -48,7 +50,8 @@ DEV_Global_VARs:
 
   Global MSFS 		:= "Microsoft Flight Simulator"
   Global P3DV4 		:= "Lockheed Martin® Prepar3D® v4"
-  Global XPLANE 		:= "X-System"
+  Global XPLANE 	:= "X-System"
+
   Global Running_Sim 	:= "" ; aktuell geladener Sim (wird in _Is_any_Sim_active() gesetzt )
 
   Global FSUIPC_LibPfad := "D:\Diverses\FSUIPC\UIPC32_SDK_C\FSUIPC_User" ; 32 BIT
@@ -107,8 +110,6 @@ DEV_Global_VARs:
   Global Speech_Found := False ; wird in Interrupt Routine auf on gesetzt
   Global Speech_Mute := False ; keine Checklisten vorlesen
 
-  ; Global use_Garmin = False
-
 DEV_VATSIM_IVAO_Switch:
 
   Global TRAINING_active 	:= False ; TeamSpeak only Nutzen
@@ -163,12 +164,11 @@ DEV_Browser_VARs:
   Global Chrome_New1	:= Chrome_Exe " " Chrome_User1 " " Chrome_NewWindow " " Chrome_wSize1 " " Chrome_wPos1 " "
   Global Chrome_Tab1	:= Chrome_Exe " " Chrome_User1 " "
 
-  ; FBWFMC Fenster 1 und 
+  ; FBWFMC Fenster 1 und
   Global FBW_FMC := "http://192.168.1.100:8380/interfaces/mcdu/"
   Global Chrome_wSize_FBW_CDU1 := "--window-size=420,665"
   Global Chrome_wPos_FBW_CDU1	 := "--window-position=-820,400"
   Global Chrome_FBW_CDU1	 := Chrome_Exe " " Chrome_User2 " " Chrome_App FBW_FMC " " Chrome_wPos_FBW_CDU1 " " Chrome_wSize_FBW_CDU1
-
 
   ; WebFMC Fenster 1 und 2
   Global Web_FMC := "http://192.168.1.100:9090"
@@ -199,12 +199,13 @@ DEV_Browser_VARs:
   Global AirFox_Web_Charter := "https://www.airfox-virtual.de//site_pilot_functions/book_charter_flight.php"
   Global AirFox_Web_Charter_Kill := "https://www.airfox-virtual.de/site_pilot_functions/dispatch.php"
   ; Strg-w -> Tab schließen
-  Global ChartFox	:= "https://chartfox.org/"
 
   ; Global ONLINE_Map	:= "https://vau.aero/fsmap/?osm&vatsim"
   ; Global ONLINE_Map_str	:= "VATSIM Map"
   ; Global ONLINE_Map	:= "https://fly.volanta.app/map"
   ; Global ONLINE_Map_str := "Volanta"
+
+  Global ChartFox	:= "https://chartfox.org/"
 
 DEV_Timer_VARs:
 
@@ -312,11 +313,6 @@ DEV_Hotkey_VARs:
   ; 4JoyX Arduino
 
   ; Hotkey, SC03A, H_Ok ; CapsLock unabhängig ob Ctrl, Shift etc. gedrückt sind
-
-  #If GetKeyState("LShift")
-    #If GetKeyState("LControl")
-    ; beliebiger Ausdruck
-  #If ; wenn nicht gestetzt -> tödlich:)
 
   ; SpeechRec
   Global T_LeftPedal := "4Joy7" ; Arduino
@@ -472,19 +468,19 @@ DEV_Menu_VARs:
   ; DEV_Menu_Items:
 
   Global MenuItems :=	"#_ABBRUCH
-  /#_IVAO_web
-  /#_VATSIM_web
-  /#_Frei1
-  /#_Frei2
-  /#_VATSIM_Charts
-  /#_IVAO_Charts
-  /#_JEPP_int_Charts
-  /#_IVAO_Routes
-  /#_FS_Links
-  /#_FS_Docs
-  /#_Games
-  /#_Lw_J
-  /#_Del_Flightplans"
+    /#_IVAO_web
+    /#_VATSIM_web
+    /#_Frei1
+    /#_Frei2
+    /#_VATSIM_Charts
+    /#_IVAO_Charts
+    /#_JEPP_int_Charts
+    /#_IVAO_Routes
+    /#_FS_Links
+    /#_FS_Docs
+    /#_Games
+    /#_Lw_J
+    /#_Del_Flightplans"
 
 DEV_START:
 
@@ -566,22 +562,22 @@ DEV_START:
 
 DEV_SkipUAC_REMARKS:
 
-  ; SkipUAC_IVAO_P3D.xml
-  ; SkipUAC_Swift.xml
-  ; SkipUAC_ActiveSky.xml
-  ; SkipUAC_ActiveSkyXP.xml
-  ; SkipUAC_IVAO_XP.xml
-  ; SkipUAC_XP11.xml
-  ; SkipUAC_LittleNM.xml
-  ; SkipUAC_vaBaseLive.xml
-  ; SkipUAC_CameraPos.xml
-  ; SkipUAC_P3DV4.xml
-  ; SkipUAC_Discord.xml
-  ; SkipUAC_Send_Win_ESC.xml
-  ; SkipUAC_IVAO_MSFS.xml
-  ; SkipUAC_SimACARS.xml
-  ; SkipUAC_IVAO_MSFS_Core.xml
-  ; SkipUAC_StartAircraft.xml
+; SkipUAC_IVAO_P3D.xml
+; SkipUAC_Swift.xml
+; SkipUAC_ActiveSky.xml
+; SkipUAC_ActiveSkyXP.xml
+; SkipUAC_IVAO_XP.xml
+; SkipUAC_XP11.xml
+; SkipUAC_LittleNM.xml
+; SkipUAC_vaBaseLive.xml
+; SkipUAC_CameraPos.xml
+; SkipUAC_P3DV4.xml
+; SkipUAC_Discord.xml
+; SkipUAC_Send_Win_ESC.xml
+; SkipUAC_IVAO_MSFS.xml
+; SkipUAC_SimACARS.xml
+; SkipUAC_IVAO_MSFS_Core.xml
+; SkipUAC_StartAircraft.xml
 
 Return
 
@@ -655,7 +651,7 @@ DEV_normale_Menu_Items:
     Return
   }
 
-  ; DEV_dynamische_Menu_Items:
+; DEV_dynamische_Menu_Items:
 
 #Lockheed_DYN: ; DYN1
   {
@@ -790,15 +786,15 @@ H_Start_Menu: ; M-Button with delay
 Return
 
 BETA_TEST:
-  ; hh := "115"
-  ; MsgBox % Format("{:04}", hh)
+; hh := "115"
+; MsgBox % Format("{:04}", hh)
 
-  ; Beta_Test wird immer aufgerufen!
-  ; MsgBox Beta_Test Hallo
-  ; ExitApp
+; Beta_Test wird immer aufgerufen!
+; MsgBox Beta_Test Hallo
+; ExitApp
 Return
 
-Check_AdminMode: 
+Check_AdminMode:
   ; AutoHotkeySC.bin
   ; Ansi 32-bit.bin
   ; Unicode 32-bit.bin
@@ -812,21 +808,21 @@ Check_AdminMode:
 
   If (A_ScriptName == CMD_File) ; Wenn es noch .ahk file -> .exe compilieren?
   {
-; _Message("?" Aircraft A_ScriptName CMD_File, )
+    ; _Message("?" Aircraft A_ScriptName CMD_File, )
 
     RunWait, C:\WINDOWS\system32\schtasks.exe /run /tn SkipUAC_KillAircraft
     Sleep, 1000
 
     FileDelete, %BIN_Path%StartAircraft.exe
     Sleep, 1000
-  
-;  _Message("StartAircraft.exe gelöscht??", 10)
-  
+
+    ;  _Message("StartAircraft.exe gelöscht??", 10)
+
     RunWait, %AHK_EXE% /in "%AHK_Path%%CMD_File%" /out "%BIN_Path%%Aircraft%" /bin "%AHK_Compiler%" /icon "%FILE_ICON%"
 
     FileCopy, %BIN_Path%%Aircraft%, %BIN_Path%StartAircraft.exe
 
-; _Message("StartAircraft.exe erstellt!!", 10)
+    ; _Message("StartAircraft.exe erstellt!!", 10)
 
     ; mit admin Rechten H_Start_Menu
 
@@ -835,9 +831,9 @@ Check_AdminMode:
 
     If !ErrorLevel ; wenn kein Fehler und somit SkipUAC vorhanden war
       ExitApp
-    Else 
+    Else
       _Error_Message("SkipUAC_StartAircraft faild", 10)
- 
+
   }
 
   if Not A_IsAdmin
@@ -864,7 +860,7 @@ _Search_XML_Item(File, StartLineNr, ItemStr) { ; LineNr
     Return 1
   }
 
-Return --LineNr
+  Return --LineNr
 }
 
 _Get_XML_Item(File, LineNr) { ; ItemStr
@@ -883,7 +879,7 @@ _Get_XML_Item(File, LineNr) { ; ItemStr
 
   ; _Message(SubStr(Line, Pos1, Pos2-Pos1), 5)
 
-Return SubStr(Line, Pos1, Pos2-Pos1)
+  Return SubStr(Line, Pos1, Pos2-Pos1)
 }
 
 LoadVatsimFlightPlan:
@@ -1035,7 +1031,7 @@ LoadVatsimFlightPlan:
     ; MsgBox %VoiceType%
   }
 
-  ; Err := _Text_to_Speech("VATSIM Flightplan loaded!")
+; Err := _Text_to_Speech("VATSIM Flightplan loaded!")
 Return
 
 LoadAktuFlightPlan:
@@ -1148,7 +1144,11 @@ DeleteFlightPlans:
   FileDelete, J:\Lockheed Martin\Prepar3D v4\PMDG\FLIGHTPLANS\*.rte
   FileDelete, C:\Users\achim\Documents\Aerosoft\General\A3XX Flightplans\*.flp
 
-  ; XPlane
+  ; XPlane11
+  FileDelete, J:\X-Plane 11\Output\FMS plans\*.fms
+  FileDelete, J:\X-Plane 11\Aircraft\JD330XP11\FlightPlans\*.txt
+
+  ; XPlane12
   FileDelete, J:\X-Plane 11\Output\FMS plans\*.fms
   FileDelete, J:\X-Plane 11\Aircraft\JD330XP11\FlightPlans\*.txt
 
@@ -1203,28 +1203,28 @@ H_LNM_VFR:
 
   Gosub, LoadVatsimFlightPlan
 
-  ; FP_FlightRules := "VFR"
-  ; FormatTime, FP_DepTime,, HHMM
-  ; FP_FlightLevelType := "F"
+; FP_FlightRules := "VFR"
+; FormatTime, FP_DepTime,, HHMM
+; FP_FlightLevelType := "F"
 
-  ; ; FP_CallSign := "AFX6"
-  ; ; FP_Airline := "AFX"
-  ; ; FP_FlightNumber := "6"
+; ; FP_CallSign := "AFX6"
+; ; FP_Airline := "AFX"
+; ; FP_FlightNumber := "6"
 
-  ; FP_FlightLevel := 2000 ; wird überschrieben
-  ; FP_Route := "DCT"
-  ; ; FP_Departure := "EDDL"  ; wird überschrieben
-  ; ; FP_Destination := "EDLW"  ; wird überschrieben
+; FP_FlightLevel := 2000 ; wird überschrieben
+; FP_Route := "DCT"
+; ; FP_Departure := "EDDL"  ; wird überschrieben
+; ; FP_Destination := "EDLW"  ; wird überschrieben
 
-  ; FP_Speed := "130"
+; FP_Speed := "130"
 
-  ; ; https://en.wikipedia.org/wiki/Equipment_codes
-  ; ; https://mediawiki.ivao.aero/index.php?title=Flight_plan_equipment_methodology
-  ; FP_Equipment := "SFG"
-  ; FP_Transponder := "C"
+; ; https://en.wikipedia.org/wiki/Equipment_codes
+; ; https://mediawiki.ivao.aero/index.php?title=Flight_plan_equipment_methodology
+; FP_Equipment := "SFG"
+; FP_Transponder := "C"
 
-  ; FP_Paxe :="1"
-  ; FP_Cargo :="10"
+; FP_Paxe :="1"
+; FP_Cargo :="10"
 
 Return
 
@@ -1240,7 +1240,7 @@ H_EndApp:
 
   Send {Alt Up}{Shift Up}{Ctrl Up}
   Run, "C:\Program Files\AutoHotkey\AutoHotkeyU32.exe" "d:\diverses\scripte_AHK\PRIVATE.ahk"
-  ; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
+; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
 
 ExitApp
 
@@ -1256,11 +1256,12 @@ H_EndApp_KillAll:
 
   MsgBox, 4100, Warning!, Terminate all FS-processes?, 10
 
+
   If true { ; wegen Warn... und Formatter
     IfMsgBox, No
     Return
-    Else 
-      MsgBox, ,OK ,Terminate all FS-processes! Bye..., 3
+    Else
+      MsgBox, ,OK, Terminate all FS-processes! Bye..., 3
 
   }
 
@@ -1308,31 +1309,31 @@ H_EndApp_KillAll:
   }
 
   ; MSFS Files
-  Process, Close ,FlightSimulator.exe
-  Process, Close ,FSUIPC7.exe
+  Process, Close, FlightSimulator.exe
+  Process, Close, FSUIPC7.exe
 
   ; P3D Files
-  Process, Close ,P3D.exe
-  Process, Close ,Prepar3D.exe
-  Process, Close ,SimObjectDisplayEngine.exe ; SODE
-  Process, Close ,CameraPositionX_P3D_V4.exe
-  ; Process, Close ,AS_P3Dv4.exe
-  ; Process, Close ,AS Cloud Art.exe
+  Process, Close, P3D.exe
+  Process, Close, Prepar3D.exe
+  Process, Close, SimObjectDisplayEngine.exe ; SODE
+  Process, Close, CameraPositionX_P3D_V4.exe
+  ; Process, Close, AS_P3Dv4.exe
+  ; Process, Close, AS Cloud Art.exe
 
   ; XPlane Files
-  Process, Close ,X-Plane.exe
+  Process, Close, X-Plane.exe
+  Process, Close, X-Plane.exe
 
   ; VATSIM Files
-  Process, Close ,swiftguistd.exe
-  Process, Close ,VPilot.exe
-  Process, Close ,XPilot.exe
+  Process, Close, VPilot.exe
+  Process, Close, XPilot.exe
 
   ; IVAO Files
-  Process, Close ,PilotUI.exe
-  Process, Close ,Pilot_core_fs2020.exe
+  Process, Close, PilotUI.exe
+  Process, Close, Pilot_core_fs2020.exe
 
   Run, "C:\Program Files\AutoHotkey\AutoHotkeyU32.exe" "d:\diverses\scripte_AHK\PRIVATE.ahk"
-  ; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
+; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
 
 ExitApp
 
@@ -1369,7 +1370,7 @@ H_CheckItem_Ok:
   Err := _CMD("okay")
   Err := _Text_to_Speech("okay")
 
-  ; SoundBeep, 200, 40
+; SoundBeep, 200, 40
 
 Return
 
@@ -1396,7 +1397,7 @@ H_ATC:
     ATC_str := "Training_TS"
     Send {RAlt Down}
   }
-  Else { 
+  Else {
     If VATSIM_active {
       ATC_str := "VATSIM-ATC"
 
@@ -1412,7 +1413,7 @@ H_ATC:
       }
       Else {
         ATC_str := "ATC_ON"
-      } 
+      }
     }
   }
 
@@ -1535,7 +1536,7 @@ _IsBlank(x) {
     SoundBeep, 250, 880
     Return 1
   }
-Return 0
+  Return 0
 }
 
 H_SetCom1:
@@ -1740,12 +1741,12 @@ _Set_P3D_Com(ComOffsStby, Com) {
     }
     else SoundBeep, 250, 80
 
-  }
+    }
 
   SetNumLockState Off
   SetTimer, Aircraft_Scenario, On
   Err := ToolTipEx(,,,5)
-Return 0
+  Return 0
 }
 
 _Set_XP_Com(ComOffsStby, Com) {
@@ -1928,7 +1929,7 @@ _Set_XP_Com(ComOffsStby, Com) {
   SetNumLockState Off
   SetTimer, Aircraft_Scenario, On
   Err := ToolTipEx(,,,5)
-Return 0
+  Return 0
 }
 
 Kill_Apps_before_SIM:
@@ -2017,8 +2018,10 @@ Start_Apps_after_UIPC:
       Err := _CMD("goto IVAO")
     }
 
+    ; If Not XP12 {
     _Aircraft_Log("show active sky")
     Err := _CMD("show active sky")
+    ; }
   }
 
   _Aircraft_Log("DONE -> Start_Apps_after_UIPC")
@@ -2028,9 +2031,9 @@ Return
 SIM_INIT:
 
   TrayTip, FlightSim ,%Aktu_Sim% mit %ATC_str%`n%Aktu_Scenario%,3,1
-
+  
   _Message("Waiting for the Sim...", 0)
-
+  
   If (Aktu_Sim = MSFS) ; MSFS2020 wird gestartet
   {
     ; Run, D:\Games\10_FS_LINKS\95_MSFS_Run ; TODO: richtig starten
@@ -2101,7 +2104,11 @@ SIM_INIT:
 
   If (Aktu_Sim = XPLANE) ; X-Plane wird gestartet
   {
-    Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_XP11,,Hide,XP11_PID
+    
+    If XP12
+      Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_XP12,,Hide,XP12_PID
+    Else
+      Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_XP11,,Hide,XP11_PID
 
     Loop 100
     {
@@ -2167,7 +2174,7 @@ _Make_CMD_File(FileName) {
     ; FileAppend , %Zeile%`n, %CMD_List%
   }
 
-Return 0
+  Return 0
 }
 
 SPEECH_INIT:
@@ -2232,7 +2239,7 @@ _Is_any_Sim_active() {
     Return True
   }
 
-Return False
+  Return False
 }
 
 Is_aktu_Sim_closed:
@@ -2376,7 +2383,7 @@ _Is_CheckItem(CheckItem) {
     Return 1
   }
 
-Return 0
+  Return 0
 }
 
 _CMD(What) {
@@ -2406,7 +2413,7 @@ _CMD(What) {
   DEBUG_CMD += 1000
 
   ; _Message("End _CMD",0)
-Return 0
+  Return 0
 }
 
 _Text_to_Speech(Text) {
@@ -2436,12 +2443,12 @@ _Text_to_Speech(Text) {
       SoundBeep, 400, 30
   }
 
-Return 0
+  Return 0
 }
 
 _Aircraft_Log(text) {
   FileAppend, %Text%`n, %Aircraft_LOG_File%
-Return 0
+  Return 0
 }
 
 _Message(str, delay) {
@@ -2451,7 +2458,7 @@ _Message(str, delay) {
   If delay
     Err := ToolTipEx(,,,6)
 
-Return 0
+  Return 0
 }
 
 _Error_Message(str, delay) {
@@ -2460,7 +2467,7 @@ _Error_Message(str, delay) {
 
   If delay
     Err := ToolTipEx(,,,9)
-Return 0
+  Return 0
 }
 
 class SpeechRecognizer
@@ -2491,7 +2498,7 @@ class SpeechRecognizer
 
     catch e
 
-    throw Exception("Could Not create recognizer: " . e.Message)
+      throw Exception("Could Not create recognizer: " . e.Message)
 
     ; obtain speech Recognition context (ISpeechRecoContext object)
     try this.cContext := this.cListener.CreateRecoContext()
@@ -2706,12 +2713,12 @@ _GetHFONT(Options := "", Name := "") {
   Gui, Add, Text, +hwndHTX, Dummy
   HFONT := DllCall("User32.dll\SendMessage", "Ptr", HTX, "UInt", 0x31, "Ptr", 0, "Ptr", 0, "UPtr") ; WM_GETFONT
   Gui, Destroy
-Return HFONT
+  Return HFONT
 }
 
 IL_EX_GetHICON(ILID, Index, Styles := 0x20){
   ; http://ahkscript.org/boards/viewtopic.php?f=6&t=1273
-Return DllCall("ComCtl32.dll\ImageList_GetIcon", "Ptr", ILID, "Int", Index - 1, "UInt", Styles, "UPtr")
+  Return DllCall("ComCtl32.dll\ImageList_GetIcon", "Ptr", ILID, "Int", Index - 1, "UInt", Styles, "UPtr")
 }
 
 ToolTipEx(Text:="", X:="", Y:="", WhichToolTip:=1, HFONT:="", BgColor:="", TxColor:="", HICON:="", CoordMode:="W") {
@@ -2728,9 +2735,9 @@ ToolTipEx(Text:="", X:="", Y:="", WhichToolTip:=1, HFONT:="", BgColor:="", TxCol
   ; HICON 		    - the icon to display in the upper-left corner of the TooöTip. This can be the number of a predefined icon
   ; 				        (1 = info, 2 = warning, 3 = error >>> add 3 <<< to display large icons on Vista+) or a HICON handle.
   ; 				        Specify 0 to remove an icon from the ToolTip. Default: "" (no icon)
-  ; CoordMode 	  - the coordinate mode for the X and Y parameters, if specified. Values: "C" (Client), "S" (Screen), 
+  ; CoordMode 	  - the coordinate mode for the X and Y parameters, if specified. Values: "C" (Client), "S" (Screen),
   ;                 "W" (Window) Default: "W" (CoordMode, ToolTip, Window)
-  ; Return values:- On success: The HWND of the ToolTip window. On failure: False (ErrorLevel contains 
+  ; Return values:- On success: The HWND of the ToolTip window. On failure: False (ErrorLevel contains
   ;                 additional informations)
 
   ; ToolTip messages
@@ -2755,7 +2762,7 @@ ToolTipEx(Text:="", X:="", Y:="", WhichToolTip:=1, HFONT:="", BgColor:="", TxCol
   ; HTML Colors (BGR)
   Static HTML := {AQUA: 0xFFFF00, BLACK: 0x000000, BLUE: 0xFF0000, FUCHSIA: 0xFF00FF, GRAY: 0x808080, GREEN: 0x008000
     , LIME: 0x00FF00, MAROON: 0x000080, NAVY: 0x800000, OLIVE: 0x008080, PURPLE: 0x800080, RED: 0x0000FF
-  , SILVER: 0xC0C0C0, TEAL: 0x808000, WHITE: 0xFFFFFF, YELLOW: 0x00FFFF}
+    , SILVER: 0xC0C0C0, TEAL: 0x808000, WHITE: 0xFFFFFF, YELLOW: 0x00FFFF}
 
   ; -------------------------------------------------------------------------------------------------------------------
   ; Init TT on first call
@@ -2783,7 +2790,7 @@ ToolTipEx(Text:="", X:="", Y:="", WhichToolTip:=1, HFONT:="", BgColor:="", TxCol
   If (TTIX < 1) || (TTIX > MAX_TOOLTIPS)
     Return False, ErrorLevel := "Max ToolTip number is " . MAX_TOOLTIPS . ".", False
 
-  If (TTHF) && !(DllCall("Gdi32.dll\GetObjectType", "Ptr", TTHF, "UInt") = 6) 
+  If (TTHF) && !(DllCall("Gdi32.dll\GetObjectType", "Ptr", TTHF, "UInt") = 6)
     Return False, ErrorLevel := "Invalid font handle!", False
 
   If TTBC Is Integer
@@ -2791,7 +2798,7 @@ ToolTipEx(Text:="", X:="", Y:="", WhichToolTip:=1, HFONT:="", BgColor:="", TxCol
   Else
     TTBC := (HTML.HasKey(TTBC) ? HTML[TTBC] : "")
 
-  If TTTC Is Integer 
+  If TTTC Is Integer
     TTTC := ((TTTC >> 16) & 0xFF) | (TTTC & 0x00FF00) | ((TTTC & 0xFF) << 16)
   Else
     TTTC := (HTML.HasKey(TTTC) ? HTML[TTTC] : "")
@@ -2866,7 +2873,7 @@ ToolTipEx(Text:="", X:="", Y:="", WhichToolTip:=1, HFONT:="", BgColor:="", TxCol
   If !(TTHW) || !DllCall("User32.dll\IsWindow", "Ptr", TTHW, "UInt") {
     ; ExStyle = WS_TOPMOST, Style = TTS_NOPREFIX | TTS_ALWAYSTIP
     TTHW := DllCall("User32.dll\CreateWindowEx", "UInt", 8, "Str", "tooltips_class32", "Ptr", 0, "UInt", 3
-    , "Int", 0, "Int", 0, "Int", 0, "Int", 0, "Ptr", A_ScriptHwnd, "Ptr", 0, "Ptr", 0, "Ptr", 0)
+      , "Int", 0, "Int", 0, "Int", 0, "Int", 0, "Ptr", A_ScriptHwnd, "Ptr", 0, "Ptr", 0, "Ptr", 0)
     DllCall("User32.dll\SendMessage", "Ptr", TTHW, "UInt", ADDTOOL, "Ptr", 0, "Ptr", &TI)
     DllCall("User32.dll\SendMessage", "Ptr", TTHW, "UInt", MAXTIPW, "Ptr", 0, "Ptr", A_ScreenWidth)
     DllCall("User32.dll\SendMessage", "Ptr", TTHW, "UInt", TRACKPOS, "Ptr", 0, "Ptr", PT.X + (PT.Y << 16))
@@ -2922,7 +2929,7 @@ ToolTipEx(Text:="", X:="", Y:="", WhichToolTip:=1, HFONT:="", BgColor:="", TxCol
   DllCall("User32.dll\SendMessage", "Ptr", TTHW, "UInt", TRACKACT, "Ptr", 1, "Ptr", &TI)
   TT[TTIX].HW := TTHW
 
-Return TTHW
+  Return TTHW
 }
 
 MACRO_INIT:
@@ -3031,7 +3038,7 @@ MACRO_INIT:
   :R*:tg#::tfc, taxi to gate
   :R*:da#::.r Danke!
 
-  ; Flightplan Airfox
+; Flightplan Airfox
 
 :R*:fpA#::
   {
@@ -3053,7 +3060,7 @@ MACRO_INIT:
     Return
   }
 
-  ; Flightplan VATSIM
+; Flightplan VATSIM
 
 :R*:fpV#::
   {
@@ -3107,7 +3114,7 @@ MACRO_INIT:
     Return
   }
 
-  ; Datumsformate
+; Datumsformate
 
 :R*:d-#::
   {
@@ -3130,4 +3137,4 @@ MACRO_INIT:
     Return
   }
 
-  ; RETURN ; nicht erlaubt, sonst wird gemeckert (WARN)
+; RETURN ; nicht erlaubt, sonst wird gemeckert (WARN)

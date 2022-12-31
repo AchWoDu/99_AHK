@@ -5,10 +5,10 @@ DEV_VARS:
   Global DEBUG := False ;Or True ; Debug anzeigen
 
   Global Aktu_Sim := "X-System"
-  Global XP12 := False
+  Global XP12 := True
   Global Aktu_Scenario := "GA" ; zum suchen in Load Scenario
-  Global CMD_File := "X_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
-  Global CMD_List := "X_" Aktu_Scenario "_CMD.txt"
+  Global CMD_File := "X12_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
+  Global CMD_List := "X12_" Aktu_Scenario "_CMD.txt"
 
   ; Sprachbefehl Anzeigen
   Global x_Versatz := 0 ; -1920 <-0-> +1920

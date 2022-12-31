@@ -1,28 +1,25 @@
-﻿X_GA_2022_12_30:
+﻿X_HELI_2022_12_30:
 
 DEV_VARS:
-  Global TEST := False ;Or True ; Keine Programme starten
-  Global DEBUG := False ;Or True ; Debug anzeigen
+  Global TEST := False Or True ; Keine Programme starten
+  Global DEBUG := False ; Or True ; Debug anzeigen
 
   Global Aktu_Sim := "X-System"
-  Global XP12 := False
-  Global Aktu_Scenario := "GA" ; zum suchen in Load Scenario
-  Global CMD_File := "X_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
-  Global CMD_List := "X_" Aktu_Scenario "_CMD.txt"
+  Global XP12 := True
+  Global Aktu_Scenario := "HELI" ; zum suchen in Load Scenario
+  Global CMD_File := "X12_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
+  Global CMD_List := "X12_" Aktu_Scenario "_CMD.txt"
 
   ; Sprachbefehl Anzeigen
-  Global x_Versatz := 0 ; -1920 <-0-> +1920
-  Global y_Versatz := 0 ;30
+  Global x_Versatz := 0 ; -1920 ; <-  0  -> +1920
+  Global y_Versatz := 0
 
   ; Status-Bar und Checklist_ITEM (ToolTip 11..n und 3)
-  Global TTex_xVersatz := 270 ; -1920 <-0-> +1920
-  Global TTex_yVersatz := 0 ;30
+  Global TTex_xVersatz := 348 ; -1920 <-  0  -> +1920
+  Global TTex_yVersatz := 0
 
   Global CheckOK_Break := True ; wenn auch bei CecklistBreak die Checkliste ok ist
   Global STD_On := False ; Wenn Baro STD gesetzt
-
-  Global	ANZ_Flaps := 3 ; werden in _Read_FS_VARS() je ICAO gesetzt
-  Global	STR_Flaps := ["???", "F10", "F20", "F30"] ; werden in _Read_FS_VARS ja ICAO gesetzt
 
   Global TRIM := 0 ; Temp VAR für Trim up/down
 
@@ -31,17 +28,16 @@ Return
 
 CMD_Process:
   {
-    Critical ,On
     DEBUG_CMD_Process++
 
-    Critical ,On
+    Critical, On
 
     CP_StartTime := A_TickCount
 
     SetTimer, CMD_Process, Off
 
     WinActivate, %Aktu_Sim%
-    WinActivate, ahk_class %Aktu_Sim% ; wegen XPlane
+    WinActivate, ahk_class %Aktu_Sim%
 
     If (CMD_Text="?")
     {
@@ -50,24 +46,28 @@ CMD_Process:
     ;
     ; Views
     ;
-    Else If (CMD_Text="night panel") ; HUD
+    Else If (CMD_Text="night panel")
     {
       Send {Shift Down}w{Shift Up}
       Send {Alt Down}h{Alt Up}
     }
-    Else If (CMD_Text="G P S window") ; not for G1000
+    Else If (CMD_Text="GPS") ; not for G1000
     {
       Send {Shift Down}{Ctrl Down}{Alt Down}g{Shift Up}{Ctrl Up}{Alt Up}
     }
-    Else If (CMD_Text="P F D window") ; G1000 only
+    Else If (CMD_Text="autopilot") ; XAP  Panel??
+    {
+      Send {Shift Down}{Ctrl Down}{Alt Down}3{Shift Up}{Ctrl Up}{Alt Up}
+    }
+    Else If (CMD_Text="transponder") ; XAP  Panel??
+    {
+      Send {Shift Down}{Ctrl Down}{Alt Down}5{Shift Up}{Ctrl Up}{Alt Up}
+    }
+    Else If (CMD_Text="PDF window") ; G1000 only
     {
       send {Ctrl Down}{Alt Down}1{Shift Up}{Ctrl Up}{Alt Up}
     }
-    Else If (CMD_Text="N A V window") ; G1000 only
-    {
-      send {Ctrl Down}{Alt Down}2{Shift Up}{Ctrl Up}{Alt Up}
-    }
-    Else If (CMD_Text="M F D window") ; G1000 only
+    Else If (CMD_Text="MFD window") ; G1000 only
     {
       send {Ctrl Down}{Alt Down}2{Shift Up}{Ctrl Up}{Alt Up}
     }
@@ -86,9 +86,9 @@ CMD_Process:
     {
       Gosub Screen9
     }
-    Else If (CMD_Text="left window") ; 4
+    Else If (CMD_Text="left window") ; 6
     {
-      Gosub Screen4
+      Gosub Screen6
     }
     Else If (CMD_Text="main panel") ; 5
     {
@@ -137,32 +137,14 @@ CMD_Process:
     ;
     ; Autopilot
     ;
-    Else If (CMD_Text="flight director on")
-    {
-      Send {Ctrl Down}{Alt Down}f{Shift Up}{Ctrl Up}{Alt Up}
-      Err := _Text_to_Speech(CMD_Text)
-    }
-    Else If (CMD_Text="flight director off")
-    {
-      Send {Ctrl Down}{Alt Down}f{Shift Up}{Ctrl Up}{Alt Up}
-      Err := _Text_to_Speech(CMD_Text)
-    }
     Else If (CMD_Text="autopilot on")
     {
-      If Not AP
-      {
-        Send z
-        Send t ; G1000
-      }
+      Send z
       Err := _Text_to_Speech(CMD_Text)
     }
     Else If (CMD_Text="autopilot off")
     {
-      If AP
-      {
-        Send z
-        Send t ; G1000
-      }		
+      Send z
       Err := _Text_to_Speech(CMD_Text)
     }
     Else If (CMD_Text="hold heading")
@@ -170,23 +152,18 @@ CMD_Process:
       Send {Shift Down}{Ctrl Down}h{Shift Up}{Ctrl Up}
       Err := _Text_to_Speech(CMD_Text)
     }
-    Else If (CMD_Text="hold navigation")
-    {
-      Send {Shift Down}{Ctrl Down}n{Shift Up}{Ctrl Up}
-      Err := _Text_to_Speech(CMD_Text)
-    }
-    Else If (CMD_Text="hold roll mode") ; TODO:
+    Else If (CMD_Text="hold roll mode")
     {
       If HHDG
         Send +^h
 
-      ; Send +^h
-      ; Send +^h
+      Send +^h
+      Send +^h
       Err := _Text_to_Speech(CMD_Text)
     }
-    Else If (CMD_Text="hold altitude")
+    Else If (CMD_Text="hold navigation")
     {
-      Send {Shift Down}{Ctrl Down}z{Shift Up}{Ctrl Up}
+      Send {Shift Down}{Ctrl Down}n{Shift Up}{Ctrl Up}
       Err := _Text_to_Speech(CMD_Text)
     }
     Else If (CMD_Text="hold approach")
@@ -194,46 +171,39 @@ CMD_Process:
       Send {Shift Down}{Ctrl Down}a{Shift Up}{Ctrl Up}
       Err := _Text_to_Speech(CMD_Text)
     }
-    Else If (CMD_Text="hold vertical speed") ; TODO: vertical speed, at current VSI, arm ALT
+    Else If (CMD_Text="hold altitude")
+    {
+      Send {Shift Down}{Ctrl Down}z{Shift Up}{Ctrl Up}
+      Err := _Text_to_Speech(CMD_Text)
+    }
+    Else If (CMD_Text="hold vertical speed")
     {
       Send {Shift Down}{Ctrl Down}v{Shift Up}{Ctrl Up}
       Err := _Text_to_Speech(CMD_Text)
     }
-    Else If (CMD_Text="hold speed") ; TODO: G1000 AP flight level change
+    Else If (CMD_Text="flight director on")
     {
-      Send {Shift Down}{Ctrl Down}s{Shift Up}{Ctrl Up}
+      Send {Shift Down}{Ctrl Down}{Alt Down}f{Shift Up}{Ctrl Up}{Alt Up}
+      Err := _Text_to_Speech(CMD_Text)
+    }
+    Else If (CMD_Text="flight director off")
+    {
+      Send {Shift Down}{Ctrl Down}{Alt Down}f{Shift Up}{Ctrl Up}{Alt Up}
       Err := _Text_to_Speech(CMD_Text)
     }
     Else If (CMD_Text="GPS navigation on")
     {
-      Send {Ctrl Down}{Alt Down}g{Ctrl Up}{Alt Up} ; G430
-      Send {Ctrl Down}{Alt Down}h{Ctrl Up}{Alt Up} ; G530
+      Send {Ctrl Down}{Alt Down}g{Ctrl Up}{Alt Up}
       Err := _Text_to_Speech(CMD_Text)
     }
     Else If (CMD_Text="GPS navigation off")
     {
       Send {Ctrl Down}{Alt Down}g{Ctrl Up}{Alt Up}
-      Send {Ctrl Down}{Alt Down}h{Ctrl Up}{Alt Up}
       Err := _Text_to_Speech(CMD_Text)
     }
     ;
     ; Controls
     ;
-    Else If (CMD_Text="flaps 10")
-    {
-      Send {F6 4}{F7 1}
-      Err := _Text_to_Speech(CMD_Text)
-    }
-    Else If (CMD_Text="flaps 20")
-    {
-      Send {F6 4}{F7 2}
-      Err := _Text_to_Speech(CMD_Text)
-    }
-    Else If (CMD_Text="switch radio")
-    {
-      Send {Shift Down}{Ctrl Down}{Alt Down}y{Alt Up}{Shift Up}{Ctrl Up}
-      Err := _Text_to_Speech(CMD_Text)
-    }
     ;
     ; Lights
     ;
@@ -245,16 +215,6 @@ CMD_Process:
     Else If (CMD_Text="beacon lights off")
     {
       Send {Ctrl Down}{Alt Down}b{Alt Up}{Shift Up}{Ctrl Up}
-      Err := _Text_to_Speech(CMD_Text)
-    }
-    Else If (CMD_Text="taxi lights on")
-    {
-      Send {Shift Down}{Ctrl Down}{Alt Down}t{Alt Up}{Shift Up}{Ctrl Up}
-      Err := _Text_to_Speech(CMD_Text)
-    }
-    Else If (CMD_Text="taxi lights off")
-    {
-      Send {Ctrl Down}{Alt Down}t{Alt Up}{Shift Up}{Ctrl Up}
       Err := _Text_to_Speech(CMD_Text)
     }
     Else If (CMD_Text="landing lights on")
@@ -290,29 +250,16 @@ CMD_Process:
       Err := _Text_to_Speech(CMD_Text)
     }
     ;
-    ; Transponder
-    ;
-    Else If (CMD_Text="transponder mode charly") ; Plugin Tastaturcode AF_Labs
-    {
-      Send {Shift Down}{Ctrl Down}{Alt Down}{x 4}{Alt Up}{Shift Up}{Ctrl Up}
-      Err := _Text_to_Speech(CMD_Text)
-    }
-    Else If (CMD_Text="transponder mode standby") ; Plugin Tastaturcode AF_Labs
-    {
-      Send {Ctrl Down}{Alt Down}{x 3}{Alt Up}{Shift Up}{Ctrl Up}
-      Err := _Text_to_Speech(CMD_Text)
-    }
-    ;
     #Include %A_ScriptDir%\Common_CMD_XP.ahk
     #Include %A_ScriptDir%\Common_CMD.ahk
+    Return
   }
 
   _Preflight_Procedure()
   {
+
     SetTimer,, Off
     CheckList_Active := True
-
-    Gosub Auto_Checklists
 
     If _Is_CheckItem("Preflight procedure is complete! ")
       PreflightProc_Ok := True
@@ -324,22 +271,19 @@ CMD_Process:
 
   _Preflight_Checklist()
   {
+
     SetTimer,, Off
     CheckList_Active := True
 
-    Gosub Auto_Checklists
-
     Err := _Text_to_Speech("Preflight checklist")
 
-    If _Is_CheckItem("Switch Battery Master or GPU on!")
+    If _Is_CheckItem("Check the calculated fuel quantity!")
       If _Is_CheckItem("Is the flight scheduled and the flightplan filed?")
-      If _Is_CheckItem("Check the calculated fuel quantity!")
-      If _Is_CheckItem("Check ACARS!")
-      If _Is_CheckItem("Check the parking brake!")
-      If _Is_CheckItem("Check if the beacon- and the navigation light swiched on!")
-      If _Is_CheckItem("Start engiene!")
       If _Is_CheckItem("Where necessary, check if the GPS armed and the flightplan loaded!")
+      If _Is_CheckItem("Check the parking brake!")
       If _Is_CheckItem("Check the trimm wheel and fuel selector position!")
+      If _Is_CheckItem("Check if the beacon- and the navigation light swiched on!")
+      If _Is_CheckItem("Check the transponder code!")
       If _Is_CheckItem("Check if hold heading and vertical speed armed!")
       ; If _Is_CheckItem("Check if gyro and magnet compass synchronized!")
     If _Is_CheckItem("Check if heading and OBS on runway course!")
@@ -355,34 +299,36 @@ CMD_Process:
   }
 
   _BeforeTaxi_Checklist()
-  ; when parkbrake off
   {
+
     SetTimer,, Off
     CheckList_Active := True
 
-    Err := _Text_to_Speech("Before taxi checklist")
+    Err := _Text_to_Speech("Before Taxi Checklist")
 
-    If _Is_CheckItem("Set transponder mode charly!")
-      If _Is_CheckItem("Check if the flaps in take off configuration!")
+    If _Is_CheckItem("Check if the flaps in take off configuration!")
 
-    If _Is_CheckItem("Before taxi checklist is complete. Request taxi!")
+    If _Is_CheckItem("Before taxi checklist is complete!")
       BeforeTaxi_Ok := True
+
     BeforeTaxi_Ok := BeforeTaxi_Ok Or CheckOK_Break
     CheckList_Active := False
     Return
   }
+
   _BeforeTakeOff_Checklist()
-  ; Starts when the landing lights goes on
   {
+
     SetTimer,, Off
     CheckList_Active := True
 
-    Err := _Text_to_Speech("Before Take Off Checklist")
+    Err := _Text_to_Speech("Before take off checklist")
 
     If _Is_CheckItem("Check the heading and navigation settings!")
-      If _Is_CheckItem("Check transponder and run the timer!")
+      If _Is_CheckItem("Request ready for departure!")
+      If _Is_CheckItem("Check transponder mode charly and run the timer!")
 
-    If _Is_CheckItem("Before take off checklist is complete. Request ready for depature!")
+    If _Is_CheckItem("Before take off checklist is complete!")
       BeforeTakeOff_Ok := True
 
     BeforeTakeOff_Ok := BeforeTakeOff_Ok Or CheckOK_Break
@@ -391,8 +337,8 @@ CMD_Process:
   }
 
   _AfterTakeOff_Checklist()
-  ; Starts after flaps full up
   {
+
     SetTimer,, Off
     CheckList_Active := True
 
@@ -401,7 +347,7 @@ CMD_Process:
     If _Is_CheckItem("Check if the flaps full up!")
       If _Is_CheckItem("Check autopilot settings!")
 
-    If _Is_CheckItem("After take off checklist is complete.")
+    If _Is_CheckItem("After take off checklist is complete!")
       AfterTakeOff_Ok := True
 
     AfterTakeOff_Ok := AfterTakeOff_Ok Or CheckOK_Break
@@ -410,8 +356,8 @@ CMD_Process:
   }
 
   _BeforeApproach_Checklist()
-  ; Starts after descending 8000 Feets
   {
+
     SetTimer,, Off
     CheckList_Active := True
 
@@ -429,8 +375,8 @@ CMD_Process:
   }
 
   _BeforeLanding_Checklist()
-  ; Starts after the Flaps goes in landing config
   {
+
     SetTimer,, Off
     CheckList_Active := True
 
@@ -441,7 +387,7 @@ CMD_Process:
     If _Is_CheckItem("Check the altimeter!")
       If _Is_CheckItem("Check if flaps in landing position!")
 
-    If _Is_CheckItem("Before landing checklist is complete.")
+    If _Is_CheckItem("Before landing checklist is complete!")
       BeforeLanding_Ok := True
 
     BeforeLanding_Ok := BeforeLanding_Ok Or CheckOK_Break
@@ -450,17 +396,19 @@ CMD_Process:
   }
 
   _AfterLanding_Checklist()
-  ; Starts when the Flaps are up
   {
+    Critical ,Off
     SetTimer,, Off
     CheckList_Active := True
 
-    Err := _Text_to_Speech("After Landing Checklist")
+    Err := _Text_to_Speech("After landing checklist")
 
-    If _Is_CheckItem("Check lights, flaps and timer!")
+    If _Is_CheckItem("Check if the transponder in mode standby!")
+      If _Is_CheckItem("Check if the flaps retracted!")
+      If _Is_CheckItem("Check if strobe- and landing lights off and taxi light on!")
       If _Is_CheckItem("Check if the autopilot switched off!")
 
-    If _Is_CheckItem("After landing checklist is complete. Request taxi to the gate!")
+    If _Is_CheckItem("After landing checklist is complete! Stop timer and request taxi to the gate!")
       AfterLanding_Ok := True
 
     AfterLanding_Ok := AfterLanding_Ok Or CheckOK_Break
@@ -470,13 +418,13 @@ CMD_Process:
 
   _Parking_Checklist()
   {
+
     SetTimer,, Off
     CheckList_Active := True
 
     Err := _Text_to_Speech("Parking Checklist")
 
-    If _Is_CheckItem("Transponder mode standby!")
-      If _Is_CheckItem("Check if battery master and avionic switched off!")
+    If _Is_CheckItem("Check if battery master and avionic switched off!")
 
     If _Is_CheckItem("Parking checklist is complete!")
       Parking_Ok := True
@@ -500,30 +448,19 @@ CMD_Process:
     ; (u)Int 											32 Bit
     ; long	-9223372036854775808..9223372036854775807	64 Bit
 
-    ; Global yy := 0x3D00 ; read aircraft lable
-    ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, yy, int, 30, int, &yy, int, &dwResult)
-    ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", int, &dwResult)
-    ; yy := StrGet(&yy, 30, 0)
-    ; err := _Message(yy, 0)
-
-    ; Global FF := 100
-    ; Global PP := 9000
-    ; NumPut(PP, FF, 0, "int")
-    ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x5520, int, 4, int, &FF, int, &dwResult)
-    ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", int, &dwResult)
-
     ; Standard VARs read
 
     If AC_TYPE_read ; Nur beim ersten Durchlauf
     {
-      Global AC_TYPE := 0x3160 ; bei P3D 0x3D00
+      Global AC_TYPE :=0x3160 ; bei P3D 0x3D00
       Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, AC_TYPE, int, 14, char, &AC_TYPE, int, &dwResult)
     }
 
-    Global ELV_TRIM := 0x0BC0 ; ELEVATOR Trimmung in %
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, ELV_TRIM, int, 2, short, &ELV_TRIM, int, &dwResult)
+    Global ELV_TRIM := 0 ; YAW Throttle Achse in %
+    ; Global ELV_TRIM := 0x0BC0 ; ELEVATOR Trimmung in %
+    ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, ELV_TRIM, int, 2, short, &ELV_TRIM, int, &dwResult)
 
-    Global POWER := 0 ; Throttel in %
+    Global POWER := 0 ; Colective Throttel Achse in %
     ; Global POWER := 0x088c ; Power in %
     ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, POWER, int, 2, short, &POWER, int, &dwResult)
 
@@ -560,83 +497,58 @@ CMD_Process:
     Global PBRAKE := 0x0BC8 ; parking brake
     Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", "int", PBRAKE, "int", 2, "short", &PBRAKE, "int", &dwResult)
 
-    Global FLAPS := 0x0BDC ; Klappenstellung als Wert von 100%
-    Global FLAPS_V := 999 ; Klappenstellung als Nr
-    Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int, FLAPS, int, 4, int, &FLAPS, int, &dwResult)
-
     Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", int, &dwResult)
 
     ; Standard VARs convert
 
     If AC_TYPE_read
     {
-      AC_TYPE := StrGet(&AC_TYPE, 6, "UTF-8")
+      AC_TYPE := StrGet(&AC_TYPE, 8, "UTF-8")
 
-      ; AC_TYPE := StrGet(&AC_TYPE, "CP0")
-      ; MsgBox, %AC_Type%
-
-      ; bei AFL wird Livery Kennung benötigt z.B.: OK-DSF or G-Lane
-      If (AC_TYPE == "C172SP") Or (AC_TYPE == "Cessna") Or (AC_TYPE == " OK-DS") ; Or (AC_TYPE == " G-LAN")
+      If (AC_TYPE == "Bell 206")
+        AC_TYPE := "B206 "
+      Else If (AC_TYPE == "Bell_407")
+        AC_TYPE := "B407"
+      Else If (AC_TYPE == "Bell_412")
+        AC_TYPE := "B412"
+      Else If (AC_TYPE == "Bell_429")
+        AC_TYPE := "B429"
+      Else If (AC_TYPE == "H45 ")
+        AC_TYPE := "H145"
+      Else If (AC_TYPE == "SA315B -")
+        AC_TYPE := "LAMA"
+      Else If (AC_TYPE == "KiowaW ")
+        AC_TYPE := "B06 "
       {
-        ANZ_Flaps := 3
-        STR_Flaps := ["FUP", "F10", "F20", "F30"]
-        AC_TYPE := "C172" ; 4 stellig
-      }		
-      Else If (AC_TYPE == "Alabeo")
-      {
-        ANZ_Flaps := 2
-        STR_Flaps := ["FUP", "F10", "F20"]
-        AC_TYPE := "PA44" ; 4 stellig
-      }
-      Else If (AC_TYPE == "Cirrus")
-      {
-        ANZ_Flaps := 2
-        STR_Flaps := ["FUP", "F10", "F20"]
-        AC_TYPE := "SR20" ; 4 stellig
-      }
-      Else If (AC_TYPE == "Robin ")
-      {
-        ANZ_Flaps := 3
-        STR_Flaps := ["FUP", "F10", "F20", "F30"]
-        AC_TYPE := "DR40" ; 4 stellig
-      }
-      Else
-      {	
-        _Error_Message("AC_TYPE: GA ->" AC_TYPE "<", 6)
+        _Error_Message("AC_TYPE: HELI ->" AC_TYPE "<", 6)
         AC_TYPE := "????"
       }
 
       AC_TYPE_read := False
     }
 
-    ELV_TRIM := ceil(NumGet(&ELV_TRIM, 0, "short") / 164)
+    ; ELV_TRIM := ceil(NumGet(&ELV_TRIM, 0, "short") / 164)
+    ELV_TRIM := ceil(-50 + GetKeyState("1JoyZ")) ; YAW-Achse
     ; _Message(ELV_TRIM,0)
 
-    POWER := ceil(100 - GetKeyState("3JoyZ"))
-    ; POWER := ceil(GetKeyState("4JoyZ"))
+    POWER := ceil(100- GetKeyState("3JoyZ")) ; Colective Achse
     ; _Message(POWER,0)
 
-    GEAR 		:= NumGet(&GEAR, 0, "int") == 16383
+    GEAR := NumGet(&GEAR, 0, "int") == 16383
 
-    GS 			:= round(NumGet(&GS, 0, "int") / 65536 / 1000 * 3600) ; Ground Speed in km/h
-    TAS 		:= round(NumGet(&TAS, 0, "int") / 128) ; True Air Speed in Kn
-    IAS 		:= round(NumGet(&IAS, 0, "int") / 128) ; Indicated Air Speed in Kn
+    GS 	:= round(NumGet(&GS, 0, "int") / 65536 / 1000 * 3600) ; Ground Speed in km/h
+    TAS := round(NumGet(&TAS, 0, "int") / 128) ; True Air Speed in Kn
+    IAS := round(NumGet(&IAS, 0, "int") / 128) ; Indicated Air Speed in Kn
 
-    VSPEED 	:= round(NumGet(&VSPEED, 0, "int") * 60 * 3.28084 / 256) ; Vertical Speed ft/ min
-    VSPEED_TD := round(NumGet(&VSPEED_TD, 0, "int") * 60 * 3.28084 / 256) ; Touch down VSpeed  ft/ min
-    TD_FLAG	:= Not (NumGet(&TD_FLAG, 0, "short") > 0) ; Touch down flag
+    VSPEED		:= round(NumGet(&VSPEED, 0, "int") * 60 * 3.28084 / 256) ; Vertical Speed ft/ min
+    VSPEED_TD 	:= round(NumGet(&VSPEED_TD, 0, "int") * 60 * 3.28084 / 256) ; Touch down VSpeed  ft/ min
+    TD_FLAG		:= Not (NumGet(&TD_FLAG, 0, "short") > 0) ; Touch down flag
 
-    QALT 		:= round(NumGet(&QALT, 0, "int") * 3.28) ; von Meter in Fuss umrechenen
-    GALT 		:= round(QALT - NumGet(&GALT, 0, "short") * 3.28) ; von Meter in Fuss umrechenen
-    HDG		:= round(NumGet(&HDG, 0, "uint")*360/(65536*65536))
+    QALT 	:= round(NumGet(&QALT, 0, "int") * 3.28) ; Pressure Altitude von Meter in Fuss umrechenen
+    GALT 	:= round(QALT - NumGet(&GALT, 0, "short") * 3.28) ; Ground Altitude von Meter in Fuss umrechenen
+    HDG		:= round(NumGet(&HDG, 0, "uint")*360/(65536*65536)) ; Heading
 
-    PBRAKE 	:= NumGet(&PBRAKE, 0, "short") >= 16383
-
-    FLAPS 		:= NumGet(&FLAPS, 0, "int")
-    FLAPS_V	:= round(FLAPS / (16382/ANZ_Flaps)) ; ?= Anzahl Flaps
-    FLAPS 		:= FLAPS > 0
-
-    ; err := _message(PBRAKE, 0)
+    PBRAKE 	:= NumGet(&PBRAKE, 0, "short") >= 22936 ; Parking brake
 
     ; XPlane Com Radios and Transponder read
 
@@ -732,7 +644,6 @@ CMD_Process:
     HGPS := NumGet(&HGPS, 0, "int") > 0
 
     ; 0 = Navigatin / 2 = Beacon/ 4 = Landing / 8 = Taxi / 16 = Strobe / 32 = Instruments / 64 = Recognition / 128 = Wing
-    ; Airbus: LANDING = 4 / NOSE/ TAXI = 8 / STROBE = 16 / WING = 128 / NAV = 256
 
     LIGHTS 	:= NumGet(&LIGHTS, 0, "short")
     NAVIGATION_L:= (LIGHTS & 1) == 1
@@ -751,6 +662,11 @@ Write_Statusbar:
 
     GetKeyState, NumLState ,NumLock, T ; NUM State
 
+    ; If (NumLState = "D")
+    ; NumLockChar := "↓"
+    ; Else
+    ; NumLockChar:= "↑"
+
     If (NumLState = "D")
       NumLockChar := 1
     Else
@@ -768,41 +684,41 @@ Write_Statusbar:
 
     TTex_StartPos[TTex_Nr] := TTex_xVersatz ; x Startposition wird festgelegt
 
-    If (TTex_oFSVAR[TTex_Nr] <> PBRAKE)
-    {
-      TTex_oFSVAR[TTex_Nr] := PBRAKE
-      Err := ToolTipEx("PB", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[PBRAKE], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 2) + TTex_FontS
-    }
+    ; If (TTex_oFSVAR[TTex_Nr] <> PBRAKE)
+    ; {
+    ; 	TTex_oFSVAR[TTex_Nr] := PBRAKE
+    ; 	Err := ToolTipEx("PBrake", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[PBRAKE], "BLACK", "", "S")
+    ; 	TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 6) + TTex_FontS
+    ; }
 
-    ++TTex_Nr
+    ; ++TTex_Nr
 
-    If (TTex_oFSVAR[TTex_Nr] <> GEAR)
-    {
-      TTex_oFSVAR[TTex_Nr] := GEAR
-      Err := ToolTipEx("Gear",	TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[GEAR], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 4) + TTex_FontS
-    }
+    ; If (TTex_oFSVAR[TTex_Nr] <> GEAR)
+    ; {
+    ; 	TTex_oFSVAR[TTex_Nr] := GEAR
+    ; 	Err := ToolTipEx("Gear",	TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[GEAR], "BLACK", "", "S")
+    ; 	TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 4) + TTex_FontS
+    ; }
 
-    ++TTex_Nr
+    ; ++TTex_Nr
 
-    If (TTex_oFSVAR[TTex_Nr] <> FLAPS_V)
-    {
-      TTex_oFSVAR[TTex_Nr] := FLAPS_V
-      Err := ToolTipEx(STR_Flaps[FLAPS_V+1], TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[FLAPS_V], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 3) + TTex_FontS
-    }
+    ; If (TTex_oFSVAR[TTex_Nr] <> FLAPS_V)
+    ; {
+    ; 	TTex_oFSVAR[TTex_Nr] := FLAPS_V
+    ; 	Err := ToolTipEx("Flaps"FLAPS_V, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[FLAPS_V], "BLACK", "", "S")
+    ; 	TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 6) + TTex_FontS
+    ; }
 
-    ++TTex_Nr
+    ; ++TTex_Nr
 
-    If (TTex_oFSVAR[TTex_Nr] <> HGPS)
-    {
-      TTex_oFSVAR[TTex_Nr] := HGPS
-      Err := ToolTipEx("GPS", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[HGPS], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 3) + TTex_FontS
-    }
+    ; If (TTex_oFSVAR[TTex_Nr] <> HGPS)
+    ; {
+    ; 	TTex_oFSVAR[TTex_Nr] := HGPS
+    ; 	Err := ToolTipEx("GPS", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[HGPS], "BLACK", "", "S")
+    ; 	TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 3) + TTex_FontS
+    ; }
 
-    ++TTex_Nr
+    ; ++TTex_Nr
 
     If (TTex_oFSVAR[TTex_Nr] <> AP)
     {
@@ -865,14 +781,14 @@ Write_Statusbar:
       TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
     }
 
-    ++TTex_Nr
+    ; ++TTex_Nr
 
-    If (TTex_oFSVAR[TTex_Nr] <> TAXI_L)
-    {
-      TTex_oFSVAR[TTex_Nr] := TAXI_L
-      Err := ToolTipEx("T", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[TAXI_L+10], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
-    }
+    ; If (TTex_oFSVAR[TTex_Nr] <> TAXI_L)
+    ; {
+    ; 	TTex_oFSVAR[TTex_Nr] := TAXI_L
+    ; 	Err := ToolTipEx("T", TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[TAXI_L+3], "BLACK", "", "S")
+    ; 	TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 1) + TTex_FontS
+    ; }
 
     ++TTex_Nr
 
@@ -920,7 +836,6 @@ Write_Statusbar:
     }
 
     ++TTex_Nr
-
     If (WinActive(Aktu_Sim))
     {
       Err := ToolTipEx(BlinkerChar, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, "RED", "BLACK", "", "S")
@@ -983,7 +898,6 @@ Write_Statusbar:
     TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 7) + TTex_FontS
 
     ; _Message(TD_FLAG, 0)
-
     If Not TD_FLAG
     {
       ++TTex_Nr
@@ -991,26 +905,26 @@ Write_Statusbar:
       Err := ToolTipEx("TD "Format("{1:5}",VSPEED_TD), TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[1], "BLACK", "", "S")
       TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 8 ) + TTex_FontS
 
-      Str := "HVS " HVS_V " GS " GS
+      ; Str :=  " TAS " TAS  
 
-      ++TTex_Nr
+      ; ++TTex_Nr
 
-      Err := ToolTipEx(Str, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[0], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 6) + TTex_FontS
+      ; Err := ToolTipEx(Str, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[0], "BLACK", "", "S")
+      ; TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * StrLen(Str)) + TTex_FontS
+
     }
-    Else
-    {
+    ; Else
+    ; {
+    Str := "VS " VSPEED "|" HVS_V " HDG " HDG "|" HHDG_V " TAS " TAS 
 
-      Str := "VS " VSPEED "|" HVS_V " HDG " HDG "|" HHDG_V " IT " IAS "|" TAS 
+    ++TTex_Nr
 
-      ++TTex_Nr
+    Err := ToolTipEx(Str, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[0], "BLACK", "", "S")
+    TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * StrLen(Str)) + TTex_FontS
+    ; }
 
-      Err := ToolTipEx(Str, TTex_StartPos[TTex_Nr], TTex_yVersatz, TTex_Nr, HFONT, ItemColor[0], "BLACK", "", "S")
-      TTex_StartPos[TTex_Nr+1] := TTex_StartPos[TTex_Nr] + (TTex_FontB * 6) + TTex_FontS
-
-      ++TTex_Nr
-      Err := ToolTipEx(,,,TTex_Nr)
-    }
+    ++TTex_Nr
+    Err := ToolTipEx(,,,TTex_Nr)
 
     DEBUG_Write_Statusbar+= 1000
     Return
@@ -1038,13 +952,11 @@ Aircraft_Scenario:
       Gosub Start_Aircraft_Scenario
       Return
     }
+
     RFV_Time := A_TickCount - ACS_StartTime
 
     Gosub Write_Statusbar
     WSB_Time := A_TickCount - ACS_StartTime - RFV_Time
-
-    ; If Not PreflightCheck_Ok
-    ; 	Goto Show_DEBUG_Info
 
     Critical ,Off
 
@@ -1109,11 +1021,11 @@ Aircraft_Scenario:
     ; Err := _CMD("Preflight Checklist")
     ; }
 
-    ; "BEFORE TAXI CHECKLIST"
-    If (TAXI_L And Not BeforeTaxi_Ok And PreflightCheck_Ok And Not CheckList_Active)
-    {
-      Err := _CMD("before taxi checklist")
-    }
+    ; ; "BEFORE TAXI CHECKLIST"
+    ; If (TAXI_L And Not BeforeTaxi_Ok And PreflightCheck_Ok And Not CheckList_Active)
+    ; {
+    ; 	Err := _CMD("before taxi checklist")
+    ; }
 
     ; "BEFORE TAKE Off CHECKLIST"
     If ((LAND_L) And Not BeforeTakeOff_Ok And BeforeTaxi_Ok And Not CheckList_Active)
@@ -1121,48 +1033,48 @@ Aircraft_Scenario:
       Err := _CMD("before take off checklist")
     }
 
-    ; "AFTER TAKE Off CHECKLIST"
-    If ((FLAPS_V = 0 Or QALT > 4000) And Not AfterTakeOff_Ok And BeforeTakeOff_Ok And Not CheckList_Active)
-    {
-      If (TAXI_L)
-        Err := _CMD("taxi lights off")
+    ; ; "AFTER TAKE Off CHECKLIST"
+    ; If ((FLAPS_V = 0 Or QALT > 4000) And Not AfterTakeOff_Ok And BeforeTakeOff_Ok And Not CheckList_Active)
+    ; {
+    ; 	If (TAXI_L)
+    ; 		Err := _CMD("taxi lights off")
 
-      Err := _CMD("after take off checklist")
-    }
+    ; 	Err := _CMD("after take off checklist")
+    ; }
 
     ; damit "BEFORE APPROACH CHECKLIST" klappt
     If (Not PassingFL080)
       PassingFL080 := (QALT > 8000)
 
-    ; "BEFORE APPROACH CHECKLIST"
-    If ((QALT < 8000) And PassingFL080 And Not BeforeApproach_Ok And AfterTakeOff_Ok And Not CheckList_Active)
-    {
-      Err := _CMD("before approach checklist")
-    }
+    ; ; "BEFORE APPROACH CHECKLIST"
+    ; If ((QALT < 8000) And PassingFL080 And Not BeforeApproach_Ok And AfterTakeOff_Ok And Not CheckList_Active)
+    ; {
+    ; 	Err := _CMD("before approach checklist")
+    ; }
 
-    ; "BEFORE LANDING CHECKLIST"
-    If ((FLAPS_V > 1) And Not BeforeLanding_Ok And BeforeApproach_Ok And Not CheckList_Active)
-    {
-      If (Not TAXI_L)
-        Err := _CMD("taxi lights on")
+    ; ; "BEFORE LANDING CHECKLIST"
+    ; If ((FLAPS_V > 1) And Not BeforeLanding_Ok And BeforeApproach_Ok And Not CheckList_Active)
+    ; {
+    ; 	If (Not TAXI_L)
+    ; 		Err := _CMD("taxi lights on")
 
-      Err := _CMD("before landing checklist")
-    }
+    ; 	Err := _CMD("before landing checklist")
+    ; }
 
     ; "AFTER LANDING CHECKLIST"
-    If (PBRAKE And Not AfterLanding_Ok And BeforeLanding_Ok And Not CheckList_Active)
-    {
-      Err := _CMD("after landing checklist")
+    ; If (PBRAKE And Not AfterLanding_Ok And BeforeLanding_Ok And Not CheckList_Active)
+    ; {
+    ; 	Err := _CMD("after landing checklist")
 
-      PassingFL080 := False
-    }
+    ; 	PassingFL080 := False
+    ; }
 
-    ; Tempomat :-)
-    If (TAXI_L And (GS > TempoLow) And (GS < TempoHigh) And Not LAND_L)
-    {
-      Send {Shift Down}{Ctrl Down}{ALT Down}...{ALT Up}{Shift Up}{Ctrl Up}
-      SoundBeep, 300, 50
-    }
+    ; ; Tempomat :-)
+    ; If (TAXI_L And (GS > TempoLow) And (GS < TempoHigh) And Not LAND_L)
+    ; {
+    ; 	Send {Shift Down}{Ctrl Down}{QALT Down}...{QALT Up}{Shift Up}{Ctrl Up}
+    ; 	SoundBeep, 300, 50
+    ; }
 
     ACS_EndTime := A_TickCount - ACS_StartTime
     ACS_Time := ACS_EndTime - RFV_Time - WSB_Time
@@ -1225,28 +1137,20 @@ Show_DEBUG_Info:
 
     AIRCRAFT_INIT:
       {
-        ; 1 Monitor
-        FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_1Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf ,
-
-        ; 2 Monitore
-        ; FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_2Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf ,
+        FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_1Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf , 1
+        ; FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_2Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf , 1
 
         Return
-      }
-
-      _Write_Aircraft_Info(Filename)
-      {
-
-        FileAppend, "Test Text", Filename
-        Return, 0
       }
 
       ; -------------------------------------------------------
     JOYSTICK_SECTION:
       ; -------------------------------------------------------
-      ; 1JoyX Wireless Gamepad
-      ; 3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
-      ; 4JoyX Arduino
+      ; JoyX Wireless Gamepad
+      ; 1JoyX Rudder Peddals
+      ; 2JoyX Basetech Gamepad
+      ; 3JoyX HOTAS (Hands On Throttle And Stick)
+      ; -------------------------------------------------------
 
     3JoyPOV:
     POV:
@@ -1428,48 +1332,24 @@ Show_DEBUG_Info:
         Return
       }
 
-    3Joy03_SpeechRec:
+    3Joy03_SpeechOn:
       ; 3Joy3:: ; HOTAS_Joy_RH
       {
-        ; Als Hotkey Button definiert
+        ; Zoom in -> in P3D configuriert
         Return
       }
 
     3Joy04_ATC:
       ; 3Joy4:: ; HOTAS_Joy_RV
       {
-        ; Als Hotkey Button definiert
+        ; Zoom out -> in P3D configuriert
         Return
       }
 
-    3Joy05_AP_HoldVS:
-    3Joy5:: ; HOTAS_Thrust_RO
-      {
-        x := 0
-        While GetKeyState("3Joy5")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("hold vertical speed")
-            Return
-          }
-        }
-
-        If AP
-          Err := _CMD("autopilot off")
-        Else
-          Err := _CMD("autopilot on")
-        Return
-      }
-
-    3Joy06_VSDown:
-    3Joy6:: ; HOTAS_Thrust_HM
+    3Joy05_VS_Down:
+    3Joy5:: ; HOTAS_Thrust_HO/ XPlane
       {
         WinActivate, ahk_class %Aktu_Sim%
-
         Send {Ctrl Down}{NumpadPgup}{Ctrl Up}
 
         ; If HVS
@@ -1486,14 +1366,14 @@ Show_DEBUG_Info:
         ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
         ; 	Sleep, 100
         ; }
+
         Return
       }
 
-    3Joy07_VSUp:
-    3Joy7:: ; HOTAS_Thrust_HU
+    3Joy06_VS_Up:
+    3Joy06:: ; HOTAS_Thrust_HU
       {
         WinActivate, ahk_class %Aktu_Sim%
-
         Send {Ctrl Down}{NumpadPgdn}{Ctrl Up}
 
         ; If HVS
@@ -1510,19 +1390,41 @@ Show_DEBUG_Info:
         ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
         ; 	Sleep, 100
         ; }
+        Return
+      }
 
+    3Joy07_AP_HoldVerticalSpeed:
+    3Joy7:: ; HOTAS_Thrust_RU
+      {
+        x := 0
+        While GetKeyState("3Joy7")
+        {
+          x := x + 1
+          Sleep, ButtonWait_Delay
+
+          If x = 10
+          {
+            ; TRIM := 8 * 164
+            ; NumPut(TRIM, TRIM, 0, "short")
+            ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0BC0, int, 2, short, &TRIM, int, &dwResult)
+            ; Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+
+            ; Err := _Text_to_Speech("take off trim")
+
+            Err := _CMD("hold vertical speed")
+            Return
+          }
+        }
+        If AP
+          Err := _CMD("autopilot off")
+        Else
+          Err := _CMD("autopilot on")
         Return
       }
 
     3Joy08_OutsideView_TopDownView:
     3Joy8:: ; HOTAS_Thrust_VM
       {
-        If (Aktu_Screen == 7) Or (Aktu_Screen == 9) ; NOTE: Cessna only
-        {
-          Gosub Screen5
-          Return
-        }	
-
         x := 0
         While GetKeyState("3Joy8")
         {
@@ -1540,8 +1442,8 @@ Show_DEBUG_Info:
         Return
       }
 
-    3Joy09_FlapsStepUp_FlapsUP:
-    3Joy9:: ; HOTAS_Thrust_HO
+    3Joy09_HoldAltitude_HoldVerticalSpeed:
+    3Joy9:: ; HOTAS_Thrust_RM
       {
         x := 0
         While GetKeyState("3Joy9")
@@ -1551,17 +1453,18 @@ Show_DEBUG_Info:
 
           If x = 10
           {
-            Err := _CMD("flaps full up")
+            Err := _CMD("hold vertical speed")
             Return
           }
         }
 
-        Err := _CMD("flaps step up")
+        Err := _CMD("hold altitude")
+
         Return
       }
 
-    3Joy10_FlapsStepDown_FlapsDown:
-    3Joy10:: ; HOTAS_Thrust_HU
+    3Joy10_HoldHeading_HoldNavigation: ; 3Joy05_TrimUp:
+    3Joy10:: ; HOTAS_Thrust_RO
       {
         x := 0
         While GetKeyState("3Joy10")
@@ -1571,298 +1474,170 @@ Show_DEBUG_Info:
 
           If x = 10
           {
-            Err := _CMD("flaps full down")
+            Err := _CMD("hold navigation")
             Return
           }
         }
 
-        Err := _CMD("flaps step down")
+        Err := _CMD("hold heading")
+
         Return
       }
 
     3Joy11_ParkingBrake_Gear:
-    3Joy11:: ; HOTAS_Thrust_UL
+    3Joy11:: ; HOTAS_Thrust_UL/ XPlane
       {
-        x := 0
-        While GetKeyState("3Joy11")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            If GEAR
-              Err := _CMD("gear up")
-            Else
-              Err := _CMD("gear down")
-            Return
-          }
-        }	
-
-        If PBRAKE
-          Err := _CMD("parking brake off")
-        Else
-          Err := _CMD("parking brake on")
-
+        ; Parking Brake
         Return
       }
 
-    3Joy12_StopTimer_Autostart:
+    3Joy12_TPstandby_Autostart:
     3Joy12:: ; HOTAS _Thrust_UR
       {
-        x := 0
-        While GetKeyState("3Joy12")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("autostart")
-            Return
-          }
-        }	
-
-        Err := _CMD("stop timer")
-        Err := _CMD("strobe and landing lights off")
-        Err := _CMD("flaps full up")
+        Err := _CMD("autostart")
         Return
       }
 
-      ; Button oben links
-
-    4Joy1_GPSon:
+    4Joy1_:
     4Joy1::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        If HGPS
-          Err := _CMD("GPS navigation off")
-        Else
-          Err := _CMD("GPS navigation on")
-        ; _Message("4Joy1", 3)
+        _Message("4Joy1", 3)
         Return
       }	
-
-    4Joy2_HoldSpeed:
+    4Joy2_:
     4Joy2::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        Err := _CMD("hold speed")
-        ; _Message("4Joy2", 3)
+        _Message("4Joy2", 3)
         Return
       }	
-
-    4Joy3_HoldHeading_HoldNavigation:
+    4Joy3_:
     4Joy3::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        x := 0
-        While GetKeyState("4Joy3")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("hold navigation")
-            Return
-          }
-        }	
-
-        Err := _CMD("hold heading")
-        ; _Message("4Joy3", 3)
+        _Message("4Joy3", 3)
         Return
       }	
-
-      ; Button oben rechts
-
-    4Joy4_HoldNavigation:
+    4Joy4_:
     4Joy4::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        Err := _CMD("hold navigation")
-        ; _Message("4Joy4", 3)
+        _Message("4Joy4", 3)
         Return
       }	
-
-    4Joy5_HoldVSpeed:
+    4Joy5_:
     4Joy5::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        x := 0
-        While GetKeyState("4Joy5")
-        {
-          x := x + 1
-          Sleep, ButtonWait_Delay
-
-          If x = 10
-          {
-            Err := _CMD("take off trim")
-            Return
-          }
-        }	
-
-        Err := _CMD("hold vertical speed")
-        ; _Message("4Joy5", 3)
+        _Message("4Joy5", 3)
         Return
       }	
-
-    4Joy6_HoldAltitude:
+    4Joy6_:
     4Joy6::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        Err := _CMD("hold altitude")
-        ; _Message("4Joy6", 3)
+        _Message("4Joy6", 3)
         Return
       }	
 
-      ; definierte Hotkey Buttons
-
-    4Joy7_SpeechRec__HotkeyButton:
-      ; 4Joy7::
+    4Joy7_Speech:
+    4Joy7::
       {
-        ; _Message("4Joy7", 3)
+        _Message("4Joy7", 3)
         Return
       }	
-    4Joy8_ATC__HotkeyButton:
-      ; 4Joy8::
+    4Joy8_ATC:
+    4Joy8::
       {
-        ; _Message("4Joy8", 3)
+        _Message("4Joy8", 3)
         Return
       }	
-    4Joy9_CecklistOK__HotkeyButton:
-      ; 4Joy9::
+    4Joy9_Cecklist_OK:
+    4Joy9::
       {
-        ; _Message("4Joy9", 3)
+        _Message("4Joy9", 3)
         Return
       }	
 
-    ROTARIS:
-
-    4Joy10_CourseDown:
-    4Joy10:: ; LUA
+    4Joy10_OBS_HSI_down:
+    4Joy10::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        If GetKeyState("Ctrl") ; TODO:
-          Send {Shift Down}{Ctrl Down}{Ins}{Ctrl Up}{Shift Up}
-        Else
-          Send {Shift Down}{Ctrl Down}{Ins 10}{Ctrl Up}{Shift Up}
-
-        ; _Message("Course down", 0)
+        Send {Ctrl Down}{Alt Down}{NumpadLeft 10}{Ctrl Up}{Alt Up}
+        ; _Message("OBS HSI down", 0)
         Return
       }	
-    4Joy11_CourseUp:
-    4Joy11:: ; LUA
+    4Joy11_OBS_HSI_up:
+    4Joy11::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        If GetKeyState("Ctrl")
-          Send {Shift Down}{Ctrl Down}{Del}{Ctrl Up}{Shift Up}
-        Else
-          Send {Shift Down}{Ctrl Down}{Del 10}{Ctrl Up}{Shift Up}
-
-        ; _Message("Course up", 0)
+        Send {Ctrl Down}{Alt Down}{NumpadRight 10}{Ctrl Up}{Alt Up}
+        ; _Message("OBS HSI up", 0)
         Return
       }
 
-    4Joy12_SpeedDown:
+    4Joy12_Speed_down:
     4Joy12::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
         Send {Ctrl Down}{NumpadEnd}{Ctrl Up}
         ; _Message("speed down", 0)
         Return
       }	
-    4Joy13_SpeedUp:
+    4Joy13_Speed_up:
     4Joy13::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
         Send {Ctrl Down}{NumpadHome}{Ctrl Up}
         ; _Message("speed up", 0)
         Return
       }
 
-    4Joy14_HeadingDown:
-    4Joy14:: ; LUA
+    4Joy14_Heading_down:
+    4Joy14::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        If GetKeyState("Ctrl")
-          Send {Ctrl Down}{Alt Down}{Left}{Ctrl Up}{Alt Up}
-        Else
-          Send {Ctrl Down}{Alt Down}{Left 10}{Ctrl Up}{Alt Up}
-
+        Send {Ctrl Down}{NumpadLeft 5}{Ctrl Up}
+        Send {Ctrl Down}{NumpadLeft 5}{Ctrl Up}
         ; _Message("Heading down", 0)
         Return
       }	
-    4Joy15_HeadingUp:
-    4Joy15:: ; LUA
+    4Joy15_Heading_up:
+    4Joy15::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        If GetKeyState("Ctrl")
-          Send {Ctrl Down}{Alt Down}{Right}{Ctrl Up}{Alt Up}
-        Else	
-          Send {Ctrl Down}{Alt Down}{Right 10}{Ctrl Up}{Alt Up}
-
+        Send {Ctrl Down}{NumpadRight 5}{Ctrl Up}
+        Send {Ctrl Down}{NumpadRight 5}{Ctrl Up}
         ; _Message("Heading up", 0)
         Return
       }
 
-    4Joy16_AltitudeDown:
-    4Joy16:: ; LUA
+    4Joy16_Altitude_down:
+    4Joy16::
       {
-        WinActivate, ahk_class %Aktu_Sim%
+        Send {Ctrl Down}{NumpadDown}{Ctrl Up}
 
-        If GetKeyState("Ctrl")
-          Send {Ctrl Down}{Alt Down}{Down 10}{Ctrl Up}{Alt Up}
-        Else
-          Send {Ctrl Down}{Alt Down}{Down 50}{Ctrl Up}{Alt Up}
+        ; x := 0
+        ; while x < 7
+        ; {
+        ; 	x += 1
+        ; 	Send {Ctrl Down}{NumpadDown }{Ctrl Up}
+        ; 	sleep, 200
+        ; }
 
         ; _Message("Altitude down", 0)
         Return
       }	
-    4Joy17_AltitudeUp:
-    4Joy17:: ; LUA
+
+    4Joy17_Altitude_up:
+    4Joy17::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        If GetKeyState("Ctrl")
-          Send {Ctrl Down}{Alt Down}{Up 10}{Ctrl Up}{Alt Up}
-        Else
-          Send {Ctrl Down}{Alt Down}{Up 50}{Ctrl Up}{Alt Up}
-
+        Send {Ctrl Down}{NumpadUp}{Ctrl Up}
         ; _Message("Altitude up", 0)
         Return
       }
 
-    4Joy18_VSpeedDown:
-    4Joy18:: ; LUA
+    4Joy18_VS_down:
+    4Joy18::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        Send {Ctrl Down}{Alt Down}{PgDn}{Ctrl Up}{Alt Up}
-
-        ; _Message("VS down", 0)
+        Send {Ctrl Down}{NumpadPgdn}{Ctrl Up}
+        ; _Message("speed down", 0)
         Return
       }	
-    4Joy19_VSpeedUp:
-    4Joy19:: ; LUA
+    4Joy19_VS_up:
+    4Joy19::
       {
-        WinActivate, ahk_class %Aktu_Sim%
-
-        Send {Ctrl Down}{Alt Down}{PgUp}{Ctrl Up}{Alt Up}
-
-        ; _Message("VS up", 0)
+        Send {Ctrl Down}{NumpadPgup}{Ctrl Up}
+        ; _Message("speed up", 0)
         Return
       }
 
@@ -1883,12 +1658,6 @@ Show_DEBUG_Info:
       {
         WinActivate, ahk_class %Aktu_Sim%
         Send {NumpadHome}
-
-        ; Send {ShiftDown}8{ShiftUp}
-        ; Sleep, 50
-        ; Send {ShiftDown}{Up 2}{ShiftUp}
-        ; Send {ShiftDown}{, 20}{ShiftUp}
-
         Last_Screen := Aktu_Screen
         Aktu_Screen := 7
         Return
@@ -1909,12 +1678,6 @@ Show_DEBUG_Info:
       {
         WinActivate, ahk_class %Aktu_Sim%
         Send {NumpadPgUp}
-
-        ; Send {ShiftDown}8{ShiftUp}
-        ; Sleep, 50
-        ; Send {ShiftDown}{Up 2}{ShiftUp}
-        ; Send {ShiftDown}{, 3}{ShiftUp}
-
         Last_Screen := Aktu_Screen
         Aktu_Screen := 9
         Return
@@ -1934,13 +1697,6 @@ Show_DEBUG_Info:
     $NumpadClear:: ; Numpad5
       {
         WinActivate, ahk_class %Aktu_Sim%
-
-        If (Aktu_Screen == 7) Or (Aktu_Screen == 9) ; NOTE: AFL C172 only
-        {
-          Send {ShiftDown}9{ShiftUp} ; Back to Cockpit
-          Aktu_Screen := 9		
-        }	
-
         Send {NumpadClear}
         Last_Screen := Aktu_Screen
         Aktu_Screen := 5
