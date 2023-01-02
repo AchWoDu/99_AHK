@@ -1,4 +1,4 @@
-﻿Common_2022_12_28:
+﻿Common_2023_01_01:
 
 DEV_MAIN_INIT_VARs:
 
@@ -1322,6 +1322,7 @@ H_EndApp_KillAll:
 
   ; XPlane Files
   Process, Close, X-Plane.exe
+  Sleep, 1000
   Process, Close, X-Plane.exe
 
   ; VATSIM Files

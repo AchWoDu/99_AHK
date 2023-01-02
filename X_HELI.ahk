@@ -1,18 +1,9 @@
-﻿X_HELI_2022_12_30:
+﻿X_HELI_2023_01_01:
 
 DEV_VARS:
-  Global TEST := False Or True ; Keine Programme starten
-  Global DEBUG := False ; Or True ; Debug anzeigen
-
-  Global Aktu_Sim := "X-System"
-  Global XP12 := False
-  Global Aktu_Scenario := "HELI" ; zum suchen in Load Scenario
-  Global CMD_File := "X_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
-  Global CMD_List := "X_" Aktu_Scenario "_CMD.txt"
-
   ; Sprachbefehl Anzeigen
-  Global x_Versatz := 0 ; -1920 ; <-  0  -> +1920
-  Global y_Versatz := 0
+  Global x_Versatz := 0 ; -1920 <-0-> +1920
+  Global y_Versatz := 0 ;30
 
   ; Status-Bar und Checklist_ITEM (ToolTip 11..n und 3)
   Global TTex_xVersatz := 348 ; -1920 <-  0  -> +1920
