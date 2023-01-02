@@ -19,23 +19,23 @@ DEV_VARS:
   #Include %A_ScriptDir%\Common.ahk
 
 DEV_VSpeeds_C172N_REMARKS:
-  ; Global TRIM := 0 ; Temp VAR für Trim up/down
+; Global TRIM := 0 ; Temp VAR für Trim up/down
 
-  ; DEV_VSpeeds_REMARKS:
+; DEV_VSpeeds_REMARKS:
 
-  ; Rotate (MTOM)			91 KIAS
-  ; Normal Climb (MTOM) 	167 KIA S (2480 fpm)
-  ; Flaps T/O 			200 KIAS
-  ; Full Flaps 			140 KIAS
-  ; Vyse 					130 KIAS
-  ; Performance cruise 	speed at 99.0% N1 	360 KTAS, FL250
-  ; Economy cruise 		speed at 95.4% N1 	332 KIAS, FL410
-  ; Normal max Vno 		285 KIAS
-  ; Never exceed Vne 		285 KIAS
-  ; Stall (clean) 		95 KIAS
-  ; Stall (land) 			76 KIAS
-  ; Final approach (full flaps) 99 KIAS
-  ; Max glide 			140 KIAS
+; Rotate (MTOM)			91 KIAS
+; Normal Climb (MTOM) 	167 KIA S (2480 fpm)
+; Flaps T/O 			200 KIAS
+; Full Flaps 			140 KIAS
+; Vyse 					130 KIAS
+; Performance cruise 	speed at 99.0% N1 	360 KTAS, FL250
+; Economy cruise 		speed at 95.4% N1 	332 KIAS, FL410
+; Normal max Vno 		285 KIAS
+; Never exceed Vne 		285 KIAS
+; Stall (clean) 		95 KIAS
+; Stall (land) 			76 KIAS
+; Final approach (full flaps) 99 KIAS
+; Max glide 			140 KIAS
 
 Return
 
@@ -319,20 +319,20 @@ _Preflight_Checklist() { ; Starts manually
 
   If _Is_CheckItem("Switch Battery Master or GPU on!")
     If _Is_CheckItem("Is the flight scheduled and the flightplan filed?")
-    If _Is_CheckItem("Check the calculated fuel quantity!")
-    If _Is_CheckItem("Check ACARS!")
-    If _Is_CheckItem("Check the parking brake!")
-    If _Is_CheckItem("Check if the beacon- and the navigation light swiched on!")
-    If _Is_CheckItem("Start engiene!")
-    If _Is_CheckItem("Where necessary, check if the GPS armed and the flightplan loaded!")
-    If _Is_CheckItem("Check the trimm wheel and fuel selector position!")
-    If _Is_CheckItem("Check if hold heading and vertical speed armed!")
-    ; If _Is_CheckItem("Check if gyro and magnet compass synchronized!")
-    If _Is_CheckItem("Check if heading and OBS on runway course!")
-    If _Is_CheckItem("Check the altimeter setting!")
+      If _Is_CheckItem("Check the calculated fuel quantity!")
+        If _Is_CheckItem("Check ACARS!")
+          If _Is_CheckItem("Check the parking brake!")
+            If _Is_CheckItem("Check if the beacon- and the navigation light swiched on!")
+              If _Is_CheckItem("Start engiene!")
+                If _Is_CheckItem("Where necessary, check if the GPS armed and the flightplan loaded!")
+                  If _Is_CheckItem("Check the trimm wheel and fuel selector position!")
+                    If _Is_CheckItem("Check if hold heading and vertical speed armed!")
+                      ; If _Is_CheckItem("Check if gyro and magnet compass synchronized!")
+                      If _Is_CheckItem("Check if heading and OBS on runway course!")
+                        If _Is_CheckItem("Check the altimeter setting!")
 
-    If _Is_CheckItem("Preflight checklist is complete! You can request taxi!")
-    PreflightCheck_Ok := True
+                          If _Is_CheckItem("Preflight checklist is complete! You can request taxi!")
+                            PreflightCheck_Ok := True
 
   PreflightCheck_Ok := PreflightCheck_Ok Or CheckOK_Break
   CheckList_Active := False
@@ -350,8 +350,8 @@ _BeforeTaxi_Checklist() { ; when parkbrake off
   If _Is_CheckItem("Set transponder mode charly!")
     If _Is_CheckItem("Check if the flaps in take off configuration!")
 
-    If _Is_CheckItem("Before taxi checklist is complete. Request taxi!")
-    BeforeTaxi_Ok := True
+      If _Is_CheckItem("Before taxi checklist is complete. Request taxi!")
+        BeforeTaxi_Ok := True
   BeforeTaxi_Ok := BeforeTaxi_Ok Or CheckOK_Break
   CheckList_Active := False
   Return
@@ -367,8 +367,8 @@ _BeforeTakeOff_Checklist() { ; Starts when the landing lights goes on
   If _Is_CheckItem("Check the heading and navigation settings!")
     If _Is_CheckItem("Check transponder and run the timer!")
 
-    If _Is_CheckItem("Before take off checklist is complete. Request ready for departure!")
-    BeforeTakeOff_Ok := True
+      If _Is_CheckItem("Before take off checklist is complete. Request ready for departure!")
+        BeforeTakeOff_Ok := True
 
   BeforeTakeOff_Ok := BeforeTakeOff_Ok Or CheckOK_Break
   CheckList_Active := False
@@ -385,8 +385,8 @@ _AfterTakeOff_Checklist() { ; Starts after flaps full up
   If _Is_CheckItem("Check if the flaps full up!")
     If _Is_CheckItem("Check autopilot settings!")
 
-    If _Is_CheckItem("After take off checklist is complete.")
-    AfterTakeOff_Ok := True
+      If _Is_CheckItem("After take off checklist is complete.")
+        AfterTakeOff_Ok := True
 
   AfterTakeOff_Ok := AfterTakeOff_Ok Or CheckOK_Break
   CheckList_Active := False
@@ -403,8 +403,8 @@ _BeforeApproach_Checklist() { ; Starts after descending 8000 Feets
   If _Is_CheckItem("Check if approach transition in GPS is loaded!")
     If _Is_CheckItem("Check if landing lights switched on!")
 
-    If _Is_CheckItem("Before approach checklist is complete!")
-    BeforeApproach_Ok := True
+      If _Is_CheckItem("Before approach checklist is complete!")
+        BeforeApproach_Ok := True
 
   BeforeApproach_Ok := BeforeApproach_Ok Or CheckOK_Break
   CheckList_Active := False
@@ -421,10 +421,10 @@ _BeforeLanding_Checklist() { ; Starts after the Flaps goes in landing configurat
   If _Is_CheckItem("Check if GPS is disengaged and approach engaged!")
 
     If _Is_CheckItem("Check the altimeter!")
-    If _Is_CheckItem("Check if flaps in landing position!")
+      If _Is_CheckItem("Check if flaps in landing position!")
 
-    If _Is_CheckItem("Before landing checklist is complete.")
-    BeforeLanding_Ok := True
+        If _Is_CheckItem("Before landing checklist is complete.")
+          BeforeLanding_Ok := True
 
   BeforeLanding_Ok := BeforeLanding_Ok Or CheckOK_Break
   CheckList_Active := False
@@ -441,8 +441,8 @@ _AfterLanding_Checklist() { ; Starts when the Flaps are up
   If _Is_CheckItem("Check lights, flaps and timer!")
     If _Is_CheckItem("Check if the autopilot switched off!")
 
-    If _Is_CheckItem("After landing checklist is complete. Request taxi to the gate!")
-    AfterLanding_Ok := True
+      If _Is_CheckItem("After landing checklist is complete. Request taxi to the gate!")
+        AfterLanding_Ok := True
 
   AfterLanding_Ok := AfterLanding_Ok Or CheckOK_Break
   CheckList_Active := False
@@ -459,8 +459,8 @@ _Parking_Checklist() { ; Starts when the taxi lights goes off
   If _Is_CheckItem("Transponder mode standby!")
     If _Is_CheckItem("Check if battery master and avionic switched off!")
 
-    If _Is_CheckItem("Parking checklist is complete!")
-    Parking_Ok := True
+      If _Is_CheckItem("Parking checklist is complete!")
+        Parking_Ok := True
 
   Parking_Ok := Parking_Ok Or CheckOK_Break
   CheckList_Active := False
@@ -1189,8 +1189,8 @@ AIRCRAFT_INIT:
   ; 1 Monitor
   FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_1Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf ,
 
-  ; 2 Monitore
-  ; FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_2Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf ,
+; 2 Monitore
+; FileCopy, J:\X-Plane 11\Output\preferences\X-Plane Window Positions_2Mon.prf, J:\X-Plane 11\Output\preferences\X-Plane Window Positions.prf ,
 
 Return
 
@@ -1201,10 +1201,10 @@ _Write_Aircraft_Info(Filename) {
 }
 
 JOYSTICK_SECTION:
-  ; -------------------------------------------------------
-  ; 1JoyX Wireless Gamepad
-  ; 3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
-  ; 4JoyX Arduino
+; -------------------------------------------------------
+; 1JoyX Wireless Gamepad
+; 3JoyX TM T-Flight Stick Hotas X (Hands On Throttle And Stick)
+; 4JoyX Arduino
 
 3JoyPOV:
 POV:
@@ -1366,8 +1366,8 @@ POV:
 Return
 
 3Joy01_CheckitemOk:
-  ; 3Joy1:: ; HOTAS _Joy_HM
-  ; Als Hotkey Button definiert
+; 3Joy1:: ; HOTAS _Joy_HM
+; Als Hotkey Button definiert
 Return
 
 3Joy02_MainPanel_GreatPanel:
@@ -1390,13 +1390,13 @@ Return
 Return
 
 3Joy03_SpeechRec:
-  ; 3Joy3:: ; HOTAS_Joy_RH
-  ; Als Hotkey Button definiert
+; 3Joy3:: ; HOTAS_Joy_RH
+; Als Hotkey Button definiert
 Return
 
 3Joy04_ATC:
-  ; 3Joy4:: ; HOTAS_Joy_RV
-  ; Als Hotkey Button definiert
+; 3Joy4:: ; HOTAS_Joy_RV
+; Als Hotkey Button definiert
 Return
 
 3Joy05_AP_HoldVS:
@@ -1439,20 +1439,20 @@ Return
 
   Send {Ctrl Down}{NumpadPgup}{Ctrl Up}
 
-  ; If HVS
-  ; 	Send {Ctrl Down}{NumpadPgup}{Ctrl Up}
-  ; Else
-  ; {
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int,  0x0BC0, int, 2, short, &TRIM, int, &dwResult)
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-  ; 	TRIM := NumGet(&TRIM, 0, "short")
+; If HVS
+; 	Send {Ctrl Down}{NumpadPgup}{Ctrl Up}
+; Else
+; {
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int,  0x0BC0, int, 2, short, &TRIM, int, &dwResult)
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+; 	TRIM := NumGet(&TRIM, 0, "short")
 
-  ; 	TRIM := TRIM + 164
-  ; 	NumPut(TRIM, TRIM, 0, "short")
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0BC0, int, 2, short, &TRIM, int, &dwResult)
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-  ; 	Sleep, 100
-  ; }
+; 	TRIM := TRIM + 164
+; 	NumPut(TRIM, TRIM, 0, "short")
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0BC0, int, 2, short, &TRIM, int, &dwResult)
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+; 	Sleep, 100
+; }
 Return
 
 3Joy07_VSDown_HoldHDG:
@@ -1474,20 +1474,20 @@ Return
 
   Send {Ctrl Down}{NumpadPgdn}{Ctrl Up}
 
-  ; If HVS
-  ; 	Send {Ctrl Down}{NumpadPgdn}{Ctrl Up}
-  ; Else
-  ; {
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int,  0x0BC0, int, 2, short, &TRIM, int, &dwResult)
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-  ; 	TRIM := NumGet(&TRIM, 0, "short")
+; If HVS
+; 	Send {Ctrl Down}{NumpadPgdn}{Ctrl Up}
+; Else
+; {
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Read", int,  0x0BC0, int, 2, short, &TRIM, int, &dwResult)
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+; 	TRIM := NumGet(&TRIM, 0, "short")
 
-  ; 	TRIM := TRIM - 164
-  ; 	NumPut(TRIM, TRIM, 0, "short")
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0BC0, int, 2, short, &TRIM, int, &dwResult)
-  ; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
-  ; 	Sleep, 100
-  ; }
+; 	TRIM := TRIM - 164
+; 	NumPut(TRIM, TRIM, 0, "short")
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Write", int, 0x0BC0, int, 2, short, &TRIM, int, &dwResult)
+; 	Err := DllCall(FSUIPC_LibPfad . "\FSUIPC_Process", uint, &dwResult)
+; 	Sleep, 100
+; }
 
 Return
 
@@ -1597,9 +1597,9 @@ Return
 Return
 
 _ARDUINO_Buttons:
-  ; 1 - 4
-  ; 2 - 5
-  ; 3 - 6
+; 1 - 4
+; 2 - 5
+; 3 - 6
 
 4Joy1_PDFandMFD_externWin:
 4Joy1::
@@ -1620,9 +1620,9 @@ _ARDUINO_Buttons:
   }
 
   Send 12
-  ; Err := _CMD("switch P F D")
-  ; Err := _CMD("switch M F D")
-  ; _Message("4Joy1", 3)
+; Err := _CMD("switch P F D")
+; Err := _CMD("switch M F D")
+; _Message("4Joy1", 3)
 Return
 
 4Joy2_HoldSpeed_SynchHDG:
@@ -1643,7 +1643,7 @@ Return
   }
 
   Err := _CMD("hold speed")
-  ; _Message("4Joy2", 3)
+; _Message("4Joy2", 3)
 Return
 
 4Joy3_HoldHeadingBug_HoldNavigation:
@@ -1664,7 +1664,7 @@ Return
   }
 
   Err := _CMD("hold heading bug")
-  ; _Message("4Joy3", 3)
+; _Message("4Joy3", 3)
 Return
 
 ; 4Joy4_HoldNavigation:
@@ -1687,8 +1687,8 @@ Return
   }
 
   Err := _CMD("use garmin")
-  ; Err := _CMD("switch M F D")
-  ; _Message("4Joy4", 3)
+; Err := _CMD("switch M F D")
+; _Message("4Joy4", 3)
 Return
 
 4Joy5_HoldVSpeed_holdVNAV:
@@ -1709,7 +1709,7 @@ Return
   }
 
   Err := _CMD("hold vertical speed")
-  ; _Message("4Joy5", 3)
+; _Message("4Joy5", 3)
 Return
 
 4Joy6_HoldAltitude_holdVNAV:
@@ -1730,20 +1730,20 @@ Return
   }
 
   Err := _CMD("hold altitude")
-  ; _Message("4Joy6", 3)
+; _Message("4Joy6", 3)
 Return
 
 4Joy7_SpeechRec__HotkeyButton:
-  ; WinActivate, ahk_class %Aktu_Sim%
-  ; _Message("4Joy7", 3)
+; WinActivate, ahk_class %Aktu_Sim%
+; _Message("4Joy7", 3)
 Return
 4Joy8_ATC__HotkeyButton:
-  ; WinActivate, ahk_class %Aktu_Sim%
-  ; _Message("4Joy8", 3)
+; WinActivate, ahk_class %Aktu_Sim%
+; _Message("4Joy8", 3)
 Return
 4Joy9_CecklistOK__HotkeyButton:
-  ; WinActivate, ahk_class %Aktu_Sim%
-  ; _Message("4Joy9", 3)
+; WinActivate, ahk_class %Aktu_Sim%
+; _Message("4Joy9", 3)
 Return
 
 _ARDUINO_Rotaries:
@@ -1763,7 +1763,7 @@ _ARDUINO_Rotaries:
   Else
     Send {Shift Down}{ALt Down}{Ins}{Alt Up}{Shift Up}
 
-  ; _Message("Course down", 0)
+; _Message("Course down", 0)
 Return
 4Joy11_CourseUp_Baro:
 4Joy11:: ; LUA
@@ -1780,7 +1780,7 @@ Return
   Else
     Send {Shift Down}{Alt Down}{Del}{Alt Up}{Shift Up}
 
-  ; _Message("Course up", 0)
+; _Message("Course up", 0)
 Return
 
 4Joy12_SpeedDown_Nav:
@@ -1798,7 +1798,7 @@ Return
   Else
     Send {Shift Down}{Alt Down}{End}{Alt Up}{Shift Up}
 
-  ; _Message("speed down", 0)
+; _Message("speed down", 0)
 Return
 4Joy13_SpeedUp_Nav:
 4Joy13:: ; LUA
@@ -1815,7 +1815,7 @@ Return
   Else
     Send {Shift Down}{Alt Down}{Home}{Alt Up}{Shift Up}
 
-  ; _Message("speed up", 0)
+; _Message("speed up", 0)
 Return
 
 4Joy14_HeadingDown_Nav:
@@ -1833,7 +1833,7 @@ Return
   Else
     Send {Shift Down}{Alt Down}{Left 1}{Alt Up}{Shift Up}{Ctrl Up}
 
-  ; _Message("Heading down", 0)
+; _Message("Heading down", 0)
 Return
 4Joy15_HeadingUp_Nav:
 4Joy15:: ; LUA
@@ -1850,7 +1850,7 @@ Return
   Else
     Send {Shift Down}{Alt Down}{Right 1}{Alt Up}{Shift Up}{Ctrl Up}
 
-  ; _Message("Heading up", 0)
+; _Message("Heading up", 0)
 Return
 
 4Joy16_AltitudeDown_FMS:
@@ -1868,7 +1868,7 @@ Return
   Else
     Send {Shift Down}{Alt Down}{Down 1}{Alt Up}{Shift Up}{Ctrl Up}
 
-  ; _Message("Altitude down", 0)
+; _Message("Altitude down", 0)
 Return
 4Joy17_AltitudeUp_FMS:
 4Joy17:: ; LUA
@@ -1885,7 +1885,7 @@ Return
   Else
     Send {Shift Down}{Alt Down}{Up 1}{Alt Up}{Shift Up}{Ctrl Up}
 
-  ; _Message("Altitude up", 0)
+; _Message("Altitude up", 0)
 Return
 
 4Joy18_VSpeedDown_FMS:
@@ -1903,7 +1903,7 @@ Return
   Else
     Send {Shift Down}{Alt Down}{PgDn}{Alt Up}{Shift Up}
 
-  ; _Message("VS down", 0)
+; _Message("VS down", 0)
 Return
 4Joy19_VSpeedUp_FMS:
 4Joy19:: ; LUA
@@ -1920,19 +1920,19 @@ Return
   Else
     Send {Shift Down}{Alt Down}{PgUp}{Alt Up}{Shift Up}
 
-  ; _Message("VS up", 0)
+; _Message("VS up", 0)
 Return
 
 KEYBOARD_SECTION:
-  ; -------------------------------------------------------
-  ; *		= wird immer ausgelöst auch wenn modifikaton
-  ; $ 	= keine rekursion
-  ; ~  	= Taste weiterleiten
-  ; + 	= [Shift]-Taste
-  ; ^ 	= [Ctrl]-Taste
-  ; ! 	= [QALT]-Taste
-  ; # 	= [Win] -Taste
-  ; <# 	= [Left Win Taste]
+; -------------------------------------------------------
+; *		= wird immer ausgelöst auch wenn modifikaton
+; $ 	= keine rekursion
+; ~  	= Taste weiterleiten
+; + 	= [Shift]-Taste
+; ^ 	= [Ctrl]-Taste
+; ! 	= [QALT]-Taste
+; # 	= [Win] -Taste
+; <# 	= [Left Win Taste]
 
 Screen7:
 $NumpadHome:: ; Numpad7
@@ -2034,7 +2034,7 @@ $NumpadDel:: ; NumpadDel
   WinActivate, ahk_class %Aktu_Sim%
   Send {Ctrl Down}w{Ctrl Up} ; no panel
 
-  ; CoordMode, Mouse, Screen
-  ; Click,right, 1919,35
-  ; MouseMove, 1930,5,0
+; CoordMode, Mouse, Screen
+; Click,right, 1919,35
+; MouseMove, 1930,5,0
 Return

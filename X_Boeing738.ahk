@@ -1778,7 +1778,7 @@ Return
 4Joy16_AltitudeDown:
 4Joy16::
   WinActivate, ahk_class %Aktu_Sim%
-  
+
   If GetKeyState("Ctrl")
     SendInput {Ctrl Down}{Down 1}{Ctrl Up}
   Else
@@ -1810,7 +1810,7 @@ Return
 4Joy19_VSpeedUp:
 4Joy19::
   WinActivate, ahk_class %Aktu_Sim%
-  
+
   If GetKeyState("Ctrl")
     SendInput {Ctrl Down}{Pgup 1}{Ctrl Up}
   Else

@@ -6,7 +6,8 @@ Global DEBUG := False ; Or True ; Debug anzeigen
 Global Aktu_Sim := "X-System"
 Global XP12 := True
 Global Aktu_Scenario := "HELI" ; zum suchen in Load Scenario
-Global CMD_File := "X12_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
-Global CMD_List := "X12_" Aktu_Scenario "_CMD.txt"
+Global AHK_File := "X12_" Aktu_Scenario ".ahk" ; Test AdminMode 
+Global CMD_File := "X_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
+Global CMD_List := "X_" Aktu_Scenario "_CMD.txt"
 
 #Include %A_ScriptDir%\X_HELI.ahk

@@ -6,8 +6,9 @@
   Global Aktu_Sim := "X-System"
   Global XP12 := False
   Global Aktu_Scenario := "Cessna72N" ; zum suchen in Load Scenario
-  Global CMD_File := "X11_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
-  Global CMD_List := "X11_" Aktu_Scenario "_CMD.txt"
+  Global AHK_File := "X11_" Aktu_Scenario ".ahk" ; Test AdminMode 
+  Global CMD_File := "X_" Aktu_Scenario ".ahk" ; Kommandos aus dem Aircraft File
+  Global CMD_List := "X_" Aktu_Scenario "_CMD.txt"
 
   #Include %A_ScriptDir%\X_Cessna72N.ahk
 

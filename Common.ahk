@@ -800,13 +800,13 @@ Check_AdminMode:
   ; Unicode 32-bit.bin
   ; Unicode 64-bit.bin
 
-  Aircraft := StrReplace(CMD_File, ".ahk" , ".exe") ; Name aus Aircraft-Datei erstellen
+  Aircraft := StrReplace(AHK_File, ".ahk" , ".exe") ; Name aus Aircraft-Datei erstellen
 
   ; _Message("AircraftFile= " Aircraft " " A_ScriptName " " CMD_File, 15)
   ; _Message("AircraftFile= " Aircraft " " A_ScriptName " " CMD_File, 15)
   ; _Message("AircraftFile= " Aircraft " " CMD_File " " A_ScriptName, 30)
 
-  If (A_ScriptName == CMD_File) ; Wenn es noch .ahk file -> .exe compilieren?
+  If (A_ScriptName == AHK_File) ; Wenn es noch .ahk file -> .exe compilieren?
   {
     ; _Message("?" Aircraft A_ScriptName CMD_File, )
 
@@ -818,7 +818,7 @@ Check_AdminMode:
 
     ;  _Message("StartAircraft.exe gelöscht??", 10)
 
-    RunWait, %AHK_EXE% /in "%AHK_Path%%CMD_File%" /out "%BIN_Path%%Aircraft%" /bin "%AHK_Compiler%" /icon "%FILE_ICON%"
+    RunWait, %AHK_EXE% /in "%AHK_Path%%AHK_File%" /out "%BIN_Path%%Aircraft%" /bin "%AHK_Compiler%" /icon "%FILE_ICON%"
 
     FileCopy, %BIN_Path%%Aircraft%, %BIN_Path%StartAircraft.exe
 
@@ -1231,7 +1231,7 @@ Return
 H_ResetApp:
   ; Hotkey Shift+Esc
 
-  Run, "%AHK_Path%%CMD_File%"
+  Run, "%AHK_Path%%AHK_File%"
 
 ExitApp
 
@@ -1256,18 +1256,20 @@ H_EndApp_KillAll:
 
   MsgBox, 4100, Warning!, Terminate all FS-processes?, 10
 
-
-  If true { ; wegen Warn... und Formatter
-    IfMsgBox, No
+  IfMsgBox, No
+  {
     Return
-    Else
-      MsgBox, ,OK, Terminate all FS-processes! Bye..., 3
-
   }
+
+  ; TrayTip, Terminate all FS-processes! Bye...!, 10, 1
+  ; MsgBox, ,OK, Terminate all FS-processes! Bye..., 3
 
   SetNumLockState On
 
-  If Not TEST {
+  Run, "C:\Program Files\AutoHotkey\AutoHotkeyU32.exe" "d:\diverses\scripte_AHK\PRIVATE.ahk"
+; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
+  
+    If Not TEST {
     If WinExist(VATSIM_Map_str) {
       ; _Message("VATSIM map found!",3)
       WinActivate, %VATSIM_Map_str%
@@ -1308,6 +1310,14 @@ H_EndApp_KillAll:
     Process, Close, LittleNavMap.exe
   }
 
+  ; VATSIM Files
+  Process, Close, VPilot.exe
+  Process, Close, XPilot.exe
+
+  ; IVAO Files
+  Process, Close, PilotUI.exe
+  Process, Close, Pilot_core_fs2020.exe
+
   ; MSFS Files
   Process, Close, FlightSimulator.exe
   Process, Close, FSUIPC7.exe
@@ -1322,19 +1332,7 @@ H_EndApp_KillAll:
 
   ; XPlane Files
   Process, Close, X-Plane.exe
-  Sleep, 1000
   Process, Close, X-Plane.exe
-
-  ; VATSIM Files
-  Process, Close, VPilot.exe
-  Process, Close, XPilot.exe
-
-  ; IVAO Files
-  Process, Close, PilotUI.exe
-  Process, Close, Pilot_core_fs2020.exe
-
-  Run, "C:\Program Files\AutoHotkey\AutoHotkeyU32.exe" "d:\diverses\scripte_AHK\PRIVATE.ahk"
-; Run, "C:\Program Files\Google\Drive\googledrivesync.exe"
 
 ExitApp
 
@@ -2019,10 +2017,10 @@ Start_Apps_after_UIPC:
       Err := _CMD("goto IVAO")
     }
 
-    ; If Not XP12 {
-    _Aircraft_Log("show active sky")
-    Err := _CMD("show active sky")
-    ; }
+    If Not (XP12 Or (Aktu_Sim = MSFS)) {
+      _Aircraft_Log("show active sky")
+      Err := _CMD("show active sky")
+    }
   }
 
   _Aircraft_Log("DONE -> Start_Apps_after_UIPC")
@@ -2032,9 +2030,9 @@ Return
 SIM_INIT:
 
   TrayTip, FlightSim ,%Aktu_Sim% mit %ATC_str%`n%Aktu_Scenario%,3,1
-  
+
   _Message("Waiting for the Sim...", 0)
-  
+
   If (Aktu_Sim = MSFS) ; MSFS2020 wird gestartet
   {
     ; Run, D:\Games\10_FS_LINKS\95_MSFS_Run ; TODO: richtig starten
@@ -2105,7 +2103,7 @@ SIM_INIT:
 
   If (Aktu_Sim = XPLANE) ; X-Plane wird gestartet
   {
-    
+
     If XP12
       Run, C:\WINDOWS\system32\schtasks.exe /Run /tn SkipUAC_XP12,,Hide,XP12_PID
     Else
@@ -2139,6 +2137,7 @@ SIM_INIT:
 Return
 
 _Make_CMD_File(FileName) {
+
   Static Start_Else := "Else If (CMD_Text="
   Static Start_Send := "Send"
   Static End_Loop := "Say it again"

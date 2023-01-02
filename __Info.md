@@ -1,6 +1,6 @@
 
 Info_2022_11_01
-                              
+
 # VSC_General:
 
 F1 (Ctrl+Shift+P)          Show Command Palette
@@ -182,11 +182,11 @@ xpilot
   ; Shift  Ctrl  Alt A    Autopilot On "laminar/B738/autopilot/cmd_a_press"
 
 ##                   B
-  ; Shift            B    
-  ;        Ctrl      B    
-  ; Shift  Ctrl      B    
-  ;              Alt B    
-  ; Shift        Alt B    
+  ; Shift            B
+  ;        Ctrl      B
+  ; Shift  Ctrl      B
+  ;              Alt B
+  ; Shift        Alt B
   ;        Ctrl  Alt B    Beacon Light Off
   ; Shift  Ctrl  Alt B    Beacon Light On
 
@@ -201,24 +201,24 @@ xpilot
   ; Shift  Ctrl  Alt C    Flightlevel intervention "laminar/B738/autopilot/Alt _interv"
 
 ##                   D    C72N: walk right
-  ; Shift            D    
-  ;        Ctrl      D    
-  ; Shift  Ctrl      D    
-  ;              Alt D    
-  ; Shift        Alt D    
-  ;        Ctrl  Alt D    
-  ; Shift  Ctrl  Alt D    
+  ; Shift            D
+  ;        Ctrl      D
+  ; Shift  Ctrl      D
+  ;              Alt D
+  ; Shift        Alt D
+  ;        Ctrl  Alt D
+  ; Shift  Ctrl  Alt D
 
 ##                   E    C72N: walk speed
-  ; Shift            E    
-  ;        Ctrl      E    
-  ; Shift  Ctrl      E    
-  ;              Alt E    
-  ; Shift        Alt E    
-  ;        Ctrl  Alt E    
+  ; Shift            E
+  ;        Ctrl      E
+  ; Shift  Ctrl      E
+  ;              Alt E
+  ; Shift        Alt E
+  ;        Ctrl  Alt E
   ; Shift  Ctrl  Alt E    TakeOff Config
 
-##                   F                    
+##                   F
   ; Shift            F
   ;        Ctrl      F
   ; Shift  Ctrl      F
@@ -239,7 +239,7 @@ xpilot
 ##                   H
   ; Shift            H    Managed Heading
   ;        Ctrl      H    Hold Heading "laminar/B738/autopilot/hdg_sel_press"
-  ; Shift  Ctrl      H    
+  ; Shift  Ctrl      H
   ;              Alt H
   ; Shift        Alt H
   ;        Ctrl  Alt H    GPS/NAV umschAlt ung (CDI) G530
@@ -255,21 +255,21 @@ xpilot
   ; Shift  Ctrl  Alt I    xplane CDU /JAR330/ToLiss
 
 ##                   J
-  ; Shift            J    
-  ;        Ctrl      J    
-  ; Shift  Ctrl      J    
-  ;              Alt J    
-  ; Shift        Alt J    
-  ;        Ctrl  Alt J    
+  ; Shift            J
+  ;        Ctrl      J
+  ; Shift  Ctrl      J
+  ;              Alt J
+  ; Shift        Alt J
+  ;        Ctrl  Alt J
   ; Shift  Ctrl  Alt J    Autothrust
 
 ##                   K
-  ; Shift            K    
-  ;        Ctrl      K    
-  ; Shift  Ctrl      K    
-  ;              Alt K    
-  ; Shift        Alt K    
-  ;        Ctrl  Alt K    
+  ; Shift            K
+  ;        Ctrl      K
+  ; Shift  Ctrl      K
+  ;              Alt K
+  ; Shift        Alt K
+  ;        Ctrl  Alt K
   ; Shift  Ctrl  Alt K
 
 ##                   L
@@ -284,7 +284,7 @@ xpilot
 ##                   M
   ; Shift            M
   ;        Ctrl      M
-  ; Shift  Ctrl      M    
+  ; Shift  Ctrl      M
   ;              Alt M
   ; Shift        Alt M
   ;        Ctrl  Alt M
@@ -292,11 +292,11 @@ xpilot
 
 ##                   N
   ; Shift            N
-  ;        Ctrl      N     Alt _pushed                    
-  ; Shift  Ctrl      N   Alt _pulled              
-  ;              Alt N   N1 thrust "laminar/B738/autopilot/n1_press"               
-  ; Shift        Alt N      VS_pushed               
-  ;        Ctrl  Alt N   VS_pulled              
+  ;        Ctrl      N     Alt _pushed
+  ; Shift  Ctrl      N   Alt _pulled
+  ;              Alt N   N1 thrust "laminar/B738/autopilot/n1_press"
+  ; Shift        Alt N      VS_pushed
+  ;        Ctrl  Alt N   VS_pulled
   ; Shift  Ctrl  Alt N    Hold L-NAV "laminar/B738/autopilot/lnav_press"
 
 ##                   O
@@ -312,7 +312,7 @@ xpilot
   ; Shift            P    "3DPATH_RESET"
   ;        Ctrl      P    "STOP_PUSHBACK"
   ; Shift  Ctrl      P    "START_PUSHBACK"
-  ;              Alt P    
+  ;              Alt P
   ; Shift        Alt P    "PUSHBACK for AIRLINERS NOSE 90R"
   ;        Ctrl  Alt P    "PUSHBACK for AIRLINERS NOSE 90L"
   ; Shift  Ctrl  Alt P    "PASSENGER_OXYGEN_NORMAL /B738"
@@ -324,10 +324,10 @@ xpilot
   ;              Alt Q
   ; Shift        Alt Q
   ;        Ctrl  Alt Q    QNH/STD Off
-  ; Shift  Ctrl  Alt Q    QNH/STD ON    
+  ; Shift  Ctrl  Alt Q    QNH/STD ON
 
 ##                   R
-  ; Shift            R    
+  ; Shift            R
   ;        Ctrl      R
   ; Shift  Ctrl      R    C72N Roll Mode
   ;              Alt R
@@ -337,14 +337,14 @@ xpilot
 
 ##                   S    C72N: walk backwards
   ; Shift            S
-  ;        Ctrl      S    Ground Handling 
+  ;        Ctrl      S    Ground Handling
   ; Shift  Ctrl      S    Hold speed "laminar/B738/autopilot/speed_press"
   ;              Alt S
   ; Shift        Alt S
   ;        Ctrl  Alt S    Strobe Light Off
   ; Shift  Ctrl  Alt S    Strobe Light On
 
-##                   T    
+##                   T
   ; Shift            T
   ;        Ctrl      T
   ; Shift  Ctrl      T
@@ -365,9 +365,9 @@ xpilot
 ##                   V
   ; Shift            V    Managed Alt itude -> P3D B777/A320
   ;        Ctrl      V    Hold Alt itude "laminar/B738/autopilot/Alt _hld_press"
-  ; Shift  Ctrl      V    
+  ; Shift  Ctrl      V
   ;              Alt V    Level Change "laminar/B738/autopilot/lvl_chg_press"
-  ; Shift        Alt V    Alt itude intervention "laminar/B738/autopilot/Alt _interv"    
+  ; Shift        Alt V    Alt itude intervention "laminar/B738/autopilot/Alt _interv"
   ;        Ctrl  Alt V    Hold VS "laminar/B738/autopilot/vs_press"
   ; Shift  Ctrl  Alt V    Hold V-NAV "laminar/B738/autopilot/vnav_press"
 
@@ -377,7 +377,7 @@ xpilot
   ; Shift  Ctrl      W
   ;              Alt W
   ; Shift        Alt W
-  ;        Ctrl  Alt W    
+  ;        Ctrl  Alt W
   ; Shift  Ctrl  Alt W    Warnings Off
 
 ##                   X
@@ -401,100 +401,100 @@ xpilot
 ##                   Z    Autopilot 1 on /off
   ; Shift            Z
   ;        Ctrl      Z    Autopilot 2 on /off
-  ; Shift  Ctrl      Z    
+  ; Shift  Ctrl      Z
   ;              Alt Z
   ; Shift        Alt Z
   ;        Ctrl  Alt Z
-  ; Shift  Ctrl  Alt Z    
+  ; Shift  Ctrl  Alt Z
 
 ##                   ;    Speadbreakes off
   ; Shift            ;     Speadbreakes armed
   ;        Ctrl      ;     Speadbreakes on
-  ; Shift  Ctrl      ;     
+  ; Shift  Ctrl      ;
   ;              Alt #
   ; Shift        Alt #
   ;        Ctrl  Alt #
-  ; Shift  Ctrl  Alt #    
+  ; Shift  Ctrl  Alt #
 ##                   1    C72N: PDF/MFD
-  ; Shift            1    
-  ;        Ctrl      1    
-  ; Shift  Ctrl      1    
+  ; Shift            1
+  ;        Ctrl      1
+  ; Shift  Ctrl      1
   ;              Alt 1    C72N: FMS Dec inner Ring
   ; Shift        Alt 1
   ;        Ctrl  Alt 1
-  ; Shift  Ctrl  Alt 1    
+  ; Shift  Ctrl  Alt 1
 ##                   2    C72N: PFD/MFD
-  ; Shift            2    
-  ;        Ctrl      2    
-  ; Shift  Ctrl      2    
+  ; Shift            2
+  ;        Ctrl      2
+  ; Shift  Ctrl      2
   ;              Alt 2    C72N: FMS Inc inner Ring
   ; Shift        Alt 2
   ;        Ctrl  Alt 2
-  ; Shift  Ctrl  Alt 2    
+  ; Shift  Ctrl  Alt 2
 ##                   3    C72N: PanelX
-  ; Shift            3    
-  ;        Ctrl      3    
-  ; Shift  Ctrl      3    
+  ; Shift            3
+  ;        Ctrl      3
+  ; Shift  Ctrl      3
   ;              Alt 3    C72N: NAV Dec outer Ring
   ; Shift        Alt 3
   ;        Ctrl  Alt 3
-  ; Shift  Ctrl  Alt 3    
+  ; Shift  Ctrl  Alt 3
 ##                   4    C72N: PanelX
-  ; Shift            4    
-  ;        Ctrl      4    
-  ; Shift  Ctrl      4    
+  ; Shift            4
+  ;        Ctrl      4
+  ; Shift  Ctrl      4
   ;              Alt 4    C72N: NAV Inc outer Ring
   ; Shift        Alt 4
   ;        Ctrl  Alt 4
-  ; Shift  Ctrl  Alt 4    
+  ; Shift  Ctrl  Alt 4
 ##                   5    C72N: PanelX
-  ; Shift            5    
-  ;        Ctrl      5    
-  ; Shift  Ctrl      5    
+  ; Shift            5
+  ;        Ctrl      5
+  ; Shift  Ctrl      5
   ;              Alt 5    C72N: Baro Dec
   ; Shift        Alt 5
   ;        Ctrl  Alt 5
-  ; Shift  Ctrl  Alt 5    
+  ; Shift  Ctrl  Alt 5
 ##                   6    C72N: PanelX
-  ; Shift            6    
-  ;        Ctrl      6    
-  ; Shift  Ctrl      6    
+  ; Shift            6
+  ;        Ctrl      6
+  ; Shift  Ctrl      6
   ;              Alt 6    C72N: Baro Inc
   ; Shift        Alt 6
   ;        Ctrl  Alt 6
-  ; Shift  Ctrl  Alt 6    
+  ; Shift  Ctrl  Alt 6
 ##                   7    C72N: PanelX
-  ; Shift            7    
-  ;        Ctrl      7    
-  ; Shift  Ctrl      7    
+  ; Shift            7
+  ;        Ctrl      7
+  ; Shift  Ctrl      7
   ;              Alt 7
   ; Shift        Alt 7
   ;        Ctrl  Alt 7
-  ; Shift  Ctrl  Alt 7    
+  ; Shift  Ctrl  Alt 7
 ##                   8    C72N: PanelX
-  ; Shift            8    
-  ;        Ctrl      8    
-  ; Shift  Ctrl      8    
+  ; Shift            8
+  ;        Ctrl      8
+  ; Shift  Ctrl      8
   ;              Alt 8
   ; Shift        Alt 8
   ;        Ctrl  Alt 8
-  ; Shift  Ctrl  Alt 8    
+  ; Shift  Ctrl  Alt 8
 ##                   9    C72N: PanelX
-  ; Shift            9    
-  ;        Ctrl      9    
-  ; Shift  Ctrl      9    
+  ; Shift            9
+  ;        Ctrl      9
+  ; Shift  Ctrl      9
   ;              Alt 9
   ; Shift        Alt 9
   ;        Ctrl  Alt 9
-  ; Shift  Ctrl  Alt 9    
+  ; Shift  Ctrl  Alt 9
 ##                   0    C72N: PanelX
-  ; Shift            0    
-  ;        Ctrl      0    
-  ; Shift  Ctrl      0    
-  ;              Alt 0    
+  ; Shift            0
+  ;        Ctrl      0
+  ; Shift  Ctrl      0
+  ;              Alt 0
   ; Shift        Alt 0
   ;        Ctrl  Alt 0
-  ; Shift  Ctrl  Alt 0    
+  ; Shift  Ctrl  Alt 0
 
 # Keys_MSF:
 
@@ -514,11 +514,11 @@ xpilot
   ; Shift  Ctrl  Alt A    Autopilot On
 
 ##                   B
-  ; Shift            B    
-  ;        Ctrl      B    
-  ; Shift  Ctrl      B    
-  ;              Alt B    
-  ; Shift        Alt B    
+  ; Shift            B
+  ;        Ctrl      B
+  ; Shift  Ctrl      B
+  ;              Alt B
+  ; Shift        Alt B
   ;        Ctrl  Alt B    Beacon Light Off
   ; Shift  Ctrl  Alt B    Beacon Light On
 
@@ -530,27 +530,27 @@ xpilot
   ; Shift        Alt C
   ;        Ctrl  Alt C    Flightlevel change
   ; Shift  Ctrl  Alt C    Switch radio
-  ; Shift  Ctrl  Alt C    
+  ; Shift  Ctrl  Alt C
 
 ##                   D
-  ; Shift            D    
-  ;        Ctrl      D    
-  ; Shift  Ctrl      D    
-  ;              Alt D    
-  ; Shift        Alt D    
-  ;        Ctrl  Alt D    
-  ; Shift  Ctrl  Alt D    
+  ; Shift            D
+  ;        Ctrl      D
+  ; Shift  Ctrl      D
+  ;              Alt D
+  ; Shift        Alt D
+  ;        Ctrl  Alt D
+  ; Shift  Ctrl  Alt D
 
 ##                   E
-  ; Shift            E    
-  ;        Ctrl      E    
-  ; Shift  Ctrl      E    
-  ;              Alt E    
-  ; Shift        Alt E    
-  ;        Ctrl  Alt E    
+  ; Shift            E
+  ;        Ctrl      E
+  ; Shift  Ctrl      E
+  ;              Alt E
+  ; Shift        Alt E
+  ;        Ctrl  Alt E
   ; Shift  Ctrl  Alt E    TakeOff Config
 
-##                   F                    
+##                   F
   ; Shift            F
   ;        Ctrl      F
   ; Shift  Ctrl      F
@@ -569,7 +569,7 @@ xpilot
   ; Shift  Ctrl  Alt G
 
 ##                   H
-  ; Shift            H    Managed Heading -> P3D 777                    
+  ; Shift            H    Managed Heading -> P3D 777
   ;        Ctrl      H    Hold Heading -> P3D 737/777/320
   ; Shift  Ctrl      H    Hold heading Cessna
   ;              Alt H
@@ -583,25 +583,25 @@ xpilot
   ; Shift  Ctrl      I
   ;              Alt I
   ; Shift        Alt I
-  ;        Ctrl  Alt I    
-  ; Shift  Ctrl  Alt I    
+  ;        Ctrl  Alt I
+  ; Shift  Ctrl  Alt I
 
 ##                   J
-  ; Shift            J    
-  ;        Ctrl      J    
-  ; Shift  Ctrl      J    
-  ;              Alt J    
-  ; Shift        Alt J    
-  ;        Ctrl  Alt J    
+  ; Shift            J
+  ;        Ctrl      J
+  ; Shift  Ctrl      J
+  ;              Alt J
+  ; Shift        Alt J
+  ;        Ctrl  Alt J
   ; Shift  Ctrl  Alt J    Autothrust
 
 ##                   K
-  ; Shift            K    
-  ;        Ctrl      K    
-  ; Shift  Ctrl      K    
-  ;              Alt K    
-  ; Shift        Alt K    
-  ;        Ctrl  Alt K    
+  ; Shift            K
+  ;        Ctrl      K
+  ; Shift  Ctrl      K
+  ;              Alt K
+  ; Shift        Alt K
+  ;        Ctrl  Alt K
   ; Shift  Ctrl  Alt K
 
 ##                   L
@@ -616,7 +616,7 @@ xpilot
 ##                   M
   ; Shift            M
   ;        Ctrl      M
-  ; Shift  Ctrl      M    
+  ; Shift  Ctrl      M
   ;              Alt M
   ; Shift        Alt M
   ;        Ctrl  Alt M
@@ -642,12 +642,12 @@ xpilot
 
 ##                   P
   ; Shift            P    Managed Speed
-  ;        Ctrl      P    Hold Speed    
-  ; Shift  Ctrl      P    
-  ;              Alt P    
-  ; Shift        Alt P    
-  ;        Ctrl  Alt P    
-  ; Shift  Ctrl  Alt P    
+  ;        Ctrl      P    Hold Speed
+  ; Shift  Ctrl      P
+  ;              Alt P
+  ; Shift        Alt P
+  ;        Ctrl  Alt P
+  ; Shift  Ctrl  Alt P
 
 ##                   Q
   ; Shift            Q
@@ -656,7 +656,7 @@ xpilot
   ;              Alt Q
   ; Shift        Alt Q
   ;        Ctrl  Alt Q    QNH/STD Off
-  ; Shift  Ctrl  Alt Q    QNH/STD ON    
+  ; Shift  Ctrl  Alt Q    QNH/STD ON
 
 ##                   R
   ; Shift            R    Autothrust on/off -> P3D 777
@@ -669,7 +669,7 @@ xpilot
 
 ##                   S
   ; Shift            S
-  ;        Ctrl      S    
+  ;        Ctrl      S
   ; Shift  Ctrl      S    Hold speed G1000 XPlane
   ;              Alt S
   ; Shift        Alt S
@@ -697,9 +697,9 @@ xpilot
 ##                   V
   ; Shift            V    Managed Alt itude -> P3D B777/A320
   ;        Ctrl      V    Hold Alt itude -> P3D B777/A320
-  ; Shift  Ctrl      V    
+  ; Shift  Ctrl      V
   ;              Alt V
-  ; Shift        Alt V    Managed VS    -> P3D 737/777            
+  ; Shift        Alt V    Managed VS    -> P3D 737/777
   ;        Ctrl  Alt V    Hold VS -> P3D 737/777
   ; Shift  Ctrl  Alt V    Hold V-NAV -> P3D 737/777
 
@@ -804,11 +804,11 @@ xpilot
   ;        Ctrl  Alt A    Autopilot Off
   ; Shift  Ctrl  Alt A    Autopilot On
 ##                   B    "BAROMETRIC
-  ; Shift            B    
-  ;        Ctrl      B    
-  ; Shift  Ctrl      B    
-  ;              Alt B    
-  ; Shift        Alt B    
+  ; Shift            B
+  ;        Ctrl      B
+  ; Shift  Ctrl      B
+  ;              Alt B
+  ; Shift        Alt B
   ;        Ctrl  Alt B    Beacon Light Off
   ; Shift  Ctrl  Alt B    Beacon Light On
 ##                   C
@@ -817,31 +817,31 @@ xpilot
   ; Shift  Ctrl      C
   ;              Alt C
   ; Shift        Alt C
-  ;        Ctrl  Alt C    
-  ; Shift  Ctrl  Alt C    
+  ;        Ctrl  Alt C
+  ; Shift  Ctrl  Alt C
   ; Shift  Ctrl  Alt C    Flightlevel change -> P3D 777
 ##                   D
-  ; Shift            D    
-  ;        Ctrl      D    
-  ; Shift  Ctrl      D    
+  ; Shift            D
+  ;        Ctrl      D
+  ; Shift  Ctrl      D
   ;            AsKey D    Autobrake RTO/ Max
   ;        Ctrl  Alt D    Autobrake Off
   ; Shift  Ctrl  Alt D    Autobrake On
 ##                   E
-  ; Shift            E    
+  ; Shift            E
   ;        Ctrl      E    "ENGINE_AUTO_START
   ; Shift  Ctrl      E    "AVATARMODEATTACHTOGGLE
-  ;              Alt E    
-  ; Shift        Alt E    
-  ;        Ctrl  Alt E    
+  ;              Alt E
+  ; Shift        Alt E
+  ;        Ctrl  Alt E
   ; Shift  Ctrl  Alt E    TakeOff Config
-##                   F                    
+##                   F
   ; Shift            F
   ;        Ctrl      F
   ; Shift  Ctrl      F
   ;              Alt F
-  ; Shift        Alt F    
-  ;        Ctrl  Alt F    
+  ; Shift        Alt F
+  ;        Ctrl  Alt F
   ; Shift  Ctrl  Alt F    Flight Director
 ##                   G    "GEAR_TOGGLE
   ; Shift            G
@@ -852,7 +852,7 @@ xpilot
   ;        Ctrl  Alt G
   ; Shift  Ctrl  Alt G
 ##                   H
-  ; Shift            H     Managed Heading -> P3D 777                    
+  ; Shift            H     Managed Heading -> P3D 777
   ;        Ctrl      H    Hold Heading -> P3D 737/777/320
   ; Shift  Ctrl      H    Hold heading Cessna
   ;              Alt H
@@ -868,20 +868,20 @@ xpilot
   ;        Ctrl  Alt I    xplane CDU Cabin Crew Info
   ; Shift  Ctrl  Alt I    xplane CDU /JAR330/ToLiss
 ##                   J
-  ; Shift            J    
+  ; Shift            J
   ;        Ctrl      J    "TOGGLE_JETWAY
-  ; Shift  Ctrl      J    
-  ;              Alt J    
-  ; Shift        Alt J    
-  ;        Ctrl  Alt J    
+  ; Shift  Ctrl      J
+  ;              Alt J
+  ; Shift        Alt J
+  ;        Ctrl  Alt J
   ; Shift  Ctrl  Alt J    Autothrust
 ##                   K
-  ; Shift            K    
+  ; Shift            K
   ;        Ctrl      K    "JOYSTICK_CALIBRATE
-  ; Shift  Ctrl      K    
-  ;              Alt K    
-  ; Shift        Alt K    
-  ;        Ctrl  Alt K    
+  ; Shift  Ctrl      K
+  ;              Alt K
+  ; Shift        Alt K
+  ;        Ctrl  Alt K
   ; Shift  Ctrl  Alt K
 ##                   L
   ; Shift            L    "PANEL_LIGHTS_TOGGLE
@@ -894,7 +894,7 @@ xpilot
 ##                   M
   ; Shift            M
   ;        Ctrl      M
-  ; Shift  Ctrl      M    
+  ; Shift  Ctrl      M
   ;              Alt M
   ; Shift        Alt M
   ;        Ctrl  Alt M
@@ -917,12 +917,12 @@ xpilot
   ; Shift  Ctrl  Alt O    NAV Display JAR330
 ##                   P    "PAUSE_TOGGLE
   ; Shift            P    Managed Speed
-  ;        Ctrl      P    Hold Speed    
-  ; Shift  Ctrl      P    
-  ;              Alt P    
-  ; Shift        Alt P    
-  ;        Ctrl  Alt P    
-  ; Shift  Ctrl  Alt P    
+  ;        Ctrl      P    Hold Speed
+  ; Shift  Ctrl      P
+  ;              Alt P
+  ; Shift        Alt P
+  ;        Ctrl  Alt P
+  ; Shift  Ctrl  Alt P
 ##                   Q    "SOUND_TOGGLE
   ; Shift            Q
   ;        Ctrl      Q
@@ -930,7 +930,7 @@ xpilot
   ;              Alt Q
   ; Shift        Alt Q
   ;        Ctrl  Alt Q    QNH/STD Off
-  ; Shift  Ctrl  Alt Q    QNH/STD ON    
+  ; Shift  Ctrl  Alt Q    QNH/STD ON
 ##                   R
   ; Shift            R    Autothrust on/off -> P3D 777
   ;        Ctrl      R
@@ -966,9 +966,9 @@ xpilot
 ##                   V
   ; Shift            V    Managed Alt itude -> P3D B777/A320
   ;        Ctrl      V    Hold Alt itude -> P3D B777/A320
-  ; Shift  Ctrl      V    
+  ; Shift  Ctrl      V
   ;              Alt V
-  ; Shift        Alt V    Managed VS    -> P3D 737/777            
+  ; Shift        Alt V    Managed VS    -> P3D 737/777
   ;        Ctrl  Alt V    Hold VS -> P3D 737/777
   ; Shift  Ctrl  Alt V    Hold V-NAV -> P3D 737/777
 ##                   W    "PANEL_HUD_NEXT
@@ -1019,7 +1019,7 @@ xpilot
   AS_A319...			= alle Modelle
 
   A320 CFM
-  AIRBUS_EX320...		= Model.CFM 
+  AIRBUS_EX320...		= Model.CFM
 
   AIRBUS_EX320NEO...	= Model.CFMSHRK
   AS_A320_... 		= Model.CFMSHRKEW
